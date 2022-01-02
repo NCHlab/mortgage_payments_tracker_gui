@@ -37,6 +37,8 @@ import LoginIcon from '@mui/icons-material/Login';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from '../../context/AuthContext'
+
 const pages = ['Your Payments', "All Payments", 'Your Overpayments', 'All Overpayments', 'Your Home Improvements', 'All Home Improvements'];
 const pageNav = [
     { "name": 'Home', "link": "/" },
@@ -68,6 +70,7 @@ const navigationLinks = [
 const Header = () => {
 
     const navigate = useNavigate();
+    const { login, logout, loggedIn } = useAuth();
 
     // const classes = useStyles()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -148,11 +151,17 @@ const Header = () => {
         navigate(pageURL);
     };
 
-    const handleAuth = (auth_on) => {
-        setAuth(auth_on)
+    const handleAuthLogin = () => {
+        login()
+    }
+
+    const handleAuthLogout = () => {
+        // setAuth(auth_on)
+        logout()
     }
 
 
+    // https://www.youtube.com/watch?v=lhMKvyLRWo0
 
     return (
         <AppBar position="static" elevation={0} sx={{ background: 'linear-gradient(45deg, #730000, #000000)' }}>
@@ -169,14 +178,14 @@ const Header = () => {
 
 
 
-                    {!auth && (
+                    {!loggedIn && (
 
                         <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
                             <Button
                                 variant="outlined"
                                 startIcon={<LockOpenIcon />}
                                 color="secondary"
-                                onClick={() => { handleAuth(true) }}
+                                onClick={() => { handleAuthLogin() }}
                                 sx={{
                                     my: 2, color: 'white', border: '2px solid #37db00',
                                     ':hover': {
@@ -192,7 +201,7 @@ const Header = () => {
 
 
 
-                    {auth && (
+                    {loggedIn && (
                         <React.Fragment>
                             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
                                 <Button onClick={() => handleMenuClick('/home')} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
@@ -258,7 +267,7 @@ const Header = () => {
                                     variant="outlined"
                                     startIcon={<LogoutIcon />}
                                     color="secondary"
-                                    onClick={() => { handleAuth(false) }}
+                                    onClick={() => { handleAuthLogout() }}
                                     sx={{
                                         my: 0, color: 'white', border: '2px solid #cf0000',
                                         ':hover': {
