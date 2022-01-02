@@ -63,6 +63,8 @@ const navigationLinks = [
 
 
 
+
+
 const Header = () => {
 
     const navigate = useNavigate();
@@ -75,6 +77,14 @@ const Header = () => {
     const [anchorEl_pay, setAnchorEl_pay] = React.useState(null);
     const [anchorEl_over, setAnchorEl_over] = React.useState(null);
     const [anchorEl_home, setAnchorEl_home] = React.useState(null);
+
+    const classes = {
+        main_menu_hover: {
+            bgcolor: '#ffffff',
+            color: 'black',
+            border: '1px solid #ffffff',
+        }
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -168,7 +178,7 @@ const Header = () => {
                                 color="secondary"
                                 onClick={() => { handleAuth(true) }}
                                 sx={{
-                                    my: 0, color: 'white', border: '2px solid #37db00',
+                                    my: 2, color: 'white', border: '2px solid #37db00',
                                     ':hover': {
                                         bgcolor: '#41d63c',
                                         color: 'black',
@@ -185,11 +195,14 @@ const Header = () => {
                     {auth && (
                         <React.Fragment>
                             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                                <Button onClick={() => handleMenuClick('/home')} sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Button onClick={() => handleMenuClick('/home')} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
                                     Home
                                 </Button>
 
-                                <Button onClick={(e) => handleNavButtonClick(e)} sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Button onClick={(e) => handleNavButtonClick(e)} sx={{
+                                    my: 2, color: 'white', display: 'block', border: '1px solid transparent ',
+                                    ':hover': classes.main_menu_hover
+                                }}>
                                     Payments
                                 </Button>
 
@@ -200,12 +213,13 @@ const Header = () => {
                                     keepMounted
                                     open={Boolean(anchorEl_pay)}
                                     onClose={handleCloseMenu}
+                                    MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
                                     <MenuItem onClick={() => handleMenuClick('/payments')}>My Payments</MenuItem>
                                     <MenuItem onClick={() => handleMenuClick('/payments/all')}>All Payments</MenuItem>
                                 </Menu>
 
-                                <Button onClick={(e) => handleNavButtonClick(e)} sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Button onClick={(e) => handleNavButtonClick(e)} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
                                     Over Payments
                                 </Button>
                                 <Menu
@@ -215,12 +229,13 @@ const Header = () => {
                                     keepMounted
                                     open={Boolean(anchorEl_over)}
                                     onClose={handleCloseMenu}
+                                    MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
                                     <MenuItem onClick={() => handleMenuClick('/overpayments')}>My OverPayments</MenuItem>
                                     <MenuItem onClick={() => handleMenuClick('/overpayments/all')}>All OverPayments</MenuItem>
                                 </Menu>
 
-                                <Button onClick={handleNavButtonClick} sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Button onClick={handleNavButtonClick} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
                                     Home Improvements
                                 </Button>
                                 <Menu
@@ -230,6 +245,7 @@ const Header = () => {
                                     keepMounted
                                     open={Boolean(anchorEl_home)}
                                     onClose={handleCloseMenu}
+                                    MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
 
                                     <MenuItem onClick={() => handleMenuClick('/home_improvements')}>My Home Improvements</MenuItem>
