@@ -3,6 +3,11 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 // import { AuthContext } from '../context/AuthContext'
 
+
+import { useAuth } from '../context/AuthContext'
+
+import AuthService from '../services/AuthService'
+
 async function login() {
     const response = await axios.post('/login', {}, { auth: { username: "nayam", password: "password" } })
     console.log(response)
@@ -15,10 +20,10 @@ async function login2() {
     console.log(response.headers)
 }
 
-async function get_login() {
-    const response = await axios.get('/get_login')
-    console.log(response)
-}
+// async function get_login() {
+//     const response = await axios.get('/get_login')
+//     console.log(response)
+// }
 
 
 
@@ -26,6 +31,9 @@ async function get_login() {
 const HomePage = () => {
 
     const [ip, setIP] = useState('');
+
+    const { get_login } = AuthService();
+    const { user } = useAuth();
 
     // const { user, setUser } = useContext(AuthContext);
 
@@ -50,6 +58,8 @@ const HomePage = () => {
             <h4>{ip}</h4>
 
             <h4>{window.location.href}</h4>
+
+            {user && (<h4>Username: {user}</h4>)}
 
 
 

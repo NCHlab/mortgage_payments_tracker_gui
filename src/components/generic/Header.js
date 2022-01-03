@@ -23,7 +23,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 // import Avatar from '@mui/material/Avatar';
 // import Button from '@mui/material/Button';
 
-import { Link as RouterLink, MemoryRouter } from 'react-router-dom';
 
 import { Button, Avatar, Container, Typography, IconButton, Toolbar, AppBar, Box, Menu, Tooltip, MenuItem, AccountCircle } from '@mui/material';
 
@@ -35,9 +34,10 @@ import LoginIcon from '@mui/icons-material/Login';
 // import Tooltip from '@mui/material/Tooltip';
 // import MenuItem from '@mui/material/MenuItem';
 // import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import { useAuth } from '../../context/AuthContext'
+import useLogout from '../loginComponent/useLogout'
 
 const pages = ['Your Payments', "All Payments", 'Your Overpayments', 'All Overpayments', 'Your Home Improvements', 'All Home Improvements'];
 const pageNav = [
@@ -70,7 +70,8 @@ const navigationLinks = [
 const Header = () => {
 
     const navigate = useNavigate();
-    const { login, logout, loggedIn } = useAuth();
+    const { loggedIn } = useAuth();
+    const { handleLogOut } = useLogout();
 
     // const classes = useStyles()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -86,41 +87,14 @@ const Header = () => {
             bgcolor: '#ffffff',
             color: 'black',
             border: '1px solid #ffffff',
+        },
+        main_menu: {
+            my: 2, color: 'white', border: '1px solid transparent', display: 'block'
         }
     }
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
-    };
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-        setAnchorEl_pay(null);
-        setAnchorEl_over(null);
-        setAnchorEl_home(null);
-    };
-
     const handleNavButtonClick = (event) => {
-
         const text = event.target.innerText.toLowerCase();
-        console.log(text)
 
         if (text == "payments") {
             setAnchorEl_pay(event.currentTarget);
@@ -131,11 +105,6 @@ const Header = () => {
         } else {
             setAnchorEl(event.currentTarget);
         }
-
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
     };
 
     const handleCloseMenu = () => {
@@ -148,20 +117,12 @@ const Header = () => {
 
     const handleMenuClick = (pageURL) => {
         handleCloseMenu();
-        navigate(pageURL);
+        handleNavigate(pageURL);
     };
 
-    const handleAuthLogin = () => {
-        login()
-    }
-
-    const handleAuthLogout = () => {
-        // setAuth(auth_on)
-        logout()
-    }
-
-
-    // https://www.youtube.com/watch?v=lhMKvyLRWo0
+    const handleNavigate = (pageURL) => {
+        navigate(pageURL);
+    };
 
     return (
         <AppBar position="static" elevation={0} sx={{ background: 'linear-gradient(45deg, #730000, #000000)' }}>
@@ -176,6 +137,11 @@ const Header = () => {
                         Mortgage Payments Tracker
                     </Typography>
 
+                    <Box sx={{ flexGrow: loggedIn ? 0 : 0.01, display: { xs: 'none', md: 'flex' } }}>
+                        <Button onClick={() => handleMenuClick('/home')} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
+                            Home
+                        </Button>
+                    </Box>
 
 
                     {!loggedIn && (
@@ -185,7 +151,7 @@ const Header = () => {
                                 variant="outlined"
                                 startIcon={<LockOpenIcon />}
                                 color="secondary"
-                                onClick={() => { handleAuthLogin() }}
+                                onClick={() => { handleNavigate("/login") }}
                                 sx={{
                                     my: 2, color: 'white', border: '2px solid #37db00',
                                     ':hover': {
@@ -204,12 +170,9 @@ const Header = () => {
                     {loggedIn && (
                         <React.Fragment>
                             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                                <Button onClick={() => handleMenuClick('/home')} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
-                                    Home
-                                </Button>
 
                                 <Button onClick={(e) => handleNavButtonClick(e)} sx={{
-                                    my: 2, color: 'white', display: 'block', border: '1px solid transparent ',
+                                    ...classes.main_menu,
                                     ':hover': classes.main_menu_hover
                                 }}>
                                     Payments
@@ -228,7 +191,7 @@ const Header = () => {
                                     <MenuItem onClick={() => handleMenuClick('/payments/all')}>All Payments</MenuItem>
                                 </Menu>
 
-                                <Button onClick={(e) => handleNavButtonClick(e)} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
+                                <Button onClick={(e) => handleNavButtonClick(e)} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
                                     Over Payments
                                 </Button>
                                 <Menu
@@ -244,7 +207,7 @@ const Header = () => {
                                     <MenuItem onClick={() => handleMenuClick('/overpayments/all')}>All OverPayments</MenuItem>
                                 </Menu>
 
-                                <Button onClick={handleNavButtonClick} sx={{ my: 2, color: 'white', display: 'block', ':hover': classes.main_menu_hover }}>
+                                <Button onClick={handleNavButtonClick} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
                                     Home Improvements
                                 </Button>
                                 <Menu
@@ -267,7 +230,7 @@ const Header = () => {
                                     variant="outlined"
                                     startIcon={<LogoutIcon />}
                                     color="secondary"
-                                    onClick={() => { handleAuthLogout() }}
+                                    onClick={() => { handleLogOut() }}
                                     sx={{
                                         my: 0, color: 'white', border: '2px solid #cf0000',
                                         ':hover': {
