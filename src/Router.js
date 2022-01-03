@@ -14,6 +14,7 @@ const Router = () => {
 
     const { loggedIn } = useAuth();
 
+
     return (
         <BrowserRouter>
             {/* <Header2 /> */}
@@ -34,6 +35,7 @@ const Router = () => {
                     </React.Fragment>
                 ) : (
                     <React.Fragment>
+                        <Route path="/login" element={<Navigate to="/" />} />
                         <Route path="/payments" element={<HomePage />} />
                         <Route path="/payments/all" element={<HomePage />} />
                         <Route path="/overpayments" element={<HomePage />} />
