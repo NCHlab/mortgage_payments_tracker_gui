@@ -1,6 +1,10 @@
 import _axios from './httpService'
 
+import { useAuth } from '../context/AuthContext'
+
 const AuthService = () => {
+
+    const { local_logout } = useAuth();
 
     const login = async (username, password) => {
 
@@ -12,6 +16,7 @@ const AuthService = () => {
                 code = 200
             }
         } catch (error) {
+            local_logout()
             console.log(error.response.data.error)
         }
 
@@ -24,6 +29,7 @@ const AuthService = () => {
             console.log(response.status)
             return response.status
         } catch (error) {
+            local_logout()
             return 401
         }
     };
@@ -34,6 +40,7 @@ const AuthService = () => {
             await _axios.post('/logout')
         } catch (e) {
             // Error here doesn't matter, force local logout
+            local_logout()
         }
     }
 

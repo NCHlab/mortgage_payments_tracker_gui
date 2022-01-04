@@ -3,7 +3,7 @@ import { Typography, Toolbar, AppBar, Box, Link } from '@mui/material';
 const Footer = () => {
     return (
 
-        <AppBar marginTop='auto' position="static" sx={{ position: "fixed", bottom: 0, background: 'linear-gradient(45deg, #000000, #730000)' }}>
+        <AppBar position="static" sx={{ position: "fixed", bottom: 0, background: 'linear-gradient(45deg, #000000, #730000)' }}>
 
             <Toolbar disableGutters>
                 <Typography

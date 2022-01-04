@@ -14,10 +14,11 @@ const useLogout = () => {
 
         await logout();
 
+        setLoggedIn(false);
         localStorage.removeItem("loginToken");
         localStorage.removeItem("username")
         setUser(null);
-        setLoggedIn(false);
+
         navigate('/login');
 
     }
