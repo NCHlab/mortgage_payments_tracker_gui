@@ -6,9 +6,9 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 import { useAuth } from './context/AuthContext';
 
-import Header from "./components/generic/Header";
-import Header2 from "./components/generic/Header2";
-// import Footer from "./components/generic/Footer";
+// import Header from "./components/generic/Header";
+import { Header } from './components/headerComponent';
+import { Footer } from './components/footerComponent/';
 
 const Router = () => {
 
@@ -73,7 +73,7 @@ const Router = () => {
 
                 )} */}
             </Routes>
-            {/* <Footer /> */}
+            <Footer />
         </BrowserRouter>
     )
 }

@@ -8,17 +8,19 @@ import { useAuth } from '../context/AuthContext'
 
 import AuthService from '../services/AuthService'
 
-async function login() {
-    const response = await axios.post('/login', {}, { auth: { username: "nayam", password: "password" } })
-    console.log(response)
-    console.log(response.headers)
-}
+import HomePageT from '../components/homepageComponent/HomePage'
 
-async function login2() {
-    const response = await axios.post('/login', {}, { auth: { username: "hasnat", password: "password" } })
-    console.log(response)
-    console.log(response.headers)
-}
+// async function login() {
+//     const response = await axios.post('/login', {}, { auth: { username: "nayam", password: "password" } })
+//     console.log(response)
+//     console.log(response.headers)
+// }
+
+// async function login2() {
+//     const response = await axios.post('/login', {}, { auth: { username: "hasnat", password: "password" } })
+//     console.log(response)
+//     console.log(response.headers)
+// }
 
 // async function get_login() {
 //     const response = await axios.get('/get_login')
@@ -38,10 +40,10 @@ const HomePage = () => {
     // const { user, setUser } = useContext(AuthContext);
 
     const getData = async () => {
-        // const res = await axios.get('https://geolocation-db.com/json/', {}, { withCredentials: false })
+        const res = await axios.get('https://geolocation-db.com/json/', {}, { withCredentials: false })
         // console.log(res.data);
-        // setIP(res.data.IPv4)
-        setIP("127.0.0.1")
+        setIP(res.data.IPv4)
+        // setIP("127.0.0.1")
     }
 
     useEffect(() => {
@@ -53,6 +55,8 @@ const HomePage = () => {
 
     return (
         <div>
+
+            <HomePageT />
 
             HELLOOO
             <h4>{ip}</h4>
@@ -66,9 +70,6 @@ const HomePage = () => {
             <div><button>up</button></div>
             <div><button>down</button></div>
 
-            <div><button onClick={login}>login</button></div>
-
-            <div><button onClick={login2}>hasnat login</button></div>
 
             <div><button onClick={get_login}>get_login</button></div>
             <a

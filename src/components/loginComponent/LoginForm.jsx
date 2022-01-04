@@ -116,8 +116,6 @@ const LoginForm = () => {
                     </Grid>
                 </Paper>
             </Grid>
-
-            <Button onClick={() => console.log(values)}>ClickMe</Button>
         </React.Fragment >
     )
 }
