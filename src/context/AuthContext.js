@@ -11,7 +11,7 @@ const AuthProvider = (props) => {
 
     const local_logout = () => {
         setLoggedIn(false)
-        setUser(null)
+        setUser("Not Logged in")
         localStorage.removeItem("loginToken");
         localStorage.removeItem("username")
     }

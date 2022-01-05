@@ -2,7 +2,7 @@ import useHeader from "./useHeader";
 
 import React from 'react'
 
-import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem } from '@mui/material';
+import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem, Link } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 
@@ -18,7 +18,8 @@ const Header = () => {
         handleNavButtonClick,
         handleCloseMenu,
         handleMenuClick,
-        handleNavigate } = useHeader();
+        handleNavigate,
+        handleMiddle } = useHeader();
 
     return (
 
@@ -75,6 +76,7 @@ const Header = () => {
                                     Payments
                                 </Button>
 
+
                                 <Menu
 
                                     id="payments"
@@ -84,8 +86,12 @@ const Header = () => {
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem onClick={() => handleMenuClick('/payments')}>My Payments</MenuItem>
+                                    <MenuItem onMouseDown={(e) => handleMiddle(e, '/payments')} onClick={(e) => handleMenuClick('/payments')}>My Payments</MenuItem>
                                     <MenuItem onClick={() => handleMenuClick('/payments/all')}>All Payments</MenuItem>
+                                    <Link to='/notifications' xs={{ textDecoration: 'none', outline: "none" }}>
+                                        <MenuItem>Notifications</MenuItem>
+                                    </Link>
+                                    <MenuItem component="a" href='/payments'>My Payments</MenuItem>
                                 </Menu>
 
                                 <Button onClick={(e) => handleNavButtonClick(e)} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>

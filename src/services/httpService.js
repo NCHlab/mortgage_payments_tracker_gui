@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../config'
+import { AXIOS_CONFIG as config } from '../config'
 
 const getAxiosInstance = () => {
 

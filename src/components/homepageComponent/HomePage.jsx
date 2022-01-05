@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Grid, Button, Container, Typography, Card, CardHeader, IconButton, CardContent } from '@mui/material';
+import { Grid, Button, Container, Typography, Card, CardHeader, IconButton, CardContent, Link } from '@mui/material';
 
 import { parseISO } from 'date-fns'
 import useHomePage from './useHomePage'
@@ -15,8 +15,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Divider } from '@mui/material';
 
-const HomePageT = () => {
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
+const HomePageT = () => {
     const { getMortgageInfo, mortgageData, numberFormat, getGenInfo, userData, user, refreshInfo, isRefreshed, getUserPaymentInfo, paymentData } = useHomePage();
 
     useEffect(() => {
@@ -223,26 +224,50 @@ const HomePageT = () => {
 
                 <Grid item xs={12} md={6} key="note.id2">
                     <Card elevation={12} sx={{ height: '290px' }}>
-                        <CardHeader title="Mortgage Information" />
+                        <CardHeader title="General Information" />
                         <CardContent>
-                            <Typography color="textPrimary">
-                                Mortgage Provider: {mortgageData.provider}
-                            </Typography>
-                            <Typography color="textPrimary">
-                                Total Loan: {mortgageData.loan}
-                            </Typography>
-                            <Typography color="textPrimary">
-                                Mortgage Outstanding: {mortgageData.balance}
-                            </Typography>
-                            <Typography color="textPrimary">
-                                Interest Rate Period: {mortgageData.period} Yrs @ {mortgageData.interest_rate}% Fixed
-                            </Typography>
-                            <Typography color="textPrimary">
-                                Dates: {mortgageData.start_period} - {mortgageData.start_period + mortgageData.period}
-                            </Typography>
-                            <Typography color="textPrimary">
-                                Last Updated: {parseISO(mortgageData.date_updated).toString().slice(0, -22)}
-                            </Typography>
+                            <TableContainer >
+                                <Table size="small" aria-label="simple table">
+                                    <TableBody>
+                                        <TableRow key="MortgageBroker">
+                                            <TableCell sx={{ width: '150px' }} component="th" scope="row">
+                                                Mortgage Broker:
+                                            </TableCell>
+                                            <TableCell align="left" sx={{ width: '80px' }}>
+                                                {process.env.REACT_APP_BROKER}
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <Link target="_blank" href={process.env.REACT_APP_BROKER_LINK}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
+                                            </TableCell>
+                                        </TableRow>
+
+                                        <TableRow key="solicitor">
+                                            <TableCell >
+                                                Solicitor:
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                {process.env.REACT_APP_SOLICITOR}
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <Link target="_blank" href={process.env.REACT_APP_SOLICITOR_LINK}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
+                                            </TableCell>
+                                        </TableRow>
+
+                                        <TableRow key="estateagent">
+                                            <TableCell >
+                                                Estate Agents:
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                {process.env.REACT_APP_ESTATE_AGENT}
+                                            </TableCell>
+                                            <TableCell align="left">
+                                                <Link target="_blank" href={process.env.REACT_APP_ESTATE_AGENT_LINK}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
+                                            </TableCell>
+                                        </TableRow>
+
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
 
                         </CardContent>
                     </Card>

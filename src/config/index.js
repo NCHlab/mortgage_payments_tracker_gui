@@ -5,4 +5,4 @@ const AXIOS_CONFIG = {
     withCredentials: true,
 }
 
-export default AXIOS_CONFIG;
+export { AXIOS_CONFIG };

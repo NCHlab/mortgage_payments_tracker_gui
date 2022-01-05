@@ -17,7 +17,7 @@ const useLogout = () => {
         setLoggedIn(false);
         localStorage.removeItem("loginToken");
         localStorage.removeItem("username")
-        setUser(null);
+        setUser("Not Logged In");
 
         navigate('/login');
 

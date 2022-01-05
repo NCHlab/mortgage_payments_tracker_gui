@@ -26,7 +26,6 @@ const AuthService = () => {
     const get_login = async () => {
         try {
             const response = await _axios.get('/get_login')
-            console.log(response.status)
             return response.status
         } catch (error) {
             local_logout()

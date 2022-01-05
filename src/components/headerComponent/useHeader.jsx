@@ -58,6 +58,11 @@ const useHeader = () => {
         navigate(pageURL);
     };
 
+    const handleMiddle = (e, pageURL) => {
+        if (e.button === 1) {
+            window.open(pageURL, "_blank")
+        }
+    }
 
     return {
         classes,
@@ -69,8 +74,9 @@ const useHeader = () => {
         handleNavButtonClick,
         handleCloseMenu,
         handleMenuClick,
-        handleNavigate
+        handleNavigate,
+        handleMiddle
     }
 }
 
-export default useHeader
+export default useHeader;
