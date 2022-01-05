@@ -1,0 +1,92 @@
+import logo from './logo.svg';
+import './App.css';
+import axios from 'axios';
+import Button from '@mui/material/Button';
+import LoginIcon from '@mui/icons-material/Login';
+import React, { useState } from 'react';
+
+// axios.defaults.withCredentials = true
+
+// function login() {
+//   axios.post('http://localhost:4004/api/v1/login', {}, { auth: { username: "nayam", password: "password" } }).catch(function (error) {
+//     console.log(error);
+//   });
+// }
+
+// .then(function(response) {
+//   alert();
+// })
+
+
+async function login() {
+  const response = await axios.post('/login', {}, { auth: { username: "nayam", password: "password" } })
+  console.log(response)
+  console.log(response.headers)
+}
+
+async function login2() {
+  const response = await axios.post('/login', {}, { auth: { username: "hasnat", password: "password" } })
+  console.log(response)
+  console.log(response.headers)
+}
+
+async function get_login() {
+  const response = await axios.get('/get_login')
+  console.log(response)
+}
+
+const test = () => {
+  console.log("running")
+  return 4
+}
+
+
+
+function App() {
+
+  const [count, setCount] = useState(test())
+
+  const decrement = () => {
+    setCount(prev => prev - 1)
+  }
+
+  const increment = () => {
+    setCount(prev => prev + 1)
+  }
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          <Button
+            startIcon={<LoginIcon />}
+            variant="contained" color="primary">Login</Button>
+
+
+        </p>
+
+        <span>{count}</span>
+
+        <div><button onClick={increment}>up</button></div>
+        <div><button onClick={decrement}>down</button></div>
+
+        <div><button onClick={login}>login</button></div>
+
+        <div><button onClick={login2}>hasnat login</button></div>
+
+        <div><button onClick={get_login}>get_login</button></div>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
+
+export default App;
