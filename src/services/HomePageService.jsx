@@ -1,6 +1,8 @@
 
 import _axios from './httpService'
 
+
+import axios from 'axios';
 const HomePageService = () => {
 
     const mortgageInfo = async () => {
@@ -21,8 +23,24 @@ const HomePageService = () => {
         return { code, data }
     };
 
+    const genInfo = async () => {
 
-    return { mortgageInfo }
+        const err_obj = {
+            country_name: "Connectivity to geolocation may be down",
+            city: "Error",
+            IPv4: "Unable to get IP"
+        }
+
+        try {
+            const response = await axios.get('https://geolocation-db.com/json/')
+            return response.data
+        } catch (error) {
+            return err_obj
+        }
+    }
+
+
+    return { mortgageInfo, genInfo }
 }
 
 export default HomePageService
