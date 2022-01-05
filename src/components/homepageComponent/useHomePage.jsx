@@ -5,8 +5,9 @@ import { useAuth } from '../../context/AuthContext'
 
 const useHomePage = () => {
 
-    const { mortgageInfo, genInfo } = HomePageService();
+    const { mortgageInfo, genInfo, userPaymentInfo } = HomePageService();
     const [mortgageData, setMortgageData] = useState({})
+    const [paymentData, setPaymentData] = useState({})
     const [userData, setUserData] = useState({ IPv4: '', country_name: '', city: '' });
     const { user } = useAuth();
     const [isRefreshed, setIsRefreshed] = useState(false)
@@ -14,6 +15,11 @@ const useHomePage = () => {
     const getMortgageInfo = async () => {
         const { data } = await mortgageInfo();
         setMortgageData(data)
+    }
+
+    const getUserPaymentInfo = async () => {
+        const data = await userPaymentInfo();
+        setPaymentData(data)
     }
 
     const numberFormat = (value) =>
@@ -40,7 +46,13 @@ const useHomePage = () => {
     }
 
 
-    return { getMortgageInfo, mortgageData, numberFormat, getGenInfo, userData, user, refreshInfo, isRefreshed }
+    return {
+        getMortgageInfo, mortgageData,
+        numberFormat, getGenInfo,
+        userData, user,
+        refreshInfo, isRefreshed,
+        getUserPaymentInfo, paymentData
+    }
 }
 
 export default useHomePage

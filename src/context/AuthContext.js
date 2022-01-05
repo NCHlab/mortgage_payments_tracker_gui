@@ -4,7 +4,7 @@ const AuthContext = createContext({});
 
 const AuthProvider = (props) => {
     const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('loginToken'));
-    const [user, setUser] = useState(localStorage.getItem('username'))
+    const [user, setUser] = useState(localStorage.getItem('username') || "Not Logged in")
     //   useEffect(() => {
     //     // Pull saved login state from localStorage / AsyncStorage
     //   }, []);

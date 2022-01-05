@@ -39,8 +39,24 @@ const HomePageService = () => {
         }
     }
 
+    const userPaymentInfo = async () => {
 
-    return { mortgageInfo, genInfo }
+        const err_obj = {
+            payments: 0,
+            overpayments: 0,
+            home_improvements: 0
+        }
+
+        try {
+            const response = await _axios.get('/aggregate')
+            return response.data
+        } catch (error) {
+            return err_obj
+        }
+    }
+
+
+    return { mortgageInfo, genInfo, userPaymentInfo }
 }
 
 export default HomePageService

@@ -17,11 +17,12 @@ import { Divider } from '@mui/material';
 
 const HomePageT = () => {
 
-    const { getMortgageInfo, mortgageData, numberFormat, getGenInfo, userData, user, refreshInfo, isRefreshed } = useHomePage();
+    const { getMortgageInfo, mortgageData, numberFormat, getGenInfo, userData, user, refreshInfo, isRefreshed, getUserPaymentInfo, paymentData } = useHomePage();
 
     useEffect(() => {
         getMortgageInfo()
         getGenInfo()
+        getUserPaymentInfo()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -180,7 +181,7 @@ const HomePageT = () => {
                                                 Payments:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(2534)}
+                                                {numberFormat(paymentData.payments)}
 
                                             </TableCell>
                                         </TableRow>
@@ -190,7 +191,7 @@ const HomePageT = () => {
                                                 Overpayments:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(1234)}
+                                                {numberFormat(paymentData.overpayments)}
                                             </TableCell>
                                         </TableRow>
 
@@ -199,7 +200,7 @@ const HomePageT = () => {
                                                 Home Improvements:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(50)}
+                                                {numberFormat(paymentData.home_improvements)}
                                             </TableCell>
                                         </TableRow>
 
@@ -208,7 +209,7 @@ const HomePageT = () => {
                                                 Total
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(3818)}
+                                                {numberFormat(paymentData.payments + paymentData.overpayments + paymentData.home_improvements)}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
