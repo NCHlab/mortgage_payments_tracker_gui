@@ -7,31 +7,24 @@ import HomePageT from '../components/homepageComponent/HomePage'
 const HomePage = () => {
 
     const { get_login } = AuthService();
+    const [resCode, setResCode] = useState(401)
 
-    const [x, setX] = useState(401)
-
-    // useEffect(() => {
-    //     const y = get_login()
-    //     console.log(y)
-    //     setX(y)
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
 
     useEffect(() => {
-        async function fetchMyAPI() {
-            const y = await get_login()
-            setX(y)
-            console.log(y)
+        async function fetchLogin() {
+            const code = await get_login()
+            setResCode(code)
+            console.log(code)
         }
 
-        fetchMyAPI()
+        fetchLogin()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     return (
         <div>
-            {x === 200 ? <HomePageT /> : ""}
+            {resCode === 200 ? <HomePageT /> : ""}
         </div>
     )
 }

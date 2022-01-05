@@ -58,7 +58,7 @@ const useHeader = () => {
         navigate(pageURL);
     };
 
-    const handleMiddle = (e, pageURL) => {
+    const handleMiddleClick = (e, pageURL) => {
         if (e.button === 1) {
             window.open(pageURL, "_blank")
         }
@@ -75,7 +75,7 @@ const useHeader = () => {
         handleCloseMenu,
         handleMenuClick,
         handleNavigate,
-        handleMiddle
+        handleMiddleClick
     }
 }
 
