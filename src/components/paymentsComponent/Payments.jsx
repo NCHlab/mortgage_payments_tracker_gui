@@ -5,6 +5,17 @@ import usePayments from './usePayments'
 
 import { Button, Container, Grid, Typography, Toolbar, AppBar, Box, Menu, MenuItem, Link } from '@mui/material';
 
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+import { CssBaseline } from '@mui/material';
+import { Table } from '@mui/material';
+import { TableBody } from '@mui/material';
+import { TableCell } from '@mui/material';
+import { TableHead } from '@mui/material';
+import { TableRow } from '@mui/material';
+
 
 const Payments = () => {
 
@@ -20,38 +31,38 @@ const Payments = () => {
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
 
 
-    const tableHooks = (hooks) => {
-        hooks.visibleColumns.push((columns) => [
-            ...columns,
-            {
-                id: "Modify",
-                Header: "Modify",
-                Cell: ({ row }) => (
-                    <React.Fragment>
-                        <Button disabled={false} onClick={() => console.log(row.values)}
-                            sx={{
-                                my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
-                                ':hover': {
-                                    backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-                                    color: 'white',
-                                    border: '2px solid #000000'
-                                }
-                            }}>Edit</Button>
+    // const tableHooks = (hooks) => {
+    //     hooks.visibleColumns.push((columns) => [
+    //         ...columns,
+    //         {
+    //             id: "Modify",
+    //             Header: "Modify",
+    //             Cell: ({ row }) => (
+    //                 <React.Fragment>
+    //                     <Button disabled={false} onClick={() => console.log(row.values)}
+    //                         sx={{
+    //                             my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+    //                             ':hover': {
+    //                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+    //                                 color: 'white',
+    //                                 border: '2px solid #000000'
+    //                             }
+    //                         }}>Edit</Button>
 
-                        <Button disabled={false} onClick={() => console.log(row.values)}
-                            sx={{
-                                my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
-                                ':hover': {
-                                    backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-                                    color: 'white',
-                                    border: '2px solid #000000'
-                                }
-                            }}>Delete</Button>
-                    </React.Fragment>
-                )
-            }
-        ])
-    };
+    //                     <Button disabled={false} onClick={() => console.log(row.values)}
+    //                         sx={{
+    //                             my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+    //                             ':hover': {
+    //                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+    //                                 color: 'white',
+    //                                 border: '2px solid #000000'
+    //                             }
+    //                         }}>Delete</Button>
+    //                 </React.Fragment>
+    //             )
+    //         }
+    //     ])
+    // };
 
 
     const handleEditing = () => {
@@ -65,7 +76,7 @@ const Payments = () => {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({ columns, data }, tableHooks)
+    } = useTable({ columns, data })
 
     const isEven = (idx) => idx % 2 === 0;
 
@@ -156,13 +167,23 @@ const Payments = () => {
 
                                             <Button disabled={disableEditing} onClick={() => console.log(row.values)}
                                                 sx={{
-                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: disableEditing ? 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
                                                     ':hover': {
                                                         backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
                                                         color: 'white',
                                                         border: '2px solid #000000'
                                                     }
-                                                }}>Edit</Button>
+                                                }}><EditIcon></EditIcon></Button>
+
+                                            <Button disabled={disableEditing} onClick={() => console.log(row.values)}
+                                                sx={{
+                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: disableEditing ? 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
+                                                    ':hover': {
+                                                        backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+                                                        color: 'white',
+                                                        border: '2px solid #000000'
+                                                    }
+                                                }}><DeleteIcon></DeleteIcon></Button>
                                         </td>
                                     </tr>
                                 )
@@ -170,8 +191,97 @@ const Payments = () => {
                         </tbody>
                     </table>
                 </Grid>
+
+
+
+                <Grid item xs={12} pt='20px'>
+                    <Table {...getTableProps()}>
+                        <TableHead>
+                            {headerGroups.map(headerGroup => (
+                                <TableRow {...headerGroup.getHeaderGroupProps()}>
+                                    {headerGroup.headers.map(column => (
+                                        <TableCell {...column.getHeaderProps()}
+                                            sx={{
+                                                borderBottom: 'solid 3px #970b00',
+                                                background: '#b50d00',
+                                                color: 'white',
+                                                fontWeight: 'bold',
+                                            }}>
+                                            {column.render('Header')}
+                                        </TableCell>
+                                    ))}
+
+                                    <TableCell
+
+                                        sx={{
+                                            borderBottom: 'solid 3px #970b00',
+                                            background: '#b50d00',
+                                            color: 'white',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        Modify
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableHead>
+                        <TableBody>
+                            {rows.map((row, i) => {
+                                prepareRow(row)
+                                return (
+                                    <TableRow {...row.getRowProps()}>
+                                        {row.cells.map(cell => {
+                                            return (
+                                                <TableCell {...cell.getCellProps()}
+                                                    sx={{
+                                                        width: '200px',
+                                                        padding: '5px',
+                                                        // border: 'solid 1px gray',
+                                                        background: isEven(i) ? '#ffffff' : '#ededed',
+                                                    }}>
+                                                    {cell.render('Cell')}
+                                                </TableCell>
+                                            )
+                                        })}
+
+                                        <TableCell
+                                            sx={{
+                                                width: '200px',
+                                                padding: '5px',
+                                                // border: 'solid 1px gray',
+                                                background: isEven(i) ? '#ffffff' : '#ededed',
+                                            }}
+                                        >
+
+                                            <Button disabled={disableEditing} onClick={() => console.log(row.values)}
+                                                sx={{
+                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: disableEditing ? 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
+                                                    ':hover': {
+                                                        backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+                                                        color: 'white',
+                                                        border: '2px solid #000000'
+                                                    }
+                                                }}><EditIcon></EditIcon></Button>
+
+                                            <Button disabled={disableEditing} onClick={() => console.log(row.values)}
+                                                sx={{
+                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: disableEditing ? 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
+                                                    ':hover': {
+                                                        backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+                                                        color: 'white',
+                                                        border: '2px solid #000000'
+                                                    }
+                                                }}><DeleteIcon></DeleteIcon></Button>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </Grid>
+
             </Grid>
-        </Container>
+        </Container >
     )
 }
 
