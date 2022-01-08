@@ -16,6 +16,9 @@ import { TableCell } from '@mui/material';
 import { TableHead } from '@mui/material';
 import { TableRow } from '@mui/material';
 
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+
 
 const Payments = () => {
 
@@ -80,6 +83,15 @@ const Payments = () => {
 
     const isEven = (idx) => idx % 2 === 0;
 
+    const styles = {
+        tr: {
+            background: "#ffffff",
+            '&:hover': {
+                background: "#000",
+            }
+        }
+    };
+
 
 
     return (
@@ -102,105 +114,15 @@ const Payments = () => {
                             }
                         }}>{disableEditing ? "Enable Editing" : "Disable Editing"}</Button>
                 </Grid>
-                <Grid item xs={12} sx={{ pt: '5px' }}>
-                    <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
-                        <thead>
-                            {headerGroups.map(headerGroup => (
-                                <tr {...headerGroup.getHeaderGroupProps()}>
-                                    {headerGroup.headers.map(column => (
-                                        <th
-                                            {...column.getHeaderProps()}
-                                            style={{
-                                                borderBottom: 'solid 3px #730d06',
-                                                background: '#ff6e63',
-                                                color: 'black',
-                                                fontWeight: 'bold',
-                                            }}
-                                        >
-                                            {column.render('Header')}
-                                        </th>
-                                    ))}
 
-                                    <th
-
-                                        style={{
-                                            borderBottom: 'solid 3px #730d06',
-                                            background: '#ff6e63',
-                                            color: 'black',
-                                            fontWeight: 'bold',
-                                        }}
-                                    >
-                                        Modify
-                                    </th>
-                                </tr>
-                            ))}
-                        </thead>
-                        <tbody {...getTableBodyProps()}>
-                            {rows.map((row, idx) => {
-                                prepareRow(row)
-                                return (
-                                    <tr {...row.getRowProps()}>
-                                        {row.cells.map(cell => {
-                                            return (
-                                                <td
-                                                    {...cell.getCellProps()}
-                                                    style={{
-                                                        width: '200px',
-                                                        padding: '5px',
-                                                        // border: 'solid 1px gray',
-                                                        background: isEven(idx) ? '#ffe0de' : '#e6e6e6',
-                                                    }}
-                                                >
-                                                    {cell.render('Cell')}
-                                                </td>
-                                            )
-                                        })}
-
-                                        <td
-                                            style={{
-                                                width: '200px',
-                                                padding: '5px',
-                                                // border: 'solid 1px gray',
-                                                background: isEven(idx) ? '#ffe0de' : '#e6e6e6',
-                                            }}
-                                        >
-
-                                            <Button disabled={disableEditing} onClick={() => console.log(row.values)}
-                                                sx={{
-                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: disableEditing ? 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
-                                                    ':hover': {
-                                                        backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-                                                        color: 'white',
-                                                        border: '2px solid #000000'
-                                                    }
-                                                }}><EditIcon></EditIcon></Button>
-
-                                            <Button disabled={disableEditing} onClick={() => console.log(row.values)}
-                                                sx={{
-                                                    my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: disableEditing ? 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
-                                                    ':hover': {
-                                                        backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-                                                        color: 'white',
-                                                        border: '2px solid #000000'
-                                                    }
-                                                }}><DeleteIcon></DeleteIcon></Button>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </Grid>
-
-
-
-                <Grid item xs={12} pt='20px'>
-                    <Table {...getTableProps()}>
+                <Grid item xs={12} pt='5px'>
+                    <Table sx={{ border: '2px solid black' }} {...getTableProps()}>
                         <TableHead>
                             {headerGroups.map(headerGroup => (
                                 <TableRow {...headerGroup.getHeaderGroupProps()}>
                                     {headerGroup.headers.map(column => (
                                         <TableCell {...column.getHeaderProps()}
+                                            align="center"
                                             sx={{
                                                 borderBottom: 'solid 3px #970b00',
                                                 background: '#b50d00',
@@ -212,7 +134,7 @@ const Payments = () => {
                                     ))}
 
                                     <TableCell
-
+                                        align="center"
                                         sx={{
                                             borderBottom: 'solid 3px #970b00',
                                             background: '#b50d00',
@@ -220,7 +142,7 @@ const Payments = () => {
                                             fontWeight: 'bold',
                                         }}
                                     >
-                                        Modify
+                                        Action
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -229,7 +151,12 @@ const Payments = () => {
                             {rows.map((row, i) => {
                                 prepareRow(row)
                                 return (
-                                    <TableRow {...row.getRowProps()}>
+                                    <TableRow {...row.getRowProps()}
+                                        sx={{
+                                            '&:hover': {
+                                                border: '2px solid #878787'
+                                            }
+                                        }}>
                                         {row.cells.map(cell => {
                                             return (
                                                 <TableCell {...cell.getCellProps()}
@@ -237,7 +164,10 @@ const Payments = () => {
                                                         width: '200px',
                                                         padding: '5px',
                                                         // border: 'solid 1px gray',
-                                                        background: isEven(i) ? '#ffffff' : '#ededed',
+                                                        backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
+                                                        '&:hover': {
+                                                            backgroundColor: '#fffbf2',
+                                                        },
                                                     }}>
                                                     {cell.render('Cell')}
                                                 </TableCell>
@@ -250,6 +180,9 @@ const Payments = () => {
                                                 padding: '5px',
                                                 // border: 'solid 1px gray',
                                                 background: isEven(i) ? '#ffffff' : '#ededed',
+                                                '&:hover': {
+                                                    backgroundColor: '#fffbf2',
+                                                },
                                             }}
                                         >
 

@@ -1,9 +1,15 @@
 import { parseISO, format } from 'date-fns'
 
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
+
 export const COLUMNS = [
     {
         Header: 'ID',
-        accessor: 'id'
+        accessor: 'id',
+        Cell: (row) => {
+            return <div style={{ textAlign: "center" }}>{row.value}</div>
+        }
     },
     {
         Header: 'User',
@@ -20,35 +26,17 @@ export const COLUMNS = [
     {
         Header: 'Date',
         accessor: 'date',
-        Cell: (props) => {
-            //props.value will contain your date
-            //you can convert your date here
-            // const custom_date = parseISO(props.value).toString().slice(0, -22)
-            // const custom_date = format(parseISO(props.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
-            const custom_date = format(parseISO(props.value), "do MMM yyyy HH:mm:ss")
+        Cell: (row) => {
+            const custom_date = format(parseISO(row.value), "do MMM yyyy HH:mm:ss")
             return <span>{custom_date}</span>
         }
     },
     {
         Header: 'From Tenant?',
         accessor: 'from_tenant',
-        Cell: (props) => {
-            //props.value will contain your date
-            //you can convert your date here
-            // const custom_date = parseISO(props.value).toString().slice(0, -22)
-            // const custom_date = format(parseISO(props.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")
-            const custom_val = JSON.stringify(props.value)
-            return <span>{custom_val}</span>
+        Cell: (row) => {
+            return <div style={{ textAlign: "center" }}>{row.value === true ? <CheckCircleIcon /> : <DoNotDisturbIcon />}</div>
         }
     },
 
 ]
-
-// {
-//     "date": "2021-08-28T15:25:13.538667",
-//     "from_tenant": false,
-//     "id": 1,
-//     "paid": 20.0,
-//     "reason": "new",
-//     "user_id": "user"
-// },
