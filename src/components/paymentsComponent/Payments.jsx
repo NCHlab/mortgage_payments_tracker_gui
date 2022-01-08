@@ -103,7 +103,7 @@ const Payments = () => {
     return (
         <Container maxWidth='lg'>
 
-            <EditForm />
+            <EditForm formName="Payment" />
 
 
             <Grid container
@@ -112,12 +112,12 @@ const Payments = () => {
                 mt='5vh'
             >
 
-                <Grid item xs={1.4} pb={0}>
+                <Grid item xs={12} md={1.4} pb={0}>
                     <Button
                         variant="outlined"
                         onClick={handleAddNew}
                         sx={{
-                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.8), rgba(43, 43, 43, 0.8))',
+                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
                             ':hover': {
                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
                                 color: '#36c9ff',
@@ -126,18 +126,18 @@ const Payments = () => {
                         }}><AddIcon /> Add New</Button>
                 </Grid>
 
-                <Grid item xs={2} pb={0}>
+                <Grid item xs={12} md={2} pb={0}>
                     <Button
                         variant="outlined"
                         onClick={handleEditing}
                         sx={{
-                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
                             ':hover': {
                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
                                 color: 'white',
                                 border: '2px solid #000000'
                             }
-                        }}>{enableEditing ? (<React.Fragment><ToggleOnIcon sx={{ color: "#60ff52" }} /> Edit</React.Fragment>) : (<React.Fragment><ToggleOffIcon sx={{ color: "#c70000" }} /> Edit</React.Fragment>)}
+                        }}>{enableEditing ? (<React.Fragment><ToggleOnIcon sx={{ color: "#00ba1f" }} /> Edit</React.Fragment>) : (<React.Fragment><ToggleOffIcon sx={{ color: "#c70000" }} /> Edit</React.Fragment>)}
                     </Button>
                 </Grid>
 
