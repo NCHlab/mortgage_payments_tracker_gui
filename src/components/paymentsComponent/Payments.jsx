@@ -23,7 +23,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
-
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 
 import EditForm from './EditForm'
 
@@ -131,7 +131,7 @@ const Payments = () => {
                         }}><AddIcon />New</Button>
                 </Grid>
 
-                <Grid item xs={12} md={2} pb={0}>
+                <Grid item xs={12} md={1} pb={0}>
                     <Button
                         variant="outlined"
                         onClick={handleEditing}
@@ -143,6 +143,36 @@ const Payments = () => {
                                 border: '2px solid #000000'
                             }
                         }}>{enableEditing ? (<React.Fragment><ToggleOnIcon sx={{ color: "#00ba1f" }} /> Edit</React.Fragment>) : (<React.Fragment><ToggleOffIcon sx={{ color: "#c70000" }} /> Edit</React.Fragment>)}
+                    </Button>
+                </Grid>
+
+                <Grid item xs={12} md={1.9} pb={0}>
+                    <Button
+                        variant="outlined"
+                        onClick={handleEditing}
+                        sx={{
+                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
+                            ':hover': {
+                                backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+                                color: '#36c9ff',
+                                border: '2px solid #000000'
+                            }
+                        }}> <DownloadOutlinedIcon />XLSX Download
+                    </Button>
+                </Grid>
+
+                <Grid item xs={12} md={1.9} pb={0}>
+                    <Button
+                        variant="outlined"
+                        onClick={handleEditing}
+                        sx={{
+                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
+                            ':hover': {
+                                backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+                                color: '#36c9ff',
+                                border: '2px solid #000000'
+                            }
+                        }}> <DownloadOutlinedIcon />CSV Download
                     </Button>
                 </Grid>
 
