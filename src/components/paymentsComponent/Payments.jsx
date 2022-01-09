@@ -112,7 +112,12 @@ const Payments = () => {
                 mt='5vh'
             >
 
-                <Grid item xs={12} md={1.4} pb={0}>
+                <Grid item xs={12}>
+                    <Typography>Payments</Typography>
+
+                </Grid>
+
+                <Grid item xs={12} md={1} pb={0}>
                     <Button
                         variant="outlined"
                         onClick={handleAddNew}
@@ -123,7 +128,7 @@ const Payments = () => {
                                 color: '#36c9ff',
                                 border: '2px solid #000000'
                             }
-                        }}><AddIcon /> Add New</Button>
+                        }}><AddIcon />New</Button>
                 </Grid>
 
                 <Grid item xs={12} md={2} pb={0}>

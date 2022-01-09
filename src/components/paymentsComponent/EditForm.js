@@ -106,7 +106,7 @@ const EditForm = ({ formName }) => {
         setValues({
             paid: '',
             reason: '',
-            date: '',
+            date: new Date().toISOString(),
             tenant: '',
         })
     }
@@ -208,25 +208,15 @@ const EditForm = ({ formName }) => {
                     </Grid>
 
                     <Grid item xs={12} md={9}>
-                        {/* <TextField
-                            sx={{ ...classes.textfields, width: '262px' }}
-                            color="secondary"
-                            margin="normal"
-                            required
-                            id="tenant"
-                            label="From Tenant"
-                            name="tenant"
-                            onChange={(e) => { handleChange(e, "tenant") }}
-                            value={values.tenant}
-                        /> */}
+
 
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
+                            select
                             required
                             color="secondary"
                             margin="normal"
                             id="tenant"
-                            select
                             label="From Tenant"
                             value={values.tenant}
                             onChange={(e) => { handleChange(e, "tenant") }}
