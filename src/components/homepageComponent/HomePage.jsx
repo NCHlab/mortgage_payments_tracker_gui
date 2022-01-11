@@ -17,15 +17,10 @@ import { Divider } from '@mui/material';
 
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
-const HomePageT = () => {
-    const { getMortgageInfo, mortgageData, numberFormat, getGenInfo, userData, user, refreshInfo, isRefreshed, getUserPaymentInfo, paymentData } = useHomePage();
+import { numberFormat } from '../generic/utils'
 
-    useEffect(() => {
-        getMortgageInfo()
-        getGenInfo()
-        getUserPaymentInfo()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+const HomePageT = () => {
+    const { mortgageData, userData, user, refreshInfo, isRefreshed, paymentData } = useHomePage();
 
     return (
         <Container>

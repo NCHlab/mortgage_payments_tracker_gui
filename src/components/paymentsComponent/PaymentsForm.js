@@ -37,7 +37,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     );
 });
 
-const EditForm = ({ formName }) => {
+const PaymentsForm = ({ formName }) => {
 
     // const [paid, setPaid] = useState("")
     // const [reason, setReason] = useState("")
@@ -128,15 +128,15 @@ const EditForm = ({ formName }) => {
                 > */}
 
 
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
 
 
                         <Typography component="h1" variant="h5">
-                            Add New {formName}
+                            {formTitle}
                         </Typography>
-                    </Grid>
+                    </Grid> */}
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
                             color="secondary"
@@ -159,7 +159,7 @@ const EditForm = ({ formName }) => {
                     </Grid>
 
 
-                    <Grid item xs={12} md={9}>
+                    <Grid item xs={12} md={8}>
 
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
@@ -173,7 +173,7 @@ const EditForm = ({ formName }) => {
                             value={values.reason}
                         />
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={4}>
 
                         {/* <TextField
                             sx={classes.textfields}
@@ -207,7 +207,7 @@ const EditForm = ({ formName }) => {
 
                     </Grid>
 
-                    <Grid item xs={12} md={9}>
+                    <Grid item xs={12} md={8}>
 
 
                         <TextField
@@ -232,7 +232,7 @@ const EditForm = ({ formName }) => {
                         </TextField>
                     </Grid>
 
-                    <Grid item xs={12} md={1.8}>
+                    <Grid item xs={12} md={2.2}>
 
                         <Button
                             type="submit"
@@ -256,7 +256,7 @@ const EditForm = ({ formName }) => {
                     </Grid>
 
 
-                    <Grid item xs={12} md={1.8}>
+                    <Grid item xs={12} md={2}>
 
                         <Button
                             onClick={handleClearForm}
@@ -287,4 +287,4 @@ const EditForm = ({ formName }) => {
     )
 }
 
-export default EditForm
+export default PaymentsForm

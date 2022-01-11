@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import HomePageService from '../../services/HomePageService'
 import { useAuth } from '../../context/AuthContext'
-
 
 const useHomePage = () => {
 
@@ -11,6 +10,13 @@ const useHomePage = () => {
     const [userData, setUserData] = useState({ IPv4: '', country_name: '', city: '' });
     const { user } = useAuth();
     const [isRefreshed, setIsRefreshed] = useState(false)
+
+    useEffect(() => {
+        getMortgageInfo()
+        getGenInfo()
+        getUserPaymentInfo()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const getMortgageInfo = async () => {
         const { data } = await mortgageInfo();
@@ -22,21 +28,22 @@ const useHomePage = () => {
         setPaymentData(data)
     }
 
-    const numberFormat = (value) =>
-        new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'GBP'
-        }).format(value);
-
-
     const getGenInfo = async () => {
         const res = await genInfo()
         setUserData({ IPv4: res.IPv4, country_name: res.city + ', ' + res.country_name, city: res.city })
     }
 
+    // const numberFormat = (value) =>
+    //     new Intl.NumberFormat('en-US', {
+    //         style: 'currency',
+    //         currency: 'GBP'
+    //     }).format(value);
+
+
     const refreshInfo = () => {
         getMortgageInfo()
         getGenInfo()
+        getUserPaymentInfo()
         setIsRefreshed(true)
 
         setTimeout(
@@ -48,7 +55,7 @@ const useHomePage = () => {
 
     return {
         getMortgageInfo, mortgageData,
-        numberFormat, getGenInfo,
+        getGenInfo,
         userData, user,
         refreshInfo, isRefreshed,
         getUserPaymentInfo, paymentData

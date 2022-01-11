@@ -25,12 +25,15 @@ import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 
-import EditForm from './EditForm'
+import PaymentsForm from './PaymentsForm'
+import UserDialog from './UserDialog'
 
 const Payments = () => {
 
     const { tableData, COLUMNS } = usePayments();
     const [enableEditing, setEnableEditing] = useState(false)
+
+    const [openPopup, setOpenPopup] = useState(false)
 
     // useEffect(() => {
     //     getInfo()
@@ -86,7 +89,7 @@ const Payments = () => {
     }
 
     const handleAddNew = () => {
-
+        setOpenPopup(true)
     }
 
     const {
@@ -103,7 +106,13 @@ const Payments = () => {
     return (
         <Container maxWidth='lg'>
 
-            <EditForm formName="Payment" />
+            {/* <EditForm formName="Payment" /> */}
+
+            {/* <Button onClick={() => { setOpenPopup(true) }}>OPEN DIALOG</Button> */}
+
+            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle="Add New Payment">
+                <PaymentsForm />
+            </UserDialog>
 
 
             <Grid container
@@ -175,6 +184,12 @@ const Payments = () => {
                         }}> <DownloadOutlinedIcon />CSV Download
                     </Button>
                 </Grid>
+
+
+
+
+
+
 
                 <Grid item xs={12} pt='5px'>
                     <Table sx={{ border: '2px solid black' }} {...getTableProps()}>
