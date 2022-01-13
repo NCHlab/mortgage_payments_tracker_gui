@@ -26,15 +26,30 @@ import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 
-import PaymentsForm from './PaymentsForm'
-import UserDialog from './UserDialog'
+import PaymentsForm from '../UIComponents/PaymentsForm'
+import UserDialog from '../UIComponents/UserDialog'
+
+import Controls from '../controls'
 
 const Payments = () => {
 
-    const { tableData, COLUMNS, values, setValues, isEditMode, setIsEditMode, handleSubmit, initialValues } = usePayments();
-    const [enableEditing, setEnableEditing] = useState(false)
-
-    const [openPopup, setOpenPopup] = useState(false)
+    const { tableData,
+        COLUMNS,
+        values,
+        setValues,
+        isEditMode,
+        setIsEditMode,
+        handleSubmit,
+        initialValues,
+        openPopup,
+        setOpenPopup,
+        enableEditing,
+        setEnableEditing,
+        handleEnableEditing,
+        handleEditing,
+        handleAddNew,
+        isEven
+    } = usePayments();
 
     // useEffect(() => {
     //     getInfo()
@@ -43,37 +58,6 @@ const Payments = () => {
 
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
-
-
-
-    const handleEnableEditing = () => {
-        setEnableEditing(prevVal => {
-            return !prevVal
-        })
-    }
-
-    const handleEditing = (data) => {
-        // setEnableEditing(prevVal => !prevVal)
-
-        console.log(data)
-
-        setValues({ ...data })
-
-        setIsEditMode(true)
-        setOpenPopup(true)
-
-    }
-
-    const handleAddNew = () => {
-        // Need to reset data incase user tried edit then add new
-
-        if (values.id !== -1) {
-            setValues(initialValues)
-        }
-        // 
-        setIsEditMode(false)
-        setOpenPopup(true)
-    }
 
     const {
         getTableProps,
@@ -84,24 +68,14 @@ const Payments = () => {
         prepareRow,
     } = useTable({ columns, data })
 
-    const isEven = (idx) => idx % 2 === 0;
-
-
     return (
         <Container maxWidth='lg'>
-
-            {/* <EditForm formName="Payment" /> */}
-
-            {/* <Button onClick={() => { setOpenPopup(true) }}>OPEN DIALOG</Button> */}
-
             <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Payment" : "Edit Payment"}>
                 <PaymentsForm
                     values={values}
                     setValues={setValues}
                     isEditMode={isEditMode}
-                    setIsEditMode={setIsEditMode}
                     handleSubmit={handleSubmit} />
-
             </UserDialog>
 
 
@@ -117,6 +91,8 @@ const Payments = () => {
                 </Grid>
 
                 <Grid item xs={12} md={1} pb={0}>
+
+                    {/* <Controls.NewButton handleAddNew={handleAddNew} /> */}
                     <Button
                         variant="outlined"
                         onClick={handleAddNew}
@@ -299,7 +275,6 @@ const Payments = () => {
                                                 fontSize: '15px',
                                                 color: 'black',
                                                 fontWeight: 'bold',
-                                                // border: 'solid 1px gray',
                                                 background: '#ffffff',
                                                 borderLeft: '1px dotted #000',
 

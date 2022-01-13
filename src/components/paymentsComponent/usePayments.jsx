@@ -3,10 +3,27 @@ import { useState, useEffect } from 'react';
 import PaymentsService from '../../services/PaymentsService'
 import { COLUMNS } from '../generic/columns'
 
+const initialValues = {
+    id: -1,
+    paid: '',
+    reason: '',
+    date: new Date().toISOString(),
+    from_tenant: '',
+}
+
+
 const usePayments = () => {
 
     const [tableData, setTableData] = useState(() => [])
     const [fetchNewData, setfetchNewData] = useState(false)
+    const [values, setValues] = useState(initialValues)
+    const [isEditMode, setIsEditMode] = useState(false)
+    const [openPopup, setOpenPopup] = useState(false)
+    const [enableEditing, setEnableEditing] = useState(false)
+    const isEven = (idx) => idx % 2 === 0;
+
+
+
     const { UserPaymentInfo } = PaymentsService()
 
     useEffect(() => {
@@ -17,17 +34,32 @@ const usePayments = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchNewData])
 
-    const initialValues = {
-        id: -1,
-        paid: '',
-        reason: '',
-        date: new Date().toISOString(),
-        from_tenant: '',
+
+    const handleEnableEditing = () => {
+        setEnableEditing(prevVal => {
+            return !prevVal
+        })
     }
 
-    const [values, setValues] = useState(initialValues)
+    const handleEditing = (data) => {
+        setValues({ ...data })
+        setIsEditMode(true)
+        setOpenPopup(true)
+    }
 
-    const [isEditMode, setIsEditMode] = useState(false)
+
+    const handleAddNew = () => {
+        // Need to reset data incase user tried edit then add new
+        if (values.id !== -1) {
+            setValues(initialValues)
+        }
+        setIsEditMode(false)
+        setOpenPopup(true)
+    }
+
+
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -79,7 +111,24 @@ const usePayments = () => {
     //     })();
     //   }, []);
 
-    return { tableData, COLUMNS, values, setValues, isEditMode, setIsEditMode, handleSubmit, initialValues }
+    return {
+        tableData,
+        COLUMNS,
+        values,
+        setValues,
+        isEditMode,
+        setIsEditMode,
+        handleSubmit,
+        initialValues,
+        openPopup,
+        setOpenPopup,
+        enableEditing,
+        setEnableEditing,
+        handleEnableEditing,
+        handleEditing,
+        handleAddNew,
+        isEven
+    }
 }
 
 export default usePayments

@@ -13,8 +13,6 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-import { parse } from 'date-fns'
-
 const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
     const { inputRef, onChange, ...other } = props;
 
@@ -37,7 +35,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     );
 });
 
-const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubmit }) => {
+const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit }) => {
 
     const classes = {
         textfields: {
@@ -55,27 +53,19 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
         }
     }
 
-
-
     const handleChange = (event, prop) => {
-        // console.log(event.target.value)
         setValues({ ...values, [prop]: event.target.value });
     }
 
     const handleDateChange = (newDateVal) => {
         try {
             newDateVal = newDateVal.toISOString()
-        } catch (error) {
-
-        }
+        } catch (error) { }
 
         setValues({ ...values, date: newDateVal });
-
     }
 
     const handleClearForm = () => {
-
-        console.log(isEditMode)
         if (isEditMode) {
             setValues({
                 ...values,
@@ -84,8 +74,6 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
                 date: new Date().toISOString(),
                 from_tenant: ''
             })
-
-            console.log(values)
         } else {
             setValues({
                 id: -1,
@@ -95,33 +83,15 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
                 from_tenant: ''
             })
         }
-
     }
 
     return (
         <React.Fragment>
-
             <form onSubmit={handleSubmit}>
                 <Grid
                     container
                     spacing={0}
-                // direction="row"
-                // alignItems="center"
-                // justifyContent="center"
                 >
-
-                    {/* <Paper variant="elevation" elevation={24}
-                    sx={{ padding: "80px 60px", border: "1px solid black" }}
-                > */}
-
-
-                    {/* <Grid item xs={12}>
-
-
-                        <Typography component="h1" variant="h5">
-                            {formTitle}
-                        </Typography>
-                    </Grid> */}
 
                     <Grid item xs={12} md={6}>
                         <TextField
@@ -147,7 +117,6 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
 
 
                     <Grid item xs={12} md={6}>
-
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
                             color="secondary"
@@ -160,20 +129,8 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
                             value={values.reason}
                         />
                     </Grid>
+
                     <Grid item xs={12} md={6}>
-
-                        {/* <TextField
-                            sx={classes.textfields}
-                            color="secondary"
-                            margin="normal"
-                            required
-                            id="date"
-                            label="Date"
-                            name="date"
-                            onChange={(e) => { handleChange(e, "date") }}
-                            value={values.date}
-                        /> */}
-
                         <LocalizationProvider dateAdapter={AdapterDateFns} >
                             <DateTimePicker
                                 renderInput={(props) => {
@@ -191,12 +148,9 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
                                 onChange={(newDateVal) => { handleDateChange(newDateVal) }}
                             />
                         </LocalizationProvider>
-
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-
-
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
                             select
@@ -220,7 +174,6 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
                     </Grid>
 
                     <Grid item xs={12} md={3.5}>
-
                         <Button
                             type="submit"
                             variant="contained"
@@ -244,10 +197,8 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
 
 
                     <Grid item xs={12} md={3.5}>
-
                         <Button
                             onClick={handleClearForm}
-                            // fullWidth
                             variant="contained"
                             color="secondary"
                             sx={{
@@ -266,8 +217,6 @@ const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubm
                             Reset
                         </Button>
                     </Grid>
-
-                    {/* </Paper> */}
                 </Grid>
             </form>
         </React.Fragment>
