@@ -1,10 +1,9 @@
 import React from 'react';
 import { parseISO, format } from 'date-fns'
+import { Grid } from '@mui/material';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-
-import { Grid } from '@mui/material';
 
 import { numberFormat } from './utils'
 
@@ -22,7 +21,7 @@ export const COLUMNS = [
         accessor: 'user_id',
         width: 100,
         Cell: (row) => {
-            return <div style={{ textAlign: "center" }}>{row.value}</div>
+            return <div style={{ textAlign: "center" }}>{row.value[0].toUpperCase() + row.value.slice(1)}</div>
         },
         Footer: info => <div style={{ textAlign: "center" }}>Total:</div>
     },
@@ -32,12 +31,11 @@ export const COLUMNS = [
         Cell: (row) => {
             return <div style={{ textAlign: "center" }}>{numberFormat(row.value)}</div>
         },
-        Footer: info => {
-            // Only calculate total visits if rows change
+        Footer: props => {
             const total = React.useMemo(
                 () =>
-                    info.rows.reduce((sum, row) => row.values.paid + sum, 0),
-                [info.rows]
+                    props.rows.reduce((sum, row) => row.values.paid + sum, 0),
+                [props.rows]
             )
 
             return <div style={{ textAlign: "center" }}>{numberFormat(total)}</div>
@@ -63,22 +61,18 @@ export const COLUMNS = [
         Cell: (row) => {
             return <div style={{ textAlign: "center" }}>{row.value === true ? <CheckCircleIcon /> : <DoNotDisturbIcon />}</div>
         },
-        Footer: info => {
-            // Only calculate total visits if rows change
+        Footer: props => {
+            // Only calculate total if rows change
             const total = React.useMemo(
                 () => {
-
-                    console.log(info.rows)
-
-                    const result = info.rows.map(obj => (obj.values.from_tenant));
-                    console.log(result)
+                    const result = props.rows.map(obj => (obj.values.from_tenant));
                     const trueCount = result.filter(Boolean).length;
                     const falseCount = result.length - trueCount
 
                     return { trueCount, falseCount }
 
                 },
-                [info.rows]
+                [props.rows]
             )
 
             return (
@@ -86,13 +80,13 @@ export const COLUMNS = [
                     <Grid item sx={{ pl: '28px', fontSize: '20px' }}>
                         {total.trueCount}
                     </Grid>
-                    <Grid item sx={2}>
+                    <Grid item xs={2}>
                         <CheckCircleIcon />
                     </Grid>
                     <Grid item sx={{ pl: '10px', fontSize: '20px' }}>
                         {total.falseCount}
                     </Grid>
-                    <Grid item sx={2}>
+                    <Grid item xs={2}>
                         <DoNotDisturbIcon />
                     </Grid>
                 </Grid>
