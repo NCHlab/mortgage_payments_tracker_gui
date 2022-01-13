@@ -25,7 +25,6 @@ const UserDialog = (props) => {
 
     const { openPopup, setOpenPopup, formTitle, children } = props;
 
-
     const handleClose = () => {
         setOpenPopup(false)
     }
@@ -34,22 +33,17 @@ const UserDialog = (props) => {
         <Dialog
             open={openPopup}
             onClose={() => { handleClose() }}
-            maxWidth="md"
+            maxWidth="sm"
             PaperComponent={PaperComponent}
             PaperProps={{ sx: { position: 'fixed', top: 80 } }}
             aria-labelledby="draggable-dialog-title"
         >
-            <DialogTitle>
+            <DialogTitle sx={{ cursor: 'move' }}>
                 <div style={{ display: 'flex' }}>
                     <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
                         {formTitle}
                     </Typography>
                     <Button onClick={() => { handleClose() }}><CloseIcon /></Button>
-                    {/* <Controls.ActionButton
-                        color="secondary"
-                        onClick={()=>{setOpenPopup(false)}}>
-                        <CloseIcon /> */}
-                    {/* </Controls.ActionButton> */}
                 </div>
             </DialogTitle>
             <DialogContent dividers>

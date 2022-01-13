@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Button, Typography, Grid, TextField, MenuItem, Box, Paper, InputAdornment } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -37,27 +37,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     );
 });
 
-const PaymentsForm = ({ formName }) => {
-
-    // const [paid, setPaid] = useState("")
-    // const [reason, setReason] = useState("")
-    // const [date, setDate] = useState("")
-    // const [tenant, setTenant] = useState("")
-
-
-    const [values, setValues] = useState({
-        paid: '',
-        reason: '',
-        date: new Date().toISOString(),
-        tenant: '',
-    })
-
-    // const [value, setValue] = React.useState(new Date());
-
-
-    // const [number, setNumber] = React.useState(1320);
-
-
+const PaymentsForm = ({ values, setValues, isEditMode, setIsEditMode, handleSubmit }) => {
 
     const classes = {
         textfields: {
@@ -75,19 +55,10 @@ const PaymentsForm = ({ formName }) => {
         }
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-
-        if (typeof (values.date) !== "string") {
-            return
-        }
-
-        console.log(values)
-        console.log(values.date)
-    }
 
 
     const handleChange = (event, prop) => {
+        // console.log(event.target.value)
         setValues({ ...values, [prop]: event.target.value });
     }
 
@@ -103,12 +74,28 @@ const PaymentsForm = ({ formName }) => {
     }
 
     const handleClearForm = () => {
-        setValues({
-            paid: '',
-            reason: '',
-            date: new Date().toISOString(),
-            tenant: '',
-        })
+
+        console.log(isEditMode)
+        if (isEditMode) {
+            setValues({
+                ...values,
+                paid: '',
+                reason: '',
+                date: new Date().toISOString(),
+                from_tenant: ''
+            })
+
+            console.log(values)
+        } else {
+            setValues({
+                id: -1,
+                paid: '',
+                reason: '',
+                date: new Date().toISOString(),
+                from_tenant: ''
+            })
+        }
+
     }
 
     return (
@@ -136,7 +123,7 @@ const PaymentsForm = ({ formName }) => {
                         </Typography>
                     </Grid> */}
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
                             color="secondary"
@@ -159,7 +146,7 @@ const PaymentsForm = ({ formName }) => {
                     </Grid>
 
 
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={6}>
 
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
@@ -173,7 +160,7 @@ const PaymentsForm = ({ formName }) => {
                             value={values.reason}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
 
                         {/* <TextField
                             sx={classes.textfields}
@@ -207,7 +194,7 @@ const PaymentsForm = ({ formName }) => {
 
                     </Grid>
 
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={6}>
 
 
                         <TextField
@@ -216,10 +203,10 @@ const PaymentsForm = ({ formName }) => {
                             required
                             color="secondary"
                             margin="normal"
-                            id="tenant"
+                            id="from_tenant"
                             label="From Tenant"
-                            value={values.tenant}
-                            onChange={(e) => { handleChange(e, "tenant") }}
+                            value={values.from_tenant}
+                            onChange={(e) => { handleChange(e, "from_tenant") }}
                         >
 
                             <MenuItem key="yesTenant" value={true}>
@@ -232,7 +219,7 @@ const PaymentsForm = ({ formName }) => {
                         </TextField>
                     </Grid>
 
-                    <Grid item xs={12} md={2.2}>
+                    <Grid item xs={12} md={3.5}>
 
                         <Button
                             type="submit"
@@ -256,7 +243,7 @@ const PaymentsForm = ({ formName }) => {
                     </Grid>
 
 
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={3.5}>
 
                         <Button
                             onClick={handleClearForm}

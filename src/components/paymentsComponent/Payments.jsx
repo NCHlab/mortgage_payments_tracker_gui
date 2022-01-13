@@ -15,6 +15,7 @@ import { TableBody } from '@mui/material';
 import { TableCell } from '@mui/material';
 import { TableHead } from '@mui/material';
 import { TableRow } from '@mui/material';
+import { TableFooter } from '@mui/material';
 
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
@@ -30,7 +31,7 @@ import UserDialog from './UserDialog'
 
 const Payments = () => {
 
-    const { tableData, COLUMNS } = usePayments();
+    const { tableData, COLUMNS, values, setValues, isEditMode, setIsEditMode, handleSubmit, initialValues } = usePayments();
     const [enableEditing, setEnableEditing] = useState(false)
 
     const [openPopup, setOpenPopup] = useState(false)
@@ -44,51 +45,33 @@ const Payments = () => {
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
 
 
-    // const tableHooks = (hooks) => {
-    //     hooks.visibleColumns.push((columns) => [
-    //         ...columns,
-    //         {
-    //             id: "Modify",
-    //             Header: "Modify",
-    //             Cell: ({ row }) => (
-    //                 <React.Fragment>
-    //                     <Button disabled={false} onClick={() => console.log(row.values)}
-    //                         sx={{
-    //                             my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
-    //                             ':hover': {
-    //                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-    //                                 color: 'white',
-    //                                 border: '2px solid #000000'
-    //                             }
-    //                         }}>Edit</Button>
 
-    //                     <Button disabled={false} onClick={() => console.log(row.values)}
-    //                         sx={{
-    //                             my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
-    //                             ':hover': {
-    //                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-    //                                 color: 'white',
-    //                                 border: '2px solid #000000'
-    //                             }
-    //                         }}>Delete</Button>
-    //                 </React.Fragment>
-    //             )
-    //         }
-    //     ])
-    // };
-
-
-    const handleEditing = () => {
-        // setEnableEditing(prevVal => !prevVal)
-
+    const handleEnableEditing = () => {
         setEnableEditing(prevVal => {
-            console.log(!prevVal)
             return !prevVal
         })
+    }
+
+    const handleEditing = (data) => {
+        // setEnableEditing(prevVal => !prevVal)
+
+        console.log(data)
+
+        setValues({ ...data })
+
+        setIsEditMode(true)
+        setOpenPopup(true)
 
     }
 
     const handleAddNew = () => {
+        // Need to reset data incase user tried edit then add new
+
+        if (values.id !== -1) {
+            setValues(initialValues)
+        }
+        // 
+        setIsEditMode(false)
         setOpenPopup(true)
     }
 
@@ -97,6 +80,7 @@ const Payments = () => {
         getTableBodyProps,
         headerGroups,
         rows,
+        footerGroups,
         prepareRow,
     } = useTable({ columns, data })
 
@@ -110,8 +94,14 @@ const Payments = () => {
 
             {/* <Button onClick={() => { setOpenPopup(true) }}>OPEN DIALOG</Button> */}
 
-            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle="Add New Payment">
-                <PaymentsForm />
+            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Payment" : "Edit Payment"}>
+                <PaymentsForm
+                    values={values}
+                    setValues={setValues}
+                    isEditMode={isEditMode}
+                    setIsEditMode={setIsEditMode}
+                    handleSubmit={handleSubmit} />
+
             </UserDialog>
 
 
@@ -143,7 +133,7 @@ const Payments = () => {
                 <Grid item xs={12} md={1} pb={0}>
                     <Button
                         variant="outlined"
-                        onClick={handleEditing}
+                        onClick={handleEnableEditing}
                         sx={{
                             my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
                             ':hover': {
@@ -158,7 +148,7 @@ const Payments = () => {
                 <Grid item xs={12} md={1.9} pb={0}>
                     <Button
                         variant="outlined"
-                        onClick={handleEditing}
+                        onClick={() => { }}
                         sx={{
                             my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
                             ':hover': {
@@ -173,7 +163,7 @@ const Payments = () => {
                 <Grid item xs={12} md={1.9} pb={0}>
                     <Button
                         variant="outlined"
-                        onClick={handleEditing}
+                        onClick={() => { }}
                         sx={{
                             my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
                             ':hover': {
@@ -271,7 +261,7 @@ const Payments = () => {
                                             }}
                                         >
 
-                                            <Button disabled={!enableEditing} onClick={() => console.log(row.values)}
+                                            <Button disabled={!enableEditing} onClick={() => handleEditing(row.values)}
                                                 sx={{
                                                     my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
                                                     ':hover': {
@@ -291,10 +281,48 @@ const Payments = () => {
                                                     }
                                                 }}><DeleteIcon></DeleteIcon></Button>
                                         </TableCell>
+
                                     </TableRow>
                                 )
                             })}
                         </TableBody>
+                        <TableFooter >
+                            {footerGroups.map((group, i) => (
+                                <TableRow {...group.getFooterGroupProps()}>
+                                    {group.headers.map(column => (
+                                        <TableCell
+                                            sx={{
+                                                pl: '0px',
+                                                pr: '0px',
+                                                pb: '5px',
+                                                pt: '5px',
+                                                fontSize: '15px',
+                                                color: 'black',
+                                                fontWeight: 'bold',
+                                                // border: 'solid 1px gray',
+                                                background: '#ffffff',
+                                                borderLeft: '1px dotted #000',
+
+                                            }}
+                                            {...column.getFooterProps()}>{column.render('Footer')}</TableCell>
+                                    ))}
+                                    <TableCell
+                                        sx={{
+                                            background: '#ffffff',
+                                            borderLeft: '1px dotted #000'
+
+                                        }}
+                                    >
+
+
+
+
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+
+
+                        </TableFooter>
                     </Table>
                 </Grid>
             </Grid >
