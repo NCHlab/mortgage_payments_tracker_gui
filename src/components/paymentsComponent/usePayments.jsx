@@ -20,7 +20,9 @@ const usePayments = () => {
     const [isEditMode, setIsEditMode] = useState(false)
     const [openPopup, setOpenPopup] = useState(false)
     const [enableEditing, setEnableEditing] = useState(false)
-    const isEven = (idx) => idx % 2 === 0;
+    const [deletePopup, setDeletePopup] = useState(false)
+    const [dataToDelete, setDataToDelete] = useState({})
+
 
 
 
@@ -34,6 +36,7 @@ const usePayments = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchNewData])
 
+    const isEven = (idx) => idx % 2 === 0;
 
     const handleEnableEditing = () => {
         setEnableEditing(prevVal => {
@@ -55,6 +58,30 @@ const usePayments = () => {
         }
         setIsEditMode(false)
         setOpenPopup(true)
+    }
+
+    const handleDownload = (type) => {
+        console.log(type)
+    }
+
+    const handleDelete = () => {
+        console.log(dataToDelete)
+
+        handleCloseDeletePopup()
+
+        // setDeletePopup(false)
+
+    }
+
+    const handleCloseDeletePopup = () => {
+        setDeletePopup(false)
+    }
+
+
+
+    const handleOpenDeletePopup = (data) => {
+        setDataToDelete(data)
+        setDeletePopup(true)
     }
 
 
@@ -117,17 +144,20 @@ const usePayments = () => {
         values,
         setValues,
         isEditMode,
-        setIsEditMode,
         handleSubmit,
-        initialValues,
         openPopup,
         setOpenPopup,
         enableEditing,
-        setEnableEditing,
         handleEnableEditing,
         handleEditing,
         handleAddNew,
-        isEven
+        isEven,
+        handleDownload,
+        deletePopup,
+        handleOpenDeletePopup,
+        handleCloseDeletePopup,
+        dataToDelete,
+        handleDelete
     }
 }
 
