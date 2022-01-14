@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Typography, Grid, TextField, MenuItem, Box, Paper, InputAdornment } from '@mui/material';
 import NumberFormat from "react-number-format";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import { styled } from '@mui/material/styles';
 
@@ -11,7 +12,7 @@ const CustomSpan = styled('span')(({ theme }) => ({
     color: '#730000'
 }));
 
-const DeleteMenu = ({ dataToDelete, handleClose, handleDelete }) => {
+const DeleteMenu = ({ dataToDelete, handleClose, handleDelete, loading }) => {
 
     const [userCode, setUserCode] = useState(Math.random().toString(36).substring(2, 7))
     const [userValue, setUserValue] = useState('')
@@ -79,7 +80,7 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete }) => {
                     value={userValue}
                     name="Verification"
                     id="Verification-Code-input"
-                    onPaste={(e) => e.preventDefault()}
+                    // onPaste={(e) => e.preventDefault()}
                     helperText="Pasting Not Allowed"
                 />
 
@@ -87,12 +88,13 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete }) => {
 
 
             <Grid item xs={12} md={3.5}>
-                <Button
+                <LoadingButton
                     onClick={handleCodeCheck}
                     type="submit"
+                    loading={loading}
                     variant="contained"
                     color="secondary"
-                    sx={{
+                    sx={!loading ? ({
                         width: '150px',
                         mt: 3,
                         mb: 2,
@@ -103,10 +105,15 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete }) => {
                             background: 'linear-gradient(to left top, #730000, #000000)',
                             color: '#ff3636',
                         }
+                    }) : {
+                        width: '150px',
+                        mt: 3,
+                        mb: 2,
+                        fontWeight: "bold"
                     }}
                 >
-                    Yes
-                </Button>
+                    Delete
+                </LoadingButton>
             </Grid>
 
             <Grid item xs={12} md={3.5}>

@@ -5,7 +5,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
-
+import LoadingButton from '@mui/lab/LoadingButton';
 
 import NumberFormat from "react-number-format";
 
@@ -35,7 +35,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     );
 });
 
-const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit }) => {
+const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading }) => {
 
     const classes = {
         textfields: {
@@ -174,11 +174,12 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit }) => {
                     </Grid>
 
                     <Grid item xs={12} md={3.5}>
-                        <Button
+                        <LoadingButton
                             type="submit"
+                            loading={loading}
                             variant="contained"
                             color="secondary"
-                            sx={{
+                            sx={!loading ? ({
                                 width: '150px',
                                 mt: 3,
                                 mb: 2,
@@ -189,10 +190,15 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit }) => {
                                     background: 'linear-gradient(to left top, #730000, #000000)',
                                     color: '#36c9ff',
                                 }
+                            }) : {
+                                width: '150px',
+                                mt: 3,
+                                mb: 2,
+                                fontWeight: "bold"
                             }}
                         >
                             Submit
-                        </Button>
+                        </LoadingButton>
                     </Grid>
 
 
