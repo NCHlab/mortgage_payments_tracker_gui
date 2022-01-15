@@ -61,15 +61,6 @@ const usePayments = () => {
         setOpenPopup(true)
     }
 
-    const handleDownload = async (type, page) => {
-
-        if (type === "XLSX") {
-            await DownloadXLSX(page)
-        } else {
-            await DownloadCSV(page)
-        }
-        console.log(type)
-    }
 
     const handleDelete = async () => {
 
@@ -113,6 +104,46 @@ const usePayments = () => {
         setDataToDelete(data)
         setDeletePopup(true)
     }
+
+
+    const handleDownload = async (type, page) => {
+
+        if (type === "XLSX") {
+            const response = await DownloadXLSX(page)
+
+            if (response) {
+                setNotify({
+                    isOpen: true,
+                    message: `Error Generating Excel file: ${response}`,
+                    type: 'error'
+                })
+            } else {
+                setNotify({
+                    isOpen: true,
+                    message: 'Excel File Generated!',
+                    type: 'info'
+                })
+            }
+
+        } else {
+            const response = await DownloadCSV(page)
+
+            if (response) {
+                setNotify({
+                    isOpen: true,
+                    message: `Error Generating CSV file: ${response}`,
+                    type: 'error'
+                })
+            } else {
+                setNotify({
+                    isOpen: true,
+                    message: 'CSV File Generated!',
+                    type: 'info'
+                })
+            }
+        }
+    }
+
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

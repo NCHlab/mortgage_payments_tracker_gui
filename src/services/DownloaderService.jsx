@@ -10,6 +10,8 @@ const DownloaderService = () => {
             const headers = { 'Content-Type': 'blob' };
             const response = await _axios.get(`/download/${page}`, { responseType: 'arraybuffer' }, headers)
 
+
+
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             const curr_date = new Date();
@@ -20,6 +22,10 @@ const DownloaderService = () => {
             link.click();
 
         } catch (error) {
+
+            // console.log(error)
+
+            return error.response.statusText
 
         }
     }

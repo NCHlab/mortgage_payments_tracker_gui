@@ -105,10 +105,6 @@ const Payments = () => {
                 mt='5vh'
             >
 
-                <Grid item xs={12}>
-                    <Typography>Payments</Typography>
-                </Grid>
-
                 <Grid item xs={12} md={1} pb={0}>
                     <Controls.NewButton handleAddNew={handleAddNew} />
                 </Grid>
