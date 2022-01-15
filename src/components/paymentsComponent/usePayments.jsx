@@ -28,7 +28,7 @@ const usePayments = () => {
 
     const { UserPaymentInfo, AddPayment, UpdatePayment, DeletePayment } = PaymentsService()
 
-    const { DownloadXLSX } = DownloaderService();
+    const { DownloadXLSX, DownloadCSV } = DownloaderService();
 
     useEffect(() => {
         (async () => {
@@ -65,7 +65,8 @@ const usePayments = () => {
 
         if (type === "XLSX") {
             await DownloadXLSX(page)
-
+        } else {
+            await DownloadCSV(page)
         }
         console.log(type)
     }

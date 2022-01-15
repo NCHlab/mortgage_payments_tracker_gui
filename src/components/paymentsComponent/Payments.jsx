@@ -122,7 +122,7 @@ const Payments = () => {
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.CSVDownloadButton handleDownload={handleDownload} enableEditing={enableEditing} />
+                    <Controls.CSVDownloadButton handleDownload={handleDownload} enableEditing={enableEditing} page={"payments"} />
                 </Grid>
 
                 <Grid item xs={12} pt='5px'>
