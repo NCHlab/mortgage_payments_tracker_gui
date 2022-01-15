@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import PaymentsService from '../../services/PaymentsService'
+import DownloaderService from '../../services/DownloaderService';
 import { COLUMNS } from '../generic/columns'
 
 const initialValues = {
@@ -22,11 +23,12 @@ const usePayments = () => {
     const [enableEditing, setEnableEditing] = useState(false)
     const [deletePopup, setDeletePopup] = useState(false)
     const [dataToDelete, setDataToDelete] = useState({})
+    const [notify, setNotify] = useState({ isOpen: false, title: '', subTitle: '' })
+    const [loading, setLoading] = React.useState(false);
 
+    const { UserPaymentInfo, AddPayment, UpdatePayment, DeletePayment } = PaymentsService()
 
-
-
-    const { UserPaymentInfo } = PaymentsService()
+    const { DownloadXLSX } = DownloaderService();
 
     useEffect(() => {
         (async () => {
@@ -53,24 +55,51 @@ const usePayments = () => {
 
     const handleAddNew = () => {
         // Need to reset data incase user tried edit then add new
-        if (values.id !== -1) {
-            setValues(initialValues)
-        }
+        setValues(initialValues)
+
         setIsEditMode(false)
         setOpenPopup(true)
     }
 
-    const handleDownload = (type) => {
+    const handleDownload = async (type, page) => {
+
+        if (type === "XLSX") {
+            await DownloadXLSX(page)
+
+        }
         console.log(type)
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
+
         console.log(dataToDelete)
+        setLoading(true)
+        await sleep(750);
+
+        const { code, respData } = await DeletePayment(dataToDelete.id)
+
+        if (code === 204) {
+            setfetchNewData(prev => !prev)
+
+            setNotify({
+                isOpen: true,
+                message: 'Deleted Successfully',
+                type: 'error'
+            })
+        } else {
+
+            setNotify({
+                isOpen: true,
+                message: `Could Not Delete. Code: ${code}, Message: ${respData.message}`,
+                type: 'Warning'
+            })
+
+        }
 
         handleCloseDeletePopup()
+        setLoading(false)
 
         // setDeletePopup(false)
-
     }
 
     const handleCloseDeletePopup = () => {
@@ -84,59 +113,84 @@ const usePayments = () => {
         setDeletePopup(true)
     }
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
 
 
+    const handleAddPayment = async () => {
 
-    const handleSubmit = (event) => {
+        values.paid = parseFloat(values.paid)
+
+        const { code, respData } = await AddPayment(values)
+
+        if (code === 201) {
+            const newData = [...tableData, respData]
+            setTableData(newData)
+
+            setNotify({
+                isOpen: true,
+                message: 'Payment Added Successfully',
+                type: 'success'
+            })
+        } else {
+            // An Error occured when contacting API
+            setNotify({
+                isOpen: true,
+                message: `Adding Payment Failed Code: ${code}, Message: ${respData.message}`,
+                type: 'error'
+            })
+        }
+    }
+
+
+    const handleUpdate = async () => {
+
+        values.paid = parseFloat(values.paid)
+
+        const { code, respData } = await UpdatePayment(values)
+
+        if (code === 204) {
+            // Fetch New Data to update table
+            setfetchNewData(prev => !prev)
+
+            setNotify({
+                isOpen: true,
+                message: 'Payment Updated Successfully',
+                type: 'success'
+            })
+        } else {
+            // An Error occured when contacting API
+            setNotify({
+                isOpen: true,
+                message: `Updating Payment Failed Code: ${code}, Message: ${respData.message} `,
+                type: 'error'
+            })
+        }
+    }
+
+
+    const handleSubmit = async (event) => {
+
         event.preventDefault()
+        setLoading(true)
+        await sleep(750);
 
         if (typeof (values.date) !== "string") {
             return
         }
 
         if (isEditMode === false) {
-
-
-            // const lastRow = tableData[tableData.length - 1]
-            const maxNumID = Math.max.apply(Math, tableData.map(function (o) { return o.id; }))
-
-            const userValues = {
-                id: maxNumID + 1,
-                user_id: localStorage.getItem('username'),
-                paid: parseFloat(values.paid),
-                reason: values.reason,
-                date: values.date,
-                from_tenant: values.from_tenant
-            }
-
-            console.log(userValues)
-
-            const newData = [...tableData, userValues]
-
-            console.log(newData)
-
-            // console.log(values)
-            // console.log(values.date)
-            // tableData.push(values)
-            setTableData(newData)
+            handleAddPayment()
             // setfetchNewData(prev => !prev)
+        } else {
+            handleUpdate()
         }
+
+        setLoading(false)
+        setOpenPopup(false)
     }
-
-
-
-
-    // const data = React.useMemo(() => [{ "date": "2021-08-28T15:25:13.538667", "from_tenant": false, "id": 1, "paid": 20, "reason": "new", "user_id": "nayam" }, { "date": "2021-12-29T13:59:13.538667", "from_tenant": false, "id": 2, "paid": 150, "reason": "no", "user_id": "nayam" }, { "date": "2021-12-29T15:25:13.538667", "from_tenant": false, "id": 4, "paid": 450, "reason": "monthly entry", "user_id": "nayam" }, { "date": "2021-12-29T15:41:18.336637", "from_tenant": false, "id": 6, "paid": 450, "reason": "monthly entry", "user_id": "nayam" }, { "date": "2021-11-01T12:00:00.000000", "from_tenant": false, "id": 7, "paid": 200, "reason": "new", "user_id": "nayam" }, { "date": "2021-11-01T12:00:00.000000", "from_tenant": true, "id": 8, "paid": 99.09, "reason": "new", "user_id": "nayam" }], [])
-
-
-
-    // useEffect(() => {
-    //     (async () => {
-    //       const { data } = await UserPaymentInfo("");
-    //       setTableData(data);
-    //     })();
-    //   }, []);
 
     return {
         tableData,
@@ -157,7 +211,10 @@ const usePayments = () => {
         handleOpenDeletePopup,
         handleCloseDeletePopup,
         dataToDelete,
-        handleDelete
+        handleDelete,
+        notify,
+        setNotify,
+        loading
     }
 }
 

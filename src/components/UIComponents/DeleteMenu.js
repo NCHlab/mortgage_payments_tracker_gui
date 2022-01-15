@@ -20,18 +20,12 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete, loading }) => {
 
     const handleCodeCheck = () => {
         if (userCode.toUpperCase() === userValue.toUpperCase()) {
-            console.log("pass")
             setIsError(false)
             handleDelete()
         } else {
             setIsError(true)
             setUserCode(Math.random().toString(36).substring(2, 7))
-            console.log("fail")
         }
-
-        // const newCode = Math.random().toString(36).substring(2, 7);
-        // setUserCode(newCode)
-
     }
     return (
         <Grid

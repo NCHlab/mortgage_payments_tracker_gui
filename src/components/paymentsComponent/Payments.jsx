@@ -16,6 +16,8 @@ import MptTableFooter from '../tableComponent/MptTableFooter'
 import DeleteDialog from '../UIComponents/DeleteDialog';
 import DeleteMenu from '../UIComponents/DeleteMenu';
 
+import Notification from '../UIComponents/Notification';
+
 const Payments = () => {
 
     const { tableData,
@@ -36,7 +38,10 @@ const Payments = () => {
         handleOpenDeletePopup,
         handleCloseDeletePopup,
         dataToDelete,
-        handleDelete
+        handleDelete,
+        notify,
+        setNotify,
+        loading
     } = usePayments();
 
     const data = React.useMemo(() => tableData, [tableData])
@@ -74,16 +79,19 @@ const Payments = () => {
 
     return (
         <Container maxWidth='lg'>
+            <Notification notify={notify} setNotify={setNotify} />
+
             <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Payment" : "Edit Payment"}>
                 <PaymentsForm
                     values={values}
                     setValues={setValues}
                     isEditMode={isEditMode}
-                    handleSubmit={handleSubmit} />
+                    handleSubmit={handleSubmit}
+                    loading={loading} />
             </UserDialog>
 
             <DeleteDialog openPopup={deletePopup} handleClose={handleCloseDeletePopup}>
-                <DeleteMenu dataToDelete={dataToDelete} handleClose={handleCloseDeletePopup} handleDelete={handleDelete} />
+                <DeleteMenu dataToDelete={dataToDelete} handleClose={handleCloseDeletePopup} handleDelete={handleDelete} loading={loading} />
 
             </DeleteDialog>
 
@@ -110,7 +118,7 @@ const Payments = () => {
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.XLSXDownloadButton handleDownload={handleDownload} enableEditing={enableEditing} />
+                    <Controls.XLSXDownloadButton handleDownload={handleDownload} enableEditing={enableEditing} page={"payments"} />
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
@@ -141,6 +149,7 @@ const Payments = () => {
                 </Grid>
 
             </Grid >
+
         </Container >
     )
 }
