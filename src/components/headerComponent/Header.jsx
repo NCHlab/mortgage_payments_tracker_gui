@@ -1,6 +1,6 @@
 import useHeader from "./useHeader";
 
-import React from 'react'
+import React, { Fragment } from 'react'
 
 import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem, Link } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -19,7 +19,11 @@ const Header = () => {
         handleCloseMenu,
         handleMenuClick,
         handleNavigate,
-        handleMiddleClick } = useHeader();
+        handleMiddleClick,
+        pageLocator
+    } = useHeader();
+
+
 
     return (
 
@@ -34,6 +38,36 @@ const Header = () => {
                     >
                         Mortgage Payments Tracker
                     </Typography>
+
+
+                    {loggedIn && (
+
+                        <Fragment>
+
+                            <Typography
+                                component="div"
+                                sx={{
+                                    mr: 0, display: { xs: 'none', md: 'flex' }, flexGrow: 0.01,
+                                }}
+                            />
+
+                            <Button
+                                onMouseDown={(e) => handleMiddleClick(e, window.location.pathname)}
+                                onClick={() => window.location.reload()}
+                                sx={{ ...classes.title_page, ':hover': classes.title_page_hover, display: { xs: 'none', md: 'flex' } }}>
+                                {pageLocator()}
+                            </Button>
+
+                            <Typography
+                                component="div"
+                                sx={{
+                                    mr: 0, display: { xs: 'none', md: 'flex' }, flexGrow: 0.7,
+                                }}
+                            />
+
+
+                        </Fragment>
+                    )}
 
                     <Box sx={{ flexGrow: loggedIn ? 0 : 0.01, display: { xs: 'none', md: 'flex' } }}>
                         <Button onMouseDown={(e) => handleMiddleClick(e, '/home')} onClick={() => handleMenuClick('/home')} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
@@ -67,6 +101,8 @@ const Header = () => {
 
                     {loggedIn && (
                         <React.Fragment>
+
+
                             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
 
                                 <Button onClick={(e) => handleNavButtonClick(e)} sx={{

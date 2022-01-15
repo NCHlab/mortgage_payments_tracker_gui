@@ -20,7 +20,25 @@ const useHeader = () => {
         },
         main_menu: {
             my: 2, color: 'white', border: '1px solid transparent', display: 'block'
+        },
+        title_page_hover: {
+            bgcolor: 'gray',
+            color: 'black',
+            border: '1px solid #ffffff',
+        },
+        title_page: {
+            my: 2, color: 'white', border: '1px solid transparent', display: 'block'
         }
+    }
+
+    const PATHNAME_OBJ_MAPPER = {
+        // "/": "Home",
+        "/payments": "MPT Payments",
+        "/payments/all": "MPT All Payments",
+        "/overpayments": "MPT Over Payments",
+        "/overpayments/all": "MPT All Over Payments",
+        "/home_improvements": "MPT Home Improvements",
+        "/home_improvements/all": "MPT All Home Improvements",
     }
 
     const navigate = useNavigate();
@@ -64,6 +82,15 @@ const useHeader = () => {
         }
     }
 
+    const pageLocator = () => {
+        const pageName = PATHNAME_OBJ_MAPPER[`${window.location.pathname}`]
+
+        if (pageName === undefined) {
+            return ""
+        }
+        return pageName
+    }
+
     return {
         classes,
         loggedIn,
@@ -75,7 +102,8 @@ const useHeader = () => {
         handleCloseMenu,
         handleMenuClick,
         handleNavigate,
-        handleMiddleClick
+        handleMiddleClick,
+        pageLocator
     }
 }
 
