@@ -114,11 +114,11 @@ const Payments = () => {
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.XLSXDownloadButton handleDownload={handleDownload} enableEditing={enableEditing} page={"payments"} />
+                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"payments"} />
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.CSVDownloadButton handleDownload={handleDownload} enableEditing={enableEditing} page={"payments"} />
+                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"payments"} />
                 </Grid>
 
                 <Grid item xs={12} pt='5px'>
