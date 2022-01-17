@@ -10,6 +10,7 @@ import Overpayments from './pages/Overpayments'
 import AllOverpayments from './pages/AllOverpayments'
 import HomeImprovements from './pages/HomeImprovements'
 import AllHomeImprovements from './pages/AllHomeImprovements'
+import LogsPage from './pages/LogsPage'
 
 import { useAuth } from './context/AuthContext';
 import { Header } from './components/headerComponent';
@@ -42,6 +43,7 @@ const Router = () => {
                         <Route path="/overpayments/all" element={<AllOverpayments />} />
                         <Route path="/home_improvements" element={<HomeImprovements />} />
                         <Route path="/home_improvements/all" element={<AllHomeImprovements />} />
+                        <Route path="/logs" element={<LogsPage />} />
                         <Route path="*" element={<Navigate to="/404_not_found" />} />
                     </React.Fragment>
 
