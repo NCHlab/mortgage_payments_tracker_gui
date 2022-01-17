@@ -157,6 +157,11 @@ const Header = () => {
                                     <MenuItem component="a" href='/home_improvements'>My Home Improvements</MenuItem>
                                     <MenuItem component="a" href='/home_improvements/all'>My Home Improvements</MenuItem>
                                 </Menu>
+
+                                <Button onMouseDown={(e) => handleMiddleClick(e, '/logs')} onClick={() => handleMenuClick('/logs')}
+                                    sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
+                                    Logs
+                                </Button>
                             </Box>
 
                             <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>

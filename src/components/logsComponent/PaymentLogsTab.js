@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+
 import Checkbox from '@mui/material/Checkbox';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,26 +13,61 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-import { Container, Grid, Typography, TextField } from '@mui/material';
+import { Container, Grid, Typography, TextField, Button } from '@mui/material';
+
+import LogsService from '../../services/LogsService'
+
+
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const PaymentLogsTab = () => {
+
+    const { GetPaymentLogs } = LogsService();
+
+    const [jsonData, setJsonData] = useState({});
+    const [stringifyLines, setStringifyLines] = useState(false)
 
     const ALLOWED_TABLENAMES = ['payments', 'overpayments', 'home_improvements']
     const ALLOWED_STATES = ['INSERT', 'UPDATE', 'DELETE']
     const ALLOWED_EQUALITY = ['less than', 'more than']
 
-    const [tableName, setTableName] = useState('')
-    const [actionState, setActionState] = useState('')
+    const [tableName, setTableName] = useState({
+        payments: false,
+        overpayments: false,
+        home_improvements: false
+    })
+    const [actionState, setActionState] = useState({
+        INSERT: false,
+        UPDATE: false,
+        DELETE: false
+    })
     const [lessThan, setLessThan] = useState(true)
     const [currDate, setCurrDate] = useState(new Date().toISOString())
-    const [limit, setLimit] = useState(10)
+    const [limit, setLimit] = useState(1)
 
 
-    const LimitArray = [5, 10, 20, 30, 40, 50, 100]
+    const LimitArray = [1, 5, 10, 20, 30, 40, 50, 100]
 
 
-    const handleDateChange = (val) => {
-        console.log(val)
+    const handleTableNameChange = (event) => {
+        setTableName({
+            ...tableName,
+            [event.target.name]: event.target.checked,
+        });
+    };
+
+
+    const handleActionStateChange = (event) => {
+        setActionState({
+            ...actionState,
+            [event.target.name]: event.target.checked,
+        });
+    };
+
+
+    const handleDateChange = (newDateVal) => {
+        setCurrDate(newDateVal.toISOString())
     }
 
     const handleLimitChange = (e) => {
@@ -44,6 +82,62 @@ const PaymentLogsTab = () => {
             setLessThan(false)
         }
     }
+
+    const handleSubmitLogs = async () => {
+
+        if (tnameError || actError) {
+            return
+        }
+
+        const query = createQuery()
+
+        const { code, respData } = await GetPaymentLogs(query)
+        if (code === 200) {
+
+            if (!stringifyLines) {
+                for (const element of respData) {
+                    element.log = JSON.parse(element.log)
+                }
+            }
+        }
+        setJsonData(respData)
+    }
+
+    const createQuery = () => {
+
+        const tableNameQuery = parseQuery(tableName)
+        const actionQuery = parseQuery(actionState)
+        const mainQuery = `?tablename=${tableNameQuery}&state=${actionQuery}&less_than=${lessThan}&date=${currDate}&limit=${limit}`
+        return mainQuery
+    }
+
+    const parseQuery = (obj) => {
+        let query_str = ''
+
+        for (const element in obj) {
+            if (obj[element]) {
+                if (query_str === '') {
+                    query_str += element
+                } else {
+                    query_str += "," + element
+                }
+            }
+        }
+
+        return query_str
+    }
+
+    const handleStringify = () => {
+        setStringifyLines(prev => !prev)
+    }
+
+
+    const { payments, overpayments, home_improvements } = tableName;
+    const tnameError = [payments, overpayments, home_improvements].filter((v) => v).length === 0;
+
+    const { INSERT, UPDATE, DELETE } = actionState;
+    const actError = [INSERT, UPDATE, DELETE].filter((v) => v).length === 0;
+
 
     const classes = {
         textfields: {
@@ -71,25 +165,25 @@ const PaymentLogsTab = () => {
             >
 
 
-                <Grid item xs={12} md={3}>
+                <Grid item md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black' }} >
                         Table Name
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item md={2} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black' }}>
                         Action
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black' }}>
                         Equality
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item md={4} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black' }}>
                         {'Date & Limit'}
                     </Typography>
@@ -97,23 +191,53 @@ const PaymentLogsTab = () => {
 
                 <Grid item xs={12} md={3}>
 
-                    <FormGroup>
-                        {ALLOWED_TABLENAMES.map((tname) => {
-                            return <FormControlLabel key={tname} control={<Checkbox />} label={tname.toUpperCase()} />
-                        })}
-                    </FormGroup>
+                    <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black', display: { xs: 'flex', md: 'none' } }} >
+                        Table Name
+                    </Typography>
+
+                    <FormControl
+                        required
+                        error={tnameError}
+                        component="fieldset"
+                        variant="standard"
+                    >
+
+                        <FormGroup>
+                            {ALLOWED_TABLENAMES.map((tname) => {
+                                return <FormControlLabel key={tname} control={<Checkbox name={tname} checked={tableName[`${tname}`]} onChange={handleTableNameChange} />} label={tname.toUpperCase()} />
+                            })}
+                        </FormGroup>
+                        <FormHelperText>At least 1 must be selected</FormHelperText>
+                    </FormControl>
                 </Grid>
 
                 <Grid item xs={12} md={2}>
 
-                    <FormGroup>
-                        {ALLOWED_STATES.map((state) => {
-                            return <FormControlLabel key={state} control={<Checkbox />} label={state} />
-                        })}
-                    </FormGroup>
+                    <FormControl
+                        required
+                        error={actError}
+                        component="fieldset"
+                        variant="standard"
+                    >
+
+                        <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black', display: { xs: 'flex', md: 'none' } }}>
+                            Action
+                        </Typography>
+
+                        <FormGroup>
+                            {ALLOWED_STATES.map((state) => {
+                                return <FormControlLabel key={state} control={<Checkbox name={state} checked={actionState[`${state}`]} onChange={handleActionStateChange} />} label={state} />
+                            })}
+                        </FormGroup>
+                        <FormHelperText>At least 1 must be selected</FormHelperText>
+                    </FormControl>
                 </Grid>
 
                 <Grid item xs={12} md={3}>
+
+                    <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black', display: { xs: 'flex', md: 'none' } }}>
+                        Equality
+                    </Typography>
 
                     <FormGroup>
                         {/* {ALLOWED_EQUALITY.map((value) => {
@@ -139,6 +263,9 @@ const PaymentLogsTab = () => {
                 </Grid>
 
                 <Grid item xs={12} md={3}>
+                    <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black', display: { xs: 'flex', md: 'none' } }}>
+                        {'Date & Limit'}
+                    </Typography>
                     <LocalizationProvider dateAdapter={AdapterDateFns} >
                         <DateTimePicker
                             renderInput={(props) => {
@@ -169,9 +296,46 @@ const PaymentLogsTab = () => {
 
                         {LimitArray.map((num) => <MenuItem key={num} value={num}>{num}</MenuItem>)}
 
-
                     </Select>
+                </Grid>
 
+                <Grid item xs={12} md={3}>
+                    <Button
+                        disabled={tnameError || actError}
+                        variant="contained"
+                        onClick={handleSubmitLogs}
+                        sx={{
+                            my: 1, color: '#dedede', border: '2px solid #000000', backgroundImage: tnameError || actError ? 'gray' : 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))',
+                            ':hover': {
+                                backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
+                                color: '#36c9ff',
+                                border: '2px solid #000000'
+                            }
+                        }}> Submit
+                    </Button>
+
+                </Grid>
+
+                <Grid item xs={12} md={9}>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={stringifyLines} onChange={handleStringify} name={'LogfieldStringify'} />}
+                            label={'Log field as string (reduces lines)'} />
+                    </FormGroup>
+
+                </Grid>
+
+                <Grid item xs={12} md={12}>
+
+                    <SyntaxHighlighter
+                        language="json"
+                        wrapLines={true}
+                        style={docco}
+                        showLineNumbers={true}
+                    >
+                        {JSON.stringify(jsonData, null, 2)}
+                    </SyntaxHighlighter>
                 </Grid>
 
 
