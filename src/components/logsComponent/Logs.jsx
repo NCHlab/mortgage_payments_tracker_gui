@@ -8,7 +8,7 @@ import { Container, Box } from '@mui/material'
 
 
 import PaymentLogsTab from './PaymentLogsTab'
-
+import LoginLogsTab from './LoginLogsTab'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -52,7 +52,10 @@ const Logs = () => {
                         </TabPanel>
 
 
-                        <TabPanel value="2">Login Logs</TabPanel>
+                        <TabPanel value="2">
+                            <LoginLogsTab />
+                        </TabPanel>
+
                         {/* </Container> */}
                     </TabContext>
                 </Box>

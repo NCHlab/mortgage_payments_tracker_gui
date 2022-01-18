@@ -13,41 +13,61 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-import { Container, Grid, Typography, TextField, Button } from '@mui/material';
+import { Grid, Typography, TextField, Button } from '@mui/material';
 
 import LogsService from '../../services/LogsService'
 
-
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { anOldHope, github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const PaymentLogsTab = () => {
 
-    const { GetPaymentLogs } = LogsService();
+    const classes = {
+        textfields: {
+            '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                    borderColor: 'grey',
+                },
+                '&:hover fieldset': {
+                    borderColor: 'black',
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: '#6b0606',
+                },
+            },
+        }
+    }
 
-    const [jsonData, setJsonData] = useState({});
-    const [stringifyLines, setStringifyLines] = useState(false)
+    const { GetPaymentLogs } = LogsService();
 
     const ALLOWED_TABLENAMES = ['payments', 'overpayments', 'home_improvements']
     const ALLOWED_STATES = ['INSERT', 'UPDATE', 'DELETE']
-    const ALLOWED_EQUALITY = ['less than', 'more than']
+    const LimitArray = [1, 5, 10, 20, 30, 40, 50, 100]
 
     const [tableName, setTableName] = useState({
         payments: false,
         overpayments: false,
         home_improvements: false
     })
+
     const [actionState, setActionState] = useState({
         INSERT: false,
         UPDATE: false,
         DELETE: false
     })
+
     const [lessThan, setLessThan] = useState(true)
     const [currDate, setCurrDate] = useState(new Date().toISOString())
-    const [limit, setLimit] = useState(1)
+    const [limit, setLimit] = useState(5)
+    const [jsonData, setJsonData] = useState({});
+    const [stringifyLines, setStringifyLines] = useState(false)
+    const [useDark, setUseDark] = useState(true)
 
+    const { payments, overpayments, home_improvements } = tableName;
+    const tnameError = [payments, overpayments, home_improvements].filter((v) => v).length === 0;
 
-    const LimitArray = [1, 5, 10, 20, 30, 40, 50, 100]
+    const { INSERT, UPDATE, DELETE } = actionState;
+    const actError = [INSERT, UPDATE, DELETE].filter((v) => v).length === 0;
 
 
     const handleTableNameChange = (event) => {
@@ -57,14 +77,12 @@ const PaymentLogsTab = () => {
         });
     };
 
-
     const handleActionStateChange = (event) => {
         setActionState({
             ...actionState,
             [event.target.name]: event.target.checked,
         });
     };
-
 
     const handleDateChange = (newDateVal) => {
         setCurrDate(newDateVal.toISOString())
@@ -75,7 +93,6 @@ const PaymentLogsTab = () => {
     }
 
     const handleEQChange = (e) => {
-        console.log(e.target.name)
         if (e.target.name === "less than") {
             setLessThan(true)
         } else {
@@ -84,16 +101,13 @@ const PaymentLogsTab = () => {
     }
 
     const handleSubmitLogs = async () => {
-
         if (tnameError || actError) {
             return
         }
 
         const query = createQuery()
-
         const { code, respData } = await GetPaymentLogs(query)
         if (code === 200) {
-
             if (!stringifyLines) {
                 for (const element of respData) {
                     element.log = JSON.parse(element.log)
@@ -123,38 +137,12 @@ const PaymentLogsTab = () => {
                 }
             }
         }
-
         return query_str
     }
 
     const handleStringify = () => {
         setStringifyLines(prev => !prev)
     }
-
-
-    const { payments, overpayments, home_improvements } = tableName;
-    const tnameError = [payments, overpayments, home_improvements].filter((v) => v).length === 0;
-
-    const { INSERT, UPDATE, DELETE } = actionState;
-    const actError = [INSERT, UPDATE, DELETE].filter((v) => v).length === 0;
-
-
-    const classes = {
-        textfields: {
-            '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                    borderColor: 'grey',
-                },
-                '&:hover fieldset': {
-                    borderColor: 'black',
-                },
-                '&.Mui-focused fieldset': {
-                    borderColor: '#6b0606',
-                },
-            },
-        }
-    }
-
 
     return (
         <React.Fragment>
@@ -240,25 +228,15 @@ const PaymentLogsTab = () => {
                     </Typography>
 
                     <FormGroup>
-                        {/* {ALLOWED_EQUALITY.map((value) => {
-                            return (
-                                <FormControlLabel key={value}
-                                    control={
-                                        <Checkbox checked={lessThan} onChange={handleEQChange} name={value} />}
-                                    label={value.toUpperCase()} />
-                            )
-
-
-                        })} */}
                         <FormControlLabel
                             control={
                                 <Checkbox checked={lessThan === true} onChange={handleEQChange} name={'less than'} />}
-                            label={'less than'.toUpperCase()} />
+                            label={'Before (date)'.toUpperCase()} />
 
                         <FormControlLabel
                             control={
                                 <Checkbox checked={lessThan === false} onChange={handleEQChange} name={'more than'} />}
-                            label={'more than'.toUpperCase()} />
+                            label={'After (date)'.toUpperCase()} />
                     </FormGroup>
                 </Grid>
 
@@ -316,12 +294,21 @@ const PaymentLogsTab = () => {
 
                 </Grid>
 
-                <Grid item xs={12} md={9}>
+                <Grid item xs={12} md={5}>
                     <FormGroup>
                         <FormControlLabel
                             control={
                                 <Checkbox checked={stringifyLines} onChange={handleStringify} name={'LogfieldStringify'} />}
                             label={'Log field as string (reduces lines)'} />
+                    </FormGroup>
+
+                </Grid>
+                <Grid item xs={12} md={4}>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={useDark} onChange={() => { setUseDark(prev => !prev) }} name={'JsonDarkMode'} />}
+                            label={'JSON Dark Mode'} />
                     </FormGroup>
 
                 </Grid>
@@ -331,7 +318,7 @@ const PaymentLogsTab = () => {
                     <SyntaxHighlighter
                         language="json"
                         wrapLines={true}
-                        style={docco}
+                        style={useDark ? anOldHope : github}
                         showLineNumbers={true}
                     >
                         {JSON.stringify(jsonData, null, 2)}
