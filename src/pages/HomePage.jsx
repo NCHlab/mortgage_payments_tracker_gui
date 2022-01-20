@@ -14,7 +14,6 @@ const HomePage = () => {
         async function fetchLogin() {
             const code = await get_login()
             setResCode(code)
-            console.log(code)
         }
 
         fetchLogin()

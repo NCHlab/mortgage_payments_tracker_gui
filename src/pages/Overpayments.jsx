@@ -1,9 +1,9 @@
-import React from 'react'
+import OverPayments from '../components/overpaymentsComponent/OverPayments'
 
 const Overpayments = () => {
     return (
         <div>
-            Overpayments
+            <OverPayments />
 
         </div>
     )

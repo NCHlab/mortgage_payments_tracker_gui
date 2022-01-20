@@ -35,7 +35,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     );
 });
 
-const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading }) => {
+const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading, isOverpayment }) => {
 
     const classes = {
         textfields: {
@@ -130,7 +130,7 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading }) 
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={!isOverpayment ? 6 : 12}>
                         <LocalizationProvider dateAdapter={AdapterDateFns} >
                             <DateTimePicker
                                 renderInput={(props) => {
@@ -150,28 +150,31 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading }) 
                         </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        <TextField
-                            sx={{ ...classes.textfields, width: '262px' }}
-                            select
-                            required
-                            color="secondary"
-                            margin="normal"
-                            id="from_tenant"
-                            label="From Tenant"
-                            value={values.from_tenant}
-                            onChange={(e) => { handleChange(e, "from_tenant") }}
-                        >
+                    {!isOverpayment && (
 
-                            <MenuItem key="yesTenant" value={true}>
-                                Yes
-                            </MenuItem>
-                            <MenuItem key="noTenant" value={false}>
-                                No
-                            </MenuItem>
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                sx={{ ...classes.textfields, width: '262px' }}
+                                select
+                                required
+                                color="secondary"
+                                margin="normal"
+                                id="from_tenant"
+                                label="From Tenant"
+                                value={values.from_tenant}
+                                onChange={(e) => { handleChange(e, "from_tenant") }}
+                            >
 
-                        </TextField>
-                    </Grid>
+                                <MenuItem key="yesTenant" value={true}>
+                                    Yes
+                                </MenuItem>
+                                <MenuItem key="noTenant" value={false}>
+                                    No
+                                </MenuItem>
+
+                            </TextField>
+                        </Grid>
+                    )}
 
                     <Grid item xs={12} md={3.5}>
                         <LoadingButton

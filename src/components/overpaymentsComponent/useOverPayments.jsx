@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import PaymentsService from '../../services/PaymentsService'
 import DownloaderService from '../../services/DownloaderService';
-import { COLUMNS } from '../generic/columns'
+import { COLUMNS } from '../generic/columns2'
 
 const initialValues = {
     id: -1,
@@ -13,7 +13,7 @@ const initialValues = {
 }
 
 
-const usePayments = () => {
+const useOverPayments = () => {
 
     const [tableData, setTableData] = useState(() => [])
     const [fetchNewData, setfetchNewData] = useState(false)
@@ -32,7 +32,7 @@ const usePayments = () => {
 
     useEffect(() => {
         (async () => {
-            const { data } = await UserPaymentInfo('payments')
+            const { data } = await UserPaymentInfo('overpayments')
             setTableData(data)
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +68,7 @@ const usePayments = () => {
         setLoading(true)
         await sleep(750);
 
-        const { code, respData } = await DeletePayment('payments', dataToDelete.id)
+        const { code, respData } = await DeletePayment('overpayments', dataToDelete.id)
 
         if (code === 204) {
             setfetchNewData(prev => !prev)
@@ -155,7 +155,7 @@ const usePayments = () => {
 
         values.paid = parseFloat(values.paid)
 
-        const { code, respData } = await AddPayment('payments', values)
+        const { code, respData } = await AddPayment('overpayments', values)
 
         if (code === 201) {
             const newData = [...tableData, respData]
@@ -181,7 +181,7 @@ const usePayments = () => {
 
         values.paid = parseFloat(values.paid)
 
-        const { code, respData } = await UpdatePayment('payments', values)
+        const { code, respData } = await UpdatePayment('overpayments', values)
 
         if (code === 204) {
             // Fetch New Data to update table
@@ -250,4 +250,4 @@ const usePayments = () => {
     }
 }
 
-export default usePayments
+export default useOverPayments

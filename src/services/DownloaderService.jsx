@@ -10,23 +10,17 @@ const DownloaderService = () => {
             const headers = { 'Content-Type': 'blob' };
             const response = await _axios.get(`/download/${page}`, { responseType: 'arraybuffer' }, headers)
 
-
-
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             const curr_date = new Date();
             const date = format(parseISO(curr_date.toISOString()), "dd-MM-yyyy")
             link.href = url;
-            link.setAttribute('download', `Payments-${date}.xlsx`);
+            link.setAttribute('download', `${page}-${date}.xlsx`);
             document.body.appendChild(link);
             link.click();
 
         } catch (error) {
-
-            // console.log(error)
-
             return error.response.statusText
-
         }
     }
 
@@ -42,12 +36,12 @@ const DownloaderService = () => {
             const curr_date = new Date();
             const date = format(parseISO(curr_date.toISOString()), "dd-MM-yyyy")
             link.href = url;
-            link.setAttribute('download', `Payments-${date}.csv`);
+            link.setAttribute('download', `${page}-${date}.csv`);
             document.body.appendChild(link);
             link.click();
 
         } catch (error) {
-
+            return error.response.statusText
         }
     }
 

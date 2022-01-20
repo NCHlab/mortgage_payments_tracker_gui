@@ -2,18 +2,16 @@ import _axios from './httpService'
 
 
 const get_error = (error) => {
-
     try {
         console.log(error.response.statusText)
     } catch {
         console.log(error)
     }
-
 }
 
 const PaymentsService = () => {
 
-    const UserPaymentInfo = async () => {
+    const UserPaymentInfo = async (endpoint) => {
 
         const date = new Date();
 
@@ -21,7 +19,7 @@ const PaymentsService = () => {
         let data = [{ id: 1, user_id: "ERROR", paid: 0, reason: "Error Connecting To API", date: date.toISOString(), from_tenant: false }]
 
         try {
-            const response = await _axios.get('/payments')
+            const response = await _axios.get(`/${endpoint}`)
             if (response.status === 200) {
                 code = 200
                 data = response.data
@@ -39,13 +37,13 @@ const PaymentsService = () => {
         return { code, data }
     };
 
-    const AddPayment = async (reqData) => {
+    const AddPayment = async (endpoint, reqData) => {
 
         let code
         let respData
 
         try {
-            const response = await _axios.post('/payments', { ...reqData })
+            const response = await _axios.post(`/${endpoint}`, { ...reqData })
             code = 201
             respData = response.data
 
@@ -59,12 +57,12 @@ const PaymentsService = () => {
     }
 
 
-    const UpdatePayment = async (reqData) => {
+    const UpdatePayment = async (endpoint, reqData) => {
         let code
         let respData
 
         try {
-            const response = await _axios.put('/payments', { ...reqData })
+            const response = await _axios.put(`/${endpoint}`, { ...reqData })
             code = 204
             respData = { message: response.statusText }
 
@@ -77,13 +75,13 @@ const PaymentsService = () => {
 
     }
 
-    const DeletePayment = async (id) => {
+    const DeletePayment = async (endpoint, id) => {
 
         let code
         let respData
 
         try {
-            const response = await _axios.delete(`/payments/${id}`)
+            const response = await _axios.delete(`/${endpoint}/${id}`)
             code = 204
             respData = { message: response.statusText }
 
