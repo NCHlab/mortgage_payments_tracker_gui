@@ -4,7 +4,7 @@ import { useTable } from 'react-table'
 import { Container, Grid, Typography } from '@mui/material';
 import { Table } from '@mui/material';
 
-import useOverPayments from './useOverPayments'
+import useHomeImprovements from './useHomeImprovements'
 import PaymentsForm from '../UIComponents/PaymentsForm'
 import UserDialog from '../UIComponents/UserDialog'
 import Controls from '../controls'
@@ -18,7 +18,7 @@ import DeleteMenu from '../UIComponents/DeleteMenu';
 
 import Notification from '../UIComponents/Notification';
 
-const OverPayments = () => {
+const HomeImprovements = () => {
 
     const { tableData,
         COLUMNS,
@@ -45,7 +45,7 @@ const OverPayments = () => {
         handleClearForm,
         SXValuesTableHead,
         SXValuesTableBody
-    } = useOverPayments();
+    } = useHomeImprovements();
 
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
@@ -65,14 +65,16 @@ const OverPayments = () => {
         <Container maxWidth='lg'>
             <Notification notify={notify} setNotify={setNotify} />
 
-            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Over Payment" : "Edit Over Payment"}>
+            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Home Improvement Payment" : "Edit Home Improvement Payment"}>
                 <PaymentsForm
                     values={values}
                     setValues={setValues}
                     handleClearForm={handleClearForm}
                     handleSubmit={handleSubmit}
                     loading={loading}
-                    isSinglePayment={false} />
+                    isSinglePayment={false}
+                    isHomeImprov={true}
+                />
             </UserDialog>
 
             <DeleteDialog openPopup={deletePopup} handleClose={handleCloseDeletePopup}>
@@ -99,11 +101,11 @@ const OverPayments = () => {
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"overpayments"} />
+                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"home_improvements"} />
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"overpayments"} />
+                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"home_improvements"} />
                 </Grid>
 
                 <Grid item xs={12} pt='5px'>
@@ -135,4 +137,4 @@ const OverPayments = () => {
     )
 }
 
-export default OverPayments
+export default HomeImprovements;

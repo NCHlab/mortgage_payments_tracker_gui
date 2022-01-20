@@ -1,9 +1,9 @@
-import React from 'react'
+import HomeImprovementsP from '../components/homeImprovementsComponent/HomeImprovements'
 
 const HomeImprovements = () => {
     return (
         <div>
-            HomeImprovements
+            <HomeImprovementsP />
 
         </div>
     )

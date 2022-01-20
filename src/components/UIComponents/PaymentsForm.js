@@ -35,7 +35,7 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     );
 });
 
-const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading, isOverpayment }) => {
+const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loading, isSinglePayment, isHomeImprov }) => {
 
     const classes = {
         textfields: {
@@ -65,25 +65,7 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading, is
         setValues({ ...values, date: newDateVal });
     }
 
-    const handleClearForm = () => {
-        if (isEditMode) {
-            setValues({
-                ...values,
-                paid: '',
-                reason: '',
-                date: new Date().toISOString(),
-                from_tenant: ''
-            })
-        } else {
-            setValues({
-                id: -1,
-                paid: '',
-                reason: '',
-                date: new Date().toISOString(),
-                from_tenant: ''
-            })
-        }
-    }
+
 
     return (
         <React.Fragment>
@@ -130,7 +112,7 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading, is
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={!isOverpayment ? 6 : 12}>
+                    <Grid item xs={12} md={isSinglePayment ? 6 : isHomeImprov ? 6 : 12}>
                         <LocalizationProvider dateAdapter={AdapterDateFns} >
                             <DateTimePicker
                                 renderInput={(props) => {
@@ -150,7 +132,7 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading, is
                         </LocalizationProvider>
                     </Grid>
 
-                    {!isOverpayment && (
+                    {isSinglePayment && (
 
                         <Grid item xs={12} md={6}>
                             <TextField
@@ -175,6 +157,35 @@ const PaymentsForm = ({ values, setValues, isEditMode, handleSubmit, loading, is
                             </TextField>
                         </Grid>
                     )}
+
+                    {isHomeImprov && (
+
+                        <Grid item xs={12} md={6}>
+                            <TextField
+                                sx={{ ...classes.textfields, width: '262px' }}
+                                select
+                                required
+                                color="secondary"
+                                margin="normal"
+                                id="chargeable"
+                                label="Chargeable"
+                                value={values.chargeable}
+                                onChange={(e) => { handleChange(e, "chargeable") }}
+                            >
+
+                                <MenuItem key="yesChargeable" value={true}>
+                                    Yes
+                                </MenuItem>
+                                <MenuItem key="noChargeable" value={false}>
+                                    No
+                                </MenuItem>
+
+                            </TextField>
+                        </Grid>
+
+                    )}
+
+
 
                     <Grid item xs={12} md={3.5}>
                         <LoadingButton

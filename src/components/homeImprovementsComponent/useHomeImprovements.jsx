@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { COLUMNS } from '../generic/OverPaymentsColumns'
+import { COLUMNS } from '../generic/HomeImprovementColumns'
 import CoreLogic from '../coreComponent/CoreLogic'
 
 const initialValues = {
@@ -8,6 +8,7 @@ const initialValues = {
     paid: '',
     reason: '',
     date: new Date().toISOString(),
+    chargeable: '',
 }
 
 const useOverPayments = () => {
@@ -43,7 +44,7 @@ const useOverPayments = () => {
 
     useEffect(() => {
         (async () => {
-            await manageGetInfo('overpayments')
+            await manageGetInfo('home_improvements')
         })();
 
         setValues(initialValues)
@@ -57,6 +58,7 @@ const useOverPayments = () => {
                 paid: '',
                 reason: '',
                 date: new Date().toISOString(),
+                chargeable: '',
             })
         } else {
             setValues({
@@ -64,6 +66,7 @@ const useOverPayments = () => {
                 paid: '',
                 reason: '',
                 date: new Date().toISOString(),
+                chargeable: '',
             })
         }
     }
@@ -75,15 +78,15 @@ const useOverPayments = () => {
     }
 
     const handleDelete = async () => {
-        await manageDelete('overpayments')
+        await manageDelete('home_improvements')
     }
 
     const handleAddPayment = async () => {
-        await manageAddPayment('overpayments', 'Over Payment')
+        await manageAddPayment('home_improvements', 'Home Improvement Payment')
     }
 
     const handleUpdate = async () => {
-        await manageUpdatePayment('overpayments', 'Over Payment')
+        await manageUpdatePayment('home_improvements', 'Home Improvement Payment')
     }
 
     const handleSubmit = async (event) => {
@@ -107,8 +110,8 @@ const useOverPayments = () => {
     }
 
     const SXValuesTableHead = {
-        borderBottom: 'solid 5px #00c7d1',
-        background: '#000080',
+        borderBottom: 'solid 5px #3dff7e',
+        background: '#128500',
         // background: 'linear-gradient(to right, #000080, #0000a8)',
         color: 'white',
         fontWeight: 'bold'

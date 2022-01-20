@@ -41,7 +41,10 @@ const Payments = () => {
         handleDelete,
         notify,
         setNotify,
-        loading
+        loading,
+        handleClearForm,
+        SXValuesTableHead,
+        SXValuesTableBody
     } = usePayments();
 
     const data = React.useMemo(() => tableData, [tableData])
@@ -56,26 +59,7 @@ const Payments = () => {
         prepareRow,
     } = useTable({ columns, data })
 
-    const SXValuesTableHead = {
-        borderBottom: 'solid 3px #970b00',
-        background: '#b50d00',
-        color: 'white',
-        fontWeight: 'bold'
-    }
 
-    const SXValuesTableBody = (i) => {
-
-        return {
-            width: '200px',
-            padding: '5px',
-            // border: 'solid 1px gray',
-            borderLeft: '1px dotted #000',
-            backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
-            '&:hover': {
-                backgroundColor: '#fffbf2',
-            }
-        }
-    }
 
     return (
         <Container maxWidth='lg'>
@@ -85,9 +69,10 @@ const Payments = () => {
                 <PaymentsForm
                     values={values}
                     setValues={setValues}
-                    isEditMode={isEditMode}
+                    handleClearForm={handleClearForm}
                     handleSubmit={handleSubmit}
-                    loading={loading} />
+                    loading={loading}
+                    isSinglePayment={true} />
             </UserDialog>
 
             <DeleteDialog openPopup={deletePopup} handleClose={handleCloseDeletePopup}>

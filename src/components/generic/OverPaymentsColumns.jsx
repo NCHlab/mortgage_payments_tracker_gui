@@ -1,9 +1,5 @@
 import React from 'react';
 import { parseISO, format } from 'date-fns'
-import { Grid } from '@mui/material';
-
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
 import { numberFormat } from './utils'
 
@@ -55,5 +51,4 @@ export const COLUMNS = [
             return <div style={{ textAlign: "center" }}>{custom_date}</div>
         }
     },
-
 ]
