@@ -17,10 +17,14 @@ import '../../styles/table.css';
 import { DefaultColumnFilter } from '../tableComponent/filters/DefaultFilter'
 import { numberFormat } from '../generic/utils'
 
-import TablePaginationActions from '../tableComponent/TablePagination'
-import TablePagination from '@mui/material/TablePagination'
+// import TablePaginationActions from '../tableComponent/pagination/TablePaginationActions'
+// import TablePagination from '@mui/material/TablePagination'
+
+import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination'
 
 import { TableRow } from '@mui/material';
+import CautionInfoTypography from '../generic/CautionInfoTypography'
+import SelectedTotals from '../tableComponent/SelectedTotals';
 
 const IndeterminateCheckbox = React.forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -77,13 +81,11 @@ const AllPayments = () => {
     const handleChangeRowsPerPage = event => {
         setPageSize(Number(event.target.value))
     }
-    const customlabelDisplayedRows = ({ from, to, count }) => {
-        return `Page ${pageIndex + 1} of ${pageCount}`
-    }
 
-    // function defaultlabelDisplayedRows({ from, to, count }) {
-    //     return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
+    // const customlabelDisplayedRows = () => {
+    //     return `Page ${pageIndex + 1} of ${pageCount}`
     // }
+
 
     const {
         getTableProps,
@@ -112,18 +114,6 @@ const AllPayments = () => {
                 {
                     id: 'selection',
                     width: '10px',
-                    // The header can use the table's getToggleAllRowsSelectedProps method
-                    // to render a checkbox.  Pagination is a problem since this will select all
-                    // rows even though not all rows are on the current page.  The solution should
-                    // be server side pagination.  For one, the clients should not download all
-                    // rows in most cases.  The client should only download data for the current page.
-                    // In that case, getToggleAllRowsSelectedProps works fine.
-
-                    // Header: ({ getToggleAllRowsSelectedProps }) => (
-                    //     <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} sx={{ padding: 0 }} />
-                    // ),
-                    // The cell can use the individual row's getToggleRowSelectedProps method
-                    // to the render a checkbox
                     Cell: ({ row }) => (
                         <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} sx={{
                             pb: 0, pt: 0, color: '#f37575a4', '&.Mui-checked': {
@@ -131,8 +121,6 @@ const AllPayments = () => {
                             }
                         }} />
                     ),
-
-
                 },
                 ...columns,
             ])
@@ -143,8 +131,6 @@ const AllPayments = () => {
     return (
         <Container maxWidth='lg'>
             <Notification notify={notify} setNotify={setNotify} />
-
-
 
             <Grid container
                 direction="row"
@@ -176,85 +162,29 @@ const AllPayments = () => {
 
                         <MptTableFooter footerGroups={footerGroups} extraActions={false} >
                             <TableRow sx={{ backgroundColor: '#fff' }}>
-                                <TablePagination
-
-                                    rowsPerPageOptions={[
-                                        5,
-                                        25,
-                                        50,
-                                        100,
-                                        200,
-                                        { label: 'All', value: data.length },
-                                    ]}
+                                <EnhancedPagination
                                     colSpan={7}
-                                    count={data.length}
-                                    rowsPerPage={pageSize}
-                                    page={pageIndex}
-                                    labelDisplayedRows={customlabelDisplayedRows}
-                                    nextIconButtonProps={{
-                                        color: 'secondary',
-                                        size: 'large'
-                                    }}
-                                    SelectProps={{
-                                        sx: { border: '1px solid gray' },
-                                        inputProps: { 'aria-label': 'rows per page' },
-                                        native: false,
-                                    }}
-                                    onPageChange={handleChangePage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                    ActionsComponent={TablePaginationActions}
+                                    dataLength={data.length}
+                                    pageSize={pageSize}
+                                    pageIndex={pageIndex}
+                                    gotoPage={gotoPage}
+                                    setPageSize={setPageSize}
+                                    pageCount={pageCount}
                                 />
                             </TableRow>
-
-
                         </MptTableFooter>
                     </Table>
                 </Grid>
 
                 {Object.keys(selectedRowIds).length !== 0 && (
-
-                    <Grid item xs={12}>
-                        <Card elevation={12} sx={{ height: '50px' }}>
-                            <CardContent sx={{ fontWeight: 'bold' }}>
-                                Total Selected: {handleSelectedRows(selectedFlatRows)}
-                            </CardContent>
-
-                        </Card>
-                    </Grid>
+                    <SelectedTotals
+                        handleSelectedRows={handleSelectedRows}
+                        selectedFlatRows={selectedFlatRows} />
                 )}
 
-                {/* <Grid item xs={12}>
-                    <Button onClick={() => gotoPage(0)}>First page</Button>
-                    <Button onClick={previousPage}>Prev page</Button>
-                    <Button onClick={nextPage}>Next page</Button>
-                    <Button onClick={() => gotoPage(pageCount - 1)}>Last page</Button>
-                </Grid> */}
-                {/* 
                 <Grid item xs={12}>
-                    <TablePaginationActions
-                        gotoPage={gotoPage}
-                        pageCount={pageCount}
-                        previousPage={previousPage}
-                        nextPage={nextPage}
-                        pageSize={pageSize}
-                        setPageSize={setPageSize}
-                    />
-
-
-                </Grid> */}
-
-                <Grid item xs={12}>
-                    <Typography component='div' sx={{ color: '#c71616', fontSize: '14px' }}>
-
-                        *Total shows all data, ignores pagination. Select Rows for specific Total
-                    </Typography>
+                    <CautionInfoTypography />
                 </Grid>
-
-
-
-
-
-
 
             </Grid >
         </Container >
