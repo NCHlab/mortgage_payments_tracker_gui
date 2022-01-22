@@ -1,6 +1,6 @@
 import React from 'react';
 import { parseISO, format } from 'date-fns'
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
@@ -43,7 +43,7 @@ export const COLUMNS = [
                 [props.rows]
             )
 
-            return <div style={{ textAlign: "center" }}>{numberFormat(total)}</div>
+            return <div style={{ textAlign: "center" }}>{numberFormat(total)}<span style={{ color: 'red' }}>*</span></div>
         },
         Filter: NumberRangeColumnFilter,
         filter: 'between',
@@ -55,7 +55,8 @@ export const COLUMNS = [
         Header: 'Reason',
         accessor: 'reason',
         width: 300,
-        disableFilters: true
+        disableFilters: true,
+        // Footer: info => <div style={{ textAlign: "center", color: 'red' }}>*<span style={{ color: '#c71616' }}>Total for All Data</span></div>
     },
     {
         Header: 'Date',

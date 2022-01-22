@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useRowSelect } from 'react-table'
+import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useRowSelect, usePagination } from 'react-table'
 
-import { Container, Grid, Typography, TextField, Checkbox, Card, CardHeader, CardContent } from '@mui/material';
+import { Container, Grid, Typography, TextField, Checkbox, Card, CardHeader, CardContent, Button } from '@mui/material';
 import { Table } from '@mui/material';
 
 import useAllPayments from './useAllPayments'
@@ -16,6 +16,11 @@ import '../../styles/table.css';
 
 import { DefaultColumnFilter } from '../tableComponent/filters/DefaultFilter'
 import { numberFormat } from '../generic/utils'
+
+import TablePaginationActions from '../tableComponent/TablePagination'
+import TablePagination from '@mui/material/TablePagination'
+
+import { TableRow } from '@mui/material';
 
 const IndeterminateCheckbox = React.forwardRef(
     ({ indeterminate, ...rest }, ref) => {
@@ -65,18 +70,41 @@ const AllPayments = () => {
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
 
+    const handleChangePage = (event, newPage) => {
+        gotoPage(newPage)
+    }
+
+    const handleChangeRowsPerPage = event => {
+        setPageSize(Number(event.target.value))
+    }
+    const customlabelDisplayedRows = ({ from, to, count }) => {
+        return `Page ${pageIndex + 1} of ${pageCount}`
+    }
+
+    // function defaultlabelDisplayedRows({ from, to, count }) {
+    //     return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
+    // }
+
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
+        // rows,
+        page,
         footerGroups,
         prepareRow,
         selectedFlatRows,
-        state: { selectedRowIds },
-    } = useTable({ columns, data, defaultColumn },
+        gotoPage,
+        nextPage,
+        previousPage,
+        pageCount,
+        pageOptions,
+        setPageSize,
+        state: { pageIndex, pageSize, selectedRowIds },
+    } = useTable({ columns, data, defaultColumn, initialState: { pageIndex: 0, pageSize: 50 } },
         useFilters,
         useGlobalFilter,
+        usePagination,
         useRowSelect,
         hooks => {
             hooks.allColumns.push(columns => [
@@ -139,7 +167,7 @@ const AllPayments = () => {
 
                         <MptTableBodyComplex
                             getTableBodyProps={getTableBodyProps}
-                            rows={rows}
+                            page={page}
                             prepareRow={prepareRow}
                             isEven={isEven}
                             sxValues={SXValuesTableBody}
@@ -147,6 +175,37 @@ const AllPayments = () => {
                         />
 
                         <MptTableFooter footerGroups={footerGroups} extraActions={false} >
+                            <TableRow sx={{ backgroundColor: '#fff' }}>
+                                <TablePagination
+
+                                    rowsPerPageOptions={[
+                                        5,
+                                        25,
+                                        50,
+                                        100,
+                                        200,
+                                        { label: 'All', value: data.length },
+                                    ]}
+                                    colSpan={7}
+                                    count={data.length}
+                                    rowsPerPage={pageSize}
+                                    page={pageIndex}
+                                    labelDisplayedRows={customlabelDisplayedRows}
+                                    nextIconButtonProps={{
+                                        color: 'secondary',
+                                        size: 'large'
+                                    }}
+                                    SelectProps={{
+                                        sx: { border: '1px solid gray' },
+                                        inputProps: { 'aria-label': 'rows per page' },
+                                        native: false,
+                                    }}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                    ActionsComponent={TablePaginationActions}
+                                />
+                            </TableRow>
+
 
                         </MptTableFooter>
                     </Table>
@@ -163,6 +222,39 @@ const AllPayments = () => {
                         </Card>
                     </Grid>
                 )}
+
+                {/* <Grid item xs={12}>
+                    <Button onClick={() => gotoPage(0)}>First page</Button>
+                    <Button onClick={previousPage}>Prev page</Button>
+                    <Button onClick={nextPage}>Next page</Button>
+                    <Button onClick={() => gotoPage(pageCount - 1)}>Last page</Button>
+                </Grid> */}
+                {/* 
+                <Grid item xs={12}>
+                    <TablePaginationActions
+                        gotoPage={gotoPage}
+                        pageCount={pageCount}
+                        previousPage={previousPage}
+                        nextPage={nextPage}
+                        pageSize={pageSize}
+                        setPageSize={setPageSize}
+                    />
+
+
+                </Grid> */}
+
+                <Grid item xs={12}>
+                    <Typography component='div' sx={{ color: '#c71616', fontSize: '14px' }}>
+
+                        *Total shows all data, ignores pagination. Select Rows for specific Total
+                    </Typography>
+                </Grid>
+
+
+
+
+
+
 
             </Grid >
         </Container >

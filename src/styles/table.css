@@ -2,3 +2,22 @@
     width: 92px;
   }
   
+
+.MuiTablePagination-displayedRows {
+  margin-left: 350px;
+  margin-right: 350px;
+
+  @media (max-width: 768px) {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+}
+
+
+/* .MuiTablePagination-displayedRows {
+  margin-right: 200px;
+
+  @media (min-width: 768px) {
+    margin-right: 5px;
+  }
+} */

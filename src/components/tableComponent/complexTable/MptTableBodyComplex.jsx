@@ -9,12 +9,12 @@ import { Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const MptTableBody = ({ getTableBodyProps, rows, prepareRow, isEven, sxValues, enableEditing, handleEditing, extraActions, handleOpenDeletePopup }) => {
+const MptTableBody = ({ getTableBodyProps, page, prepareRow, isEven, sxValues, enableEditing, handleEditing, extraActions, handleOpenDeletePopup }) => {
 
 
     return (
         <TableBody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {page.map((row, i) => {
                 prepareRow(row)
                 return (
                     <TableRow {...row.getRowProps()}
