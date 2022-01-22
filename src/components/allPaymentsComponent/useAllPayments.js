@@ -11,7 +11,7 @@ const initialValues = {
     from_tenant: '',
 }
 
-const usePayments = () => {
+const useAllPayments = () => {
 
     const { tableData,
         values,
@@ -44,7 +44,7 @@ const usePayments = () => {
 
     useEffect(() => {
         (async () => {
-            await manageGetInfo('payments')
+            await manageGetInfo('payments/all')
         })();
 
         setValues(initialValues)
@@ -160,4 +160,4 @@ const usePayments = () => {
     }
 }
 
-export default usePayments
+export default useAllPayments

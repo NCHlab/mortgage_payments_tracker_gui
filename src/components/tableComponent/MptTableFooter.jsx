@@ -2,7 +2,8 @@ import { TableRow } from '@mui/material';
 import { TableFooter } from '@mui/material';
 import { TableCell } from '@mui/material';
 
-const MptTableFooter = ({ footerGroups, extraActions }) => {
+
+const MptTableFooter = ({ footerGroups, extraActions, children }) => {
     return (
         <TableFooter >
             {footerGroups.map((group, i) => (
@@ -36,6 +37,10 @@ const MptTableFooter = ({ footerGroups, extraActions }) => {
                     )}
                 </TableRow>
             ))}
+
+            {children}
+
+
 
 
         </TableFooter>

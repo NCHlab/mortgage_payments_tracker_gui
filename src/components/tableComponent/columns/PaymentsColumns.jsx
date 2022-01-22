@@ -5,7 +5,11 @@ import { Grid } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
-import { numberFormat } from './utils'
+import { numberFormat } from '../../generic/utils'
+
+import { SelectColumnFilter } from '../filters/SelectFilter'
+import { NumberRangeColumnFilter } from '../filters/NumberRangeFilter'
+
 
 export const COLUMNS = [
     {
@@ -14,7 +18,8 @@ export const COLUMNS = [
         width: 50,
         Cell: (row) => {
             return <div style={{ textAlign: "center" }}>{row.value}</div>
-        }
+        },
+        disableFilters: true
     },
     {
         Header: 'User',
@@ -40,11 +45,17 @@ export const COLUMNS = [
 
             return <div style={{ textAlign: "center" }}>{numberFormat(total)}</div>
         },
+        Filter: NumberRangeColumnFilter,
+        filter: 'between',
+        // Aggregate the sum of all visits
+        aggregate: 'sum',
+        Aggregated: ({ value }) => `${value} (total)`,
     },
     {
         Header: 'Reason',
         accessor: 'reason',
         width: 300,
+        disableFilters: true
     },
     {
         Header: 'Date',
@@ -53,7 +64,8 @@ export const COLUMNS = [
         Cell: (row) => {
             const custom_date = format(parseISO(row.value), "do MMM yyyy HH:mm:ss")
             return <div style={{ textAlign: "center" }}>{custom_date}</div>
-        }
+        },
+        disableFilters: true
     },
     {
         Header: 'From Tenant?',
@@ -61,6 +73,7 @@ export const COLUMNS = [
         Cell: (row) => {
             return <div style={{ textAlign: "center" }}>{row.value === true ? <CheckCircleIcon /> : <DoNotDisturbIcon />}</div>
         },
+        Filter: SelectColumnFilter,
         Footer: props => {
             // Only calculate total if rows change
             const total = React.useMemo(

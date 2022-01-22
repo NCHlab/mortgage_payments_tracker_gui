@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import PageNotFound from './pages/PageNotFound'
 import PaymentsPage from './pages/PaymentsPage'
-import AllPayments from './pages/AllPayments'
+import AllPaymentsPage from './pages/AllPaymentsPage'
 import Overpayments from './pages/Overpayments'
 import AllOverpayments from './pages/AllOverpayments'
 import HomeImprovements from './pages/HomeImprovements'
@@ -38,7 +38,7 @@ const Router = () => {
                     <React.Fragment>
                         <Route path="/login" element={<Navigate to="/" />} />
                         <Route path="/payments" element={<PaymentsPage />} />
-                        <Route path="/payments/all" element={<AllPayments />} />
+                        <Route path="/payments/all" element={<AllPaymentsPage />} />
                         <Route path="/overpayments" element={<Overpayments />} />
                         <Route path="/overpayments/all" element={<AllOverpayments />} />
                         <Route path="/home_improvements" element={<HomeImprovements />} />
