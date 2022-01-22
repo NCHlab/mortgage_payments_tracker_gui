@@ -42,8 +42,8 @@ const MptTableBody = ({ getTableBodyProps, rows, prepareRow, isEven, sxValues, e
                                     width: '200px',
                                     pl: '20px',
                                     pr: '0px',
-                                    pb: '5px',
-                                    pt: '5px',
+                                    pb: '2px',
+                                    pt: '2px',
                                     // border: 'solid 1px gray',
                                     background: isEven(i) ? '#ffffff' : '#ededed',
                                     borderLeft: '1px dotted #000',
@@ -55,23 +55,23 @@ const MptTableBody = ({ getTableBodyProps, rows, prepareRow, isEven, sxValues, e
 
                                 <Button disabled={!enableEditing} onClick={() => handleEditing(row.values)}
                                     sx={{
-                                        my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+                                        color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', mr: '5px', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
                                         ':hover': {
                                             backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
                                             color: 'white',
                                             border: '2px solid #000000'
                                         }
-                                    }}><EditIcon></EditIcon></Button>
+                                    }}><EditIcon /></Button>
 
                                 <Button disabled={!enableEditing} onClick={() => handleOpenDeletePopup(row.values)}
                                     sx={{
-                                        my: 2, color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+                                        color: '#dedede', border: '2px solid #000000', mt: '0px', mb: '0px', ml: '5px', backgroundImage: enableEditing ? 'linear-gradient(to left, rgba(166, 0, 0), rgba(43, 43, 43))' : 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
                                         ':hover': {
                                             backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
                                             color: 'white',
                                             border: '2px solid #000000'
                                         }
-                                    }}><DeleteIcon></DeleteIcon></Button>
+                                    }}><DeleteIcon /></Button>
                             </TableCell>
                         )}
 
