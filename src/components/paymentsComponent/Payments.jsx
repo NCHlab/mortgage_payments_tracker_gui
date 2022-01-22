@@ -1,21 +1,18 @@
 import React from 'react'
-import { useTable, usePagination } from 'react-table'
 
-import { Container, Grid, Typography } from '@mui/material';
-import { Table } from '@mui/material';
+import { useTable, usePagination } from 'react-table'
+import { Container, Grid, Table } from '@mui/material';
 
 import usePayments from './usePayments'
-import PaymentsForm from '../UIComponents/PaymentsForm'
-import UserDialog from '../UIComponents/UserDialog'
 import Controls from '../controls'
 import MptTableHead from '../tableComponent/MptTableHead'
 import MptTableHeadAction from '../tableComponent/MptTableHeadAction'
 import MptTableBody from '../tableComponent/MptTableBody'
 import MptTableFooter from '../tableComponent/MptTableFooter'
-
+import PaymentsForm from '../UIComponents/PaymentsForm'
+import UserDialog from '../UIComponents/UserDialog'
 import DeleteDialog from '../UIComponents/DeleteDialog';
 import DeleteMenu from '../UIComponents/DeleteMenu';
-
 import Notification from '../UIComponents/Notification';
 import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination';
 import CautionInfoTypography from '../tableComponent/CautionInfoTypography';
@@ -68,8 +65,6 @@ const Payments = () => {
         usePagination
     )
 
-
-
     return (
         <Container maxWidth='lg'>
             <Notification notify={notify} setNotify={setNotify} />
@@ -89,16 +84,11 @@ const Payments = () => {
 
             </DeleteDialog>
 
-
-
-
-
             <Grid container
                 direction="row"
                 alignItems="center"
                 mt='5vh'
             >
-
                 <Grid item xs={12} md={1} pb={0}>
                     <Controls.NewButton handleAddNew={handleAddNew} />
                 </Grid>
@@ -154,9 +144,7 @@ const Payments = () => {
                 <Grid item xs={12}>
                     <CautionInfoTypography extraText={"Go to associated All page to do custom select"} />
                 </Grid>
-
             </Grid >
-
         </Container >
     )
 }

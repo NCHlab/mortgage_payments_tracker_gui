@@ -1,10 +1,10 @@
-import useHeader from "./useHeader";
-
 import React, { Fragment } from 'react'
 
-import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem, Link } from '@mui/material';
+import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+
+import useHeader from "./useHeader";
 
 const Header = () => {
 
@@ -23,8 +23,6 @@ const Header = () => {
         pageLocator
     } = useHeader();
 
-
-
     return (
 
         <AppBar position="static" elevation={0} sx={{ background: 'linear-gradient(45deg, #730000, #000000)' }}>
@@ -41,9 +39,7 @@ const Header = () => {
 
 
                     {loggedIn && (
-
                         <Fragment>
-
                             <Typography
                                 component="div"
                                 sx={{
@@ -64,8 +60,6 @@ const Header = () => {
                                     mr: 0, display: { xs: 'none', md: 'flex' }, flexGrow: 0.7,
                                 }}
                             />
-
-
                         </Fragment>
                     )}
 
@@ -75,9 +69,7 @@ const Header = () => {
                         </Button>
                     </Box>
 
-
                     {!loggedIn && (
-
                         <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
                             <Button
                                 variant="outlined"
@@ -97,14 +89,9 @@ const Header = () => {
                         </Box>
                     )}
 
-
-
                     {loggedIn && (
                         <React.Fragment>
-
-
                             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-
                                 <Button onClick={(e) => handleNavButtonClick(e)} sx={{
                                     ...classes.main_menu,
                                     ':hover': classes.main_menu_hover
@@ -112,9 +99,7 @@ const Header = () => {
                                     Payments
                                 </Button>
 
-
                                 <Menu
-
                                     id="payments"
                                     anchorEl={anchorEl_pay}
                                     keepMounted
@@ -130,7 +115,6 @@ const Header = () => {
                                     Over Payments
                                 </Button>
                                 <Menu
-
                                     id="overpayments"
                                     anchorEl={anchorEl_over}
                                     keepMounted
@@ -139,14 +123,13 @@ const Header = () => {
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
                                     <MenuItem component="a" href='/overpayments'>My OverPayments</MenuItem>
-                                    <MenuItem component="a" href='/overpayments/all'>My OverPayments</MenuItem>
+                                    <MenuItem component="a" href='/overpayments/all'>All OverPayments</MenuItem>
                                 </Menu>
 
                                 <Button onClick={handleNavButtonClick} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
                                     Home Improvements
                                 </Button>
                                 <Menu
-
                                     id="home_improvements"
                                     anchorEl={anchorEl_home}
                                     keepMounted
@@ -155,7 +138,7 @@ const Header = () => {
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
                                     <MenuItem component="a" href='/home_improvements'>My Home Improvements</MenuItem>
-                                    <MenuItem component="a" href='/home_improvements/all'>My Home Improvements</MenuItem>
+                                    <MenuItem component="a" href='/home_improvements/all'>All Home Improvements</MenuItem>
                                 </Menu>
 
                                 <Button onMouseDown={(e) => handleMiddleClick(e, '/logs')} onClick={() => handleMenuClick('/logs')}

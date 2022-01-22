@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Typography, Grid, TextField, MenuItem, Box, Paper, InputAdornment } from '@mui/material';
-import NumberFormat from "react-number-format";
-import LoadingButton from '@mui/lab/LoadingButton';
 
+import { Button, Typography, Grid, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 
 const CustomSpan = styled('span')(({ theme }) => ({
@@ -61,7 +60,6 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete, loading }) => {
 
             </Grid>
 
-
             <Grid item xs={12} md={12}>
                 <TextField
                     error={isError}
@@ -79,7 +77,6 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete, loading }) => {
                 />
 
             </Grid>
-
 
             <Grid item xs={12} md={3.5}>
                 <LoadingButton
@@ -132,27 +129,6 @@ const DeleteMenu = ({ dataToDelete, handleClose, handleDelete, loading }) => {
                     Cancel
                 </Button>
             </Grid>
-
-
-
-
-
-            {/* <Grid item xs={12} md={6}>
-                <TextField
-                    disabled
-                    sx={{ width: '262px' }}
-                    color="secondary"
-                    margin="normal"
-                    // id="paid"
-                    label="Paid"
-                    value={"£" + dataToDelete.paid.toString()}
-                    name="numberformat"
-                    id="formatted-numberformat-input"
-                />
-
-            </Grid> */}
-            {/* {JSON.stringify(dataToDelete, null, 2)} */}
-
         </Grid>
     )
 }

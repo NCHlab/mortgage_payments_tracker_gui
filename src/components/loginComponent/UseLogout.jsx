@@ -1,8 +1,7 @@
-import { useAuth } from '../../context/AuthContext'
-
-import AuthService from '../../services/AuthService'
-
 import { useNavigate } from "react-router-dom";
+
+import { useAuth } from '../../context/AuthContext'
+import AuthService from '../../services/AuthService'
 
 const useLogout = () => {
 

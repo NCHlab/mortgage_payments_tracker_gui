@@ -1,7 +1,6 @@
 import React from 'react'
+
 import { Typography, Toolbar, AppBar, Box, Link } from '@mui/material';
-
-
 
 const Footer = () => {
 

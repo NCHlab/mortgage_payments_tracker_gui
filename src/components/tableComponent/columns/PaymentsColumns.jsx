@@ -1,12 +1,11 @@
 import React from 'react';
 import { parseISO, format } from 'date-fns'
-import { Grid, Typography } from '@mui/material';
 
+import { Grid } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 
 import { numberFormat } from '../../generic/utils'
-
 import { SelectColumnFilter } from '../filters/SelectFilter'
 import { NumberRangeColumnFilter } from '../filters/NumberRangeFilter'
 
@@ -56,7 +55,6 @@ export const COLUMNS = [
         accessor: 'reason',
         width: 300,
         disableFilters: true,
-        // Footer: info => <div style={{ textAlign: "center", color: 'red' }}>*<span style={{ color: '#c71616' }}>Total for All Data</span></div>
     },
     {
         Header: 'Date',
@@ -104,10 +102,7 @@ export const COLUMNS = [
                         <DoNotDisturbIcon />
                     </Grid>
                 </Grid>
-
             )
-
-            // return <div style={{ fontSize: '20px', textAlign: "center" }}>{total.trueCount} <CheckCircleIcon />  {total.falseCount} <DoNotDisturbIcon /></div>
         },
     },
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { COLUMNS } from '../generic/OverPaymentsColumns'
+import { COLUMNS } from '../tableComponent/columns/OverPaymentsColumns'
 import CoreLogic from '../coreComponent/CoreLogic'
 
 const initialValues = {
@@ -38,7 +38,9 @@ const useOverPayments = () => {
         manageAddPayment,
         manageUpdatePayment,
         manageGetInfo,
-        sleep
+        sleep,
+        SXValuesTableBody,
+        SXValuesTableHeadTheme
     } = CoreLogic();
 
     useEffect(() => {
@@ -106,28 +108,6 @@ const useOverPayments = () => {
         setOpenPopup(false)
     }
 
-    const SXValuesTableHead = {
-        borderBottom: 'solid 5px #00c7d1',
-        background: '#000080',
-        // background: 'linear-gradient(to right, #000080, #0000a8)',
-        color: 'white',
-        fontWeight: 'bold'
-    }
-
-    const SXValuesTableBody = (i) => {
-
-        return {
-            width: '200px',
-            padding: '5px',
-            // border: 'solid 1px gray',
-            borderLeft: '1px dotted #000',
-            backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
-            '&:hover': {
-                backgroundColor: '#fffbf2',
-            }
-        }
-    }
-
     return {
         tableData,
         COLUMNS,
@@ -152,7 +132,7 @@ const useOverPayments = () => {
         setNotify,
         loading,
         handleClearForm,
-        SXValuesTableHead,
+        SXValuesTableHead: SXValuesTableHeadTheme.overpayments,
         SXValuesTableBody
     }
 }

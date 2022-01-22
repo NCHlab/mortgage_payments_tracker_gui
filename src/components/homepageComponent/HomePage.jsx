@@ -1,22 +1,24 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import { Grid, Button, Container, Typography, Card, CardHeader, IconButton, CardContent, Link } from '@mui/material';
 
 import { parseISO } from 'date-fns'
-import useHomePage from './useHomePage'
-
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Divider } from '@mui/material';
-
+import {
+    Grid,
+    Button,
+    Container,
+    Typography,
+    Card,
+    CardHeader,
+    CardContent,
+    Link,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableRow
+} from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
+import useHomePage from './useHomePage'
 import { numberFormat } from '../generic/utils'
 
 const HomePageT = () => {
@@ -216,7 +218,6 @@ const HomePageT = () => {
                 </Grid>
 
 
-
                 <Grid item xs={12} md={6} key="note.id2">
                     <Card elevation={12} sx={{ height: '290px' }}>
                         <CardHeader title="General Information" />
@@ -229,10 +230,10 @@ const HomePageT = () => {
                                                 Mortgage Broker:
                                             </TableCell>
                                             <TableCell align="left" sx={{ width: '80px' }}>
-                                                {process.env.REACT_APP_BROKER}
+                                                {process.env.REACT_APP_BROKER || 'Broker Not provided'}
                                             </TableCell>
                                             <TableCell align="left">
-                                                <Link target="_blank" href={process.env.REACT_APP_BROKER_LINK}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
+                                                <Link target="_blank" href={process.env.REACT_APP_BROKER_LINK || '#'}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
                                             </TableCell>
                                         </TableRow>
 
@@ -241,10 +242,10 @@ const HomePageT = () => {
                                                 Solicitor:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {process.env.REACT_APP_SOLICITOR}
+                                                {process.env.REACT_APP_SOLICITOR || 'Solicitor Not provided'}
                                             </TableCell>
                                             <TableCell align="left">
-                                                <Link target="_blank" href={process.env.REACT_APP_SOLICITOR_LINK}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
+                                                <Link target="_blank" href={process.env.REACT_APP_SOLICITOR_LINK || '#'}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
                                             </TableCell>
                                         </TableRow>
 
@@ -253,10 +254,10 @@ const HomePageT = () => {
                                                 Estate Agents:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {process.env.REACT_APP_ESTATE_AGENT}
+                                                {process.env.REACT_APP_ESTATE_AGENT || 'Estate Agent Not provided'}
                                             </TableCell>
                                             <TableCell align="left">
-                                                <Link target="_blank" href={process.env.REACT_APP_ESTATE_AGENT_LINK}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
+                                                <Link target="_blank" href={process.env.REACT_APP_ESTATE_AGENT_LINK || '#'}><ArrowCircleRightIcon sx={{ color: "#902424" }} /></Link>
                                             </TableCell>
                                         </TableRow>
 

@@ -1,16 +1,11 @@
 import React from 'react'
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import TabPanel from '@mui/lab/TabPanel';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import { Container, Box } from '@mui/material'
 
+import { Container, Box, Tab } from '@mui/material'
+import { TabPanel, TabContext, TabList } from '@mui/lab'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import PaymentLogsTab from './PaymentLogsTab'
 import LoginLogsTab from './LoginLogsTab'
-
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
     palette: {
@@ -31,7 +26,6 @@ const Logs = () => {
         setSelectedTab(newValue);
     };
 
-
     return (
         <ThemeProvider theme={theme}>
             <Container>
@@ -46,17 +40,14 @@ const Logs = () => {
                                 <Tab label="Login Logs" value="2" />
                             </TabList>
                         </Box>
-                        {/* <Container> */}
+
                         <TabPanel value="1">
                             <PaymentLogsTab />
                         </TabPanel>
 
-
                         <TabPanel value="2">
                             <LoginLogsTab />
                         </TabPanel>
-
-                        {/* </Container> */}
                     </TabContext>
                 </Box>
             </Container>

@@ -1,25 +1,18 @@
 import React, { useState } from 'react'
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
 
-import Checkbox from '@mui/material/Checkbox';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
+import {
+    Grid, Typography, TextField, Button, FormGroup, FormControlLabel,
+    Checkbox, Select, MenuItem, InputLabel
+} from '@mui/material';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-import { Container, Grid, Typography, TextField, Button } from '@mui/material';
-
-import LogsService from '../../services/LogsService'
-
-
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { anOldHope, github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
+import LogsService from '../../services/LogsService'
 
 const LoginLogsTab = () => {
 
@@ -84,13 +77,9 @@ const LoginLogsTab = () => {
         return mainQuery
     }
 
-
     const handleStringify = () => {
         setStringifyLines(prev => !prev)
     }
-
-
-
 
     return (
         <React.Fragment>
@@ -99,9 +88,6 @@ const LoginLogsTab = () => {
                 alignItems="center"
                 mt='1vh'
             >
-
-
-
                 <Grid item md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Typography variant='h6' component='div' sx={{ borderBottom: '1px solid black' }}>
                         Equality
@@ -206,9 +192,7 @@ const LoginLogsTab = () => {
 
                 </Grid>
 
-
                 <Grid item xs={12} md={12}>
-
                     <SyntaxHighlighter
                         language="json"
                         wrapLines={true}
@@ -219,10 +203,8 @@ const LoginLogsTab = () => {
                     </SyntaxHighlighter>
                 </Grid>
 
-
             </Grid>
         </React.Fragment >
-
     )
 }
 

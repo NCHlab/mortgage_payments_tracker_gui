@@ -1,22 +1,21 @@
 import React from 'react'
-import { useTable } from 'react-table'
 
-import { Container, Grid, Typography } from '@mui/material';
-import { Table } from '@mui/material';
+import { useTable, usePagination } from 'react-table'
+import { Container, Grid, Table } from '@mui/material';
 
 import useOverPayments from './useOverPayments'
-import PaymentsForm from '../UIComponents/PaymentsForm'
-import UserDialog from '../UIComponents/UserDialog'
 import Controls from '../controls'
 import MptTableHead from '../tableComponent/MptTableHead'
 import MptTableHeadAction from '../tableComponent/MptTableHeadAction'
 import MptTableBody from '../tableComponent/MptTableBody'
 import MptTableFooter from '../tableComponent/MptTableFooter'
-
+import PaymentsForm from '../UIComponents/PaymentsForm'
+import UserDialog from '../UIComponents/UserDialog'
 import DeleteDialog from '../UIComponents/DeleteDialog';
 import DeleteMenu from '../UIComponents/DeleteMenu';
-
 import Notification from '../UIComponents/Notification';
+import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination';
+import CautionInfoTypography from '../tableComponent/CautionInfoTypography';
 
 const OverPayments = () => {
 
@@ -54,12 +53,16 @@ const OverPayments = () => {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
+        page,
         footerGroups,
         prepareRow,
-    } = useTable({ columns, data })
-
-
+        gotoPage,
+        pageCount,
+        setPageSize,
+        state: { pageIndex, pageSize },
+    } = useTable({ columns, data, initialState: { pageIndex: 0, pageSize: 100 } },
+        usePagination
+    )
 
     return (
         <Container maxWidth='lg'>
@@ -80,16 +83,11 @@ const OverPayments = () => {
 
             </DeleteDialog>
 
-
-
-
-
             <Grid container
                 direction="row"
                 alignItems="center"
                 mt='5vh'
             >
-
                 <Grid item xs={12} md={1} pb={0}>
                     <Controls.NewButton handleAddNew={handleAddNew} />
                 </Grid>
@@ -115,7 +113,7 @@ const OverPayments = () => {
 
                         <MptTableBody
                             getTableBodyProps={getTableBodyProps}
-                            rows={rows}
+                            page={page}
                             prepareRow={prepareRow}
                             isEven={isEven}
                             sxValues={SXValuesTableBody}
@@ -125,12 +123,26 @@ const OverPayments = () => {
                             extraActions={true}
                         />
 
-                        <MptTableFooter footerGroups={footerGroups} extraActions={true} />
+                        <MptTableFooter footerGroups={footerGroups} extraActions={true} >
+
+                            <EnhancedPagination
+                                colSpan={7}
+                                dataLength={data.length}
+                                pageSize={pageSize}
+                                pageIndex={pageIndex}
+                                gotoPage={gotoPage}
+                                setPageSize={setPageSize}
+                                pageCount={pageCount}
+                            />
+
+                        </MptTableFooter>
                     </Table>
                 </Grid>
 
+                <Grid item xs={12}>
+                    <CautionInfoTypography extraText={"Go to associated All page to do custom select"} />
+                </Grid>
             </Grid >
-
         </Container >
     )
 }

@@ -16,7 +16,6 @@ const LoginForm = () => {
 
     return (
         <React.Fragment>
-
             <Grid
                 container
                 spacing={0}
@@ -31,18 +30,15 @@ const LoginForm = () => {
                 >
 
                     <Grid item>
-
                         <Typography component="h1" variant="h5">
                             Log in
                         </Typography>
-
 
                         {badLogin && (
                             <Typography component="h5" variant="h7" sx={{ color: "red" }}>
                                 Wrong Username and/or Password. Please Try Again.
                             </Typography>
                         )}
-
 
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                             <TextField
@@ -64,6 +60,7 @@ const LoginForm = () => {
                                     )
                                 }}
                             />
+
                             <TextField
                                 sx={classes.textfields}
                                 color="secondary"
@@ -91,7 +88,6 @@ const LoginForm = () => {
                                     )
                                 }}
                             />
-
 
                             <Button
                                 type="submit"

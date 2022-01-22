@@ -1,7 +1,4 @@
-import { TableRow } from '@mui/material';
-import { TableFooter } from '@mui/material';
-import { TableCell } from '@mui/material';
-
+import { TableRow, TableFooter, TableCell } from '@mui/material';
 
 const MptTableFooter = ({ footerGroups, extraActions, children }) => {
     return (
@@ -39,9 +36,6 @@ const MptTableFooter = ({ footerGroups, extraActions, children }) => {
             ))}
 
             {children}
-
-
-
 
         </TableFooter>
     )

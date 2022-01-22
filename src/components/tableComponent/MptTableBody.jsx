@@ -1,15 +1,9 @@
-import { TableBody } from '@mui/material';
-import { TableCell } from '@mui/material';
-import { TableRow } from '@mui/material';
-
-import { Button } from '@mui/material';
+import { Button, TableBody, TableCell, TableRow } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const MptTableBody = ({ getTableBodyProps, page, prepareRow, isEven, sxValues, enableEditing, handleEditing, extraActions, handleOpenDeletePopup }) => {
-
-
     return (
         <TableBody {...getTableBodyProps()}>
             {page.map((row, i) => {

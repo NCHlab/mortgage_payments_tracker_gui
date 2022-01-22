@@ -6,10 +6,10 @@ import LoginPage from './pages/LoginPage'
 import PageNotFound from './pages/PageNotFound'
 import PaymentsPage from './pages/PaymentsPage'
 import AllPaymentsPage from './pages/AllPaymentsPage'
-import Overpayments from './pages/Overpayments'
-import AllOverpayments from './pages/AllOverpayments'
-import HomeImprovements from './pages/HomeImprovements'
-import AllHomeImprovements from './pages/AllHomeImprovements'
+import OverpaymentsPage from './pages/OverpaymentsPage'
+import AllOverpaymentsPage from './pages/AllOverpaymentsPage'
+import HomeImprovementsPage from './pages/HomeImprovementsPage'
+import AllHomeImprovementsPage from './pages/AllHomeImprovementsPage'
 import LogsPage from './pages/LogsPage'
 
 import { useAuth } from './context/AuthContext';
@@ -39,10 +39,10 @@ const Router = () => {
                         <Route path="/login" element={<Navigate to="/" />} />
                         <Route path="/payments" element={<PaymentsPage />} />
                         <Route path="/payments/all" element={<AllPaymentsPage />} />
-                        <Route path="/overpayments" element={<Overpayments />} />
-                        <Route path="/overpayments/all" element={<AllOverpayments />} />
-                        <Route path="/home_improvements" element={<HomeImprovements />} />
-                        <Route path="/home_improvements/all" element={<AllHomeImprovements />} />
+                        <Route path="/overpayments" element={<OverpaymentsPage />} />
+                        <Route path="/overpayments/all" element={<AllOverpaymentsPage />} />
+                        <Route path="/home_improvements" element={<HomeImprovementsPage />} />
+                        <Route path="/home_improvements/all" element={<AllHomeImprovementsPage />} />
                         <Route path="/logs" element={<LogsPage />} />
                         <Route path="*" element={<Navigate to="/404_not_found" />} />
                     </React.Fragment>

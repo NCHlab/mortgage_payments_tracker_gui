@@ -3,7 +3,6 @@ import { Button, Container, Typography, Grid } from '@mui/material';
 
 const PageNotFound = () => {
     return (
-
         <Container align="center" sx={{ my: 35, border: "6px inset #000" }}>
             <Typography variant="h2">
                 404 Not Found
@@ -15,8 +14,6 @@ const PageNotFound = () => {
                 Ensure you are logged in to access pages behind secure access.
             </Typography>
         </Container>
-
-
     )
 }
 

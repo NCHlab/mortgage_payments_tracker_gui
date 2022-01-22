@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from 'react'
-
-import { Button, Typography, Grid, TextField, MenuItem, Box, Paper, InputAdornment } from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
+import React from 'react'
 
 import NumberFormat from "react-number-format";
+import { Button, Grid, TextField, MenuItem } from '@mui/material';
 
+import LoadingButton from '@mui/lab/LoadingButton';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
 const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
     const { inputRef, onChange, ...other } = props;
-
     return (
         <NumberFormat
             {...other}
@@ -65,8 +59,6 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
         setValues({ ...values, date: newDateVal });
     }
 
-
-
     return (
         <React.Fragment>
             <form onSubmit={handleSubmit}>
@@ -74,7 +66,6 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
                     container
                     spacing={0}
                 >
-
                     <Grid item xs={12} md={6}>
                         <TextField
                             sx={{ ...classes.textfields, width: '262px' }}
@@ -94,9 +85,7 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
                                 inputComponent: NumberFormatCustom
                             }}
                         />
-
                     </Grid>
-
 
                     <Grid item xs={12} md={6}>
                         <TextField
@@ -185,8 +174,6 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
 
                     )}
 
-
-
                     <Grid item xs={12} md={3.5}>
                         <LoadingButton
                             type="submit"
@@ -214,7 +201,6 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
                             Submit
                         </LoadingButton>
                     </Grid>
-
 
                     <Grid item xs={12} md={3.5}>
                         <Button

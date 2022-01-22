@@ -39,7 +39,9 @@ const usePayments = () => {
         manageAddPayment,
         manageUpdatePayment,
         manageGetInfo,
-        sleep
+        sleep,
+        SXValuesTableBody,
+        SXValuesTableHeadTheme
     } = CoreLogic();
 
     useEffect(() => {
@@ -109,28 +111,6 @@ const usePayments = () => {
         setOpenPopup(false)
     }
 
-    const SXValuesTableHead = {
-        borderBottom: 'solid 5px #ff481f',
-        background: '#b50d00',
-        //background: 'linear-gradient(to right, #b50d00, #d10f00)',
-        color: 'white',
-        fontWeight: 'bold'
-    }
-
-    const SXValuesTableBody = (i) => {
-
-        return {
-            width: '200px',
-            padding: '5px',
-            // border: 'solid 1px gray',
-            borderLeft: '1px dotted #000',
-            backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
-            '&:hover': {
-                backgroundColor: '#fffbf2',
-            }
-        }
-    }
-
     return {
         tableData,
         COLUMNS,
@@ -155,7 +135,7 @@ const usePayments = () => {
         setNotify,
         loading,
         handleClearForm,
-        SXValuesTableHead,
+        SXValuesTableHead: SXValuesTableHeadTheme.payments,
         SXValuesTableBody
     }
 }

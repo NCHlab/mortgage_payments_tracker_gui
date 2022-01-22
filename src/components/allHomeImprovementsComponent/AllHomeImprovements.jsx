@@ -1,59 +1,23 @@
 import React from 'react'
-import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useRowSelect, usePagination } from 'react-table'
 
-import { Container, Grid, Typography, TextField, Checkbox, Card, CardHeader, CardContent, Button } from '@mui/material';
+import { useTable, useFilters, useGlobalFilter, useRowSelect, usePagination } from 'react-table'
+import { Container, Grid } from '@mui/material';
 import { Table } from '@mui/material';
 
-import useAllPayments from './useAllPayments'
+import useAllHomeImprovements from './useAllHomeImprovements'
 import Controls from '../controls'
 import MptTableHeadComplex from '../tableComponent/complexTable/MptTableHeadComplex'
 import MptTableBody from '../tableComponent/MptTableBody'
 import MptTableFooter from '../tableComponent/MptTableFooter'
-
 import Notification from '../UIComponents/Notification';
+import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination'
+import CautionInfoTypography from '../tableComponent/CautionInfoTypography'
+import SelectedTotals from '../tableComponent/SelectedTotals';
+import { DefaultColumnFilter } from '../tableComponent/filters/DefaultFilter'
 
 import '../../styles/table.css';
 
-import { DefaultColumnFilter } from '../tableComponent/filters/DefaultFilter'
-import { numberFormat } from '../generic/utils'
-
-// import TablePaginationActions from '../tableComponent/pagination/TablePaginationActions'
-// import TablePagination from '@mui/material/TablePagination'
-
-import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination'
-
-// import { TableRow } from '@mui/material';
-import CautionInfoTypography from '../tableComponent/CautionInfoTypography'
-import SelectedTotals from '../tableComponent/SelectedTotals';
-
-const IndeterminateCheckbox = React.forwardRef(
-    ({ indeterminate, ...rest }, ref) => {
-        const defaultRef = React.useRef()
-        const resolvedRef = ref || defaultRef
-
-        React.useEffect(() => {
-            resolvedRef.current.indeterminate = indeterminate
-        }, [resolvedRef, indeterminate])
-
-        return (
-            <>
-                <Checkbox ref={resolvedRef} {...rest} />
-            </>
-        )
-    }
-)
-
-const AllPayments = () => {
-
-
-    const handleSelectedRows = (selected) => {
-
-        let total = 0;
-        selected.map(data => {
-            total += data.original.paid
-        })
-        return numberFormat(total)
-    }
+const AllHomeImprovements = () => {
 
     const defaultColumn = React.useMemo(
         () => ({
@@ -68,39 +32,24 @@ const AllPayments = () => {
         notify,
         setNotify,
         SXValuesTableHead,
-        SXValuesTableBody
-    } = useAllPayments();
+        SXValuesTableBody,
+        handleSelectedRows
+    } = useAllHomeImprovements();
 
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
-
-    // const handleChangePage = (event, newPage) => {
-    //     gotoPage(newPage)
-    // }
-
-    // const handleChangeRowsPerPage = event => {
-    //     setPageSize(Number(event.target.value))
-    // }
-
-    // const customlabelDisplayedRows = () => {
-    //     return `Page ${pageIndex + 1} of ${pageCount}`
-    // }
 
 
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        // rows,
         page,
         footerGroups,
         prepareRow,
         selectedFlatRows,
         gotoPage,
-        nextPage,
-        previousPage,
         pageCount,
-        pageOptions,
         setPageSize,
         state: { pageIndex, pageSize, selectedRowIds },
     } = useTable({ columns, data, defaultColumn, initialState: { pageIndex: 0, pageSize: 50 } },
@@ -110,12 +59,11 @@ const AllPayments = () => {
         useRowSelect,
         hooks => {
             hooks.allColumns.push(columns => [
-                // Let's make a column for selection
                 {
                     id: 'selection',
                     width: '10px',
                     Cell: ({ row }) => (
-                        <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} sx={{
+                        <Controls.IndeterminateCheckbox {...row.getToggleRowSelectedProps()} sx={{
                             pb: 0, pt: 0, color: '#f37575a4', '&.Mui-checked': {
                                 color: '#7e0505',
                             }
@@ -125,8 +73,6 @@ const AllPayments = () => {
                 ...columns,
             ])
         })
-
-
 
     return (
         <Container maxWidth='lg'>
@@ -139,11 +85,11 @@ const AllPayments = () => {
             >
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"all/payments"} />
+                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"all/home_improvements"} />
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"all/payments"} />
+                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"all/home_improvements"} />
                 </Grid>
 
                 <Grid item xs={12} pt='5px'>
@@ -191,4 +137,4 @@ const AllPayments = () => {
     )
 };
 
-export default AllPayments;
+export default AllHomeImprovements;

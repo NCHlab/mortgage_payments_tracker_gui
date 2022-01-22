@@ -1,28 +1,22 @@
 import { useState } from 'react'
-
 import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from 'uuid';
 
 import { useAuth } from '../../context/AuthContext'
-
 import AuthService from '../../services/AuthService'
-
-import { v4 as uuid } from 'uuid';
 
 const useLogin = () => {
 
     const { login } = AuthService();
-
     const navigate = useNavigate();
-
     const { setLoggedIn, setUser } = useAuth();
 
+    const [badLogin, setbadLogin] = useState(false)
     const [values, setValues] = useState({
         username: '',
         password: '',
         showPassword: false,
     })
-
-    const [badLogin, setbadLogin] = useState(false)
 
     const handleChange = (prop, event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -53,12 +47,6 @@ const useLogin = () => {
             navigate('/');
         }
     }
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     console.log(values)
-    //     setbadLogin(!badLogin)
-    // }
 
     const classes = {
         textfields: {

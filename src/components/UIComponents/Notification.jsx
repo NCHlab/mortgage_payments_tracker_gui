@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
-import AlertTitle from '@mui/material/AlertTitle';
+
+import { Alert, Snackbar, Slide } from '@mui/material';
 
 const TransitionDown = (props) => {
     return <Slide {...props} direction="down" />;
@@ -39,7 +37,6 @@ const Notification = ({ notify, setNotify }) => {
             <Alert
                 severity={notify.type}
                 onClose={handleClose}>
-                {/* <AlertTitle>Processed</AlertTitle> */}
                 {notify.message}
             </Alert>
         </Snackbar>

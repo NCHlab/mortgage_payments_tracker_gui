@@ -1,6 +1,6 @@
 import OverPayments from '../components/overpaymentsComponent/OverPayments'
 
-const Overpayments = () => {
+const OverpaymentsPage = () => {
     return (
         <div>
             <OverPayments />
@@ -9,4 +9,4 @@ const Overpayments = () => {
     )
 }
 
-export default Overpayments
+export default OverpaymentsPage

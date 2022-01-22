@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import PaymentsService from '../../services/PaymentsService'
 import DownloaderService from '../../services/DownloaderService';
+import { numberFormat } from '../generic/utils'
 
 const CoreLogic = () => {
 
@@ -90,7 +91,6 @@ const CoreLogic = () => {
         setDeletePopup(true)
     }
 
-
     const handleDownload = async (type, page) => {
 
         if (type === "XLSX") {
@@ -177,6 +177,52 @@ const CoreLogic = () => {
         }
     }
 
+    const SXValuesTableHeadTheme = {
+        payments: {
+            borderBottom: 'solid 5px #ff481f',
+            background: '#b50d00',
+            //background: 'linear-gradient(to right, #b50d00, #d10f00)',
+            color: 'white',
+            fontWeight: 'bold'
+        },
+        overpayments: {
+            borderBottom: 'solid 5px #00c7d1',
+            background: '#000080',
+            // background: 'linear-gradient(to right, #000080, #0000a8)',
+            color: 'white',
+            fontWeight: 'bold'
+        },
+        home_improvements: {
+            borderBottom: 'solid 5px #3dff7e',
+            background: '#128500',
+            // background: 'linear-gradient(to right, #000080, #0000a8)',
+            color: 'white',
+            fontWeight: 'bold'
+        }
+    }
+
+    const SXValuesTableBody = (i) => {
+        return {
+            width: '200px',
+            padding: '5px',
+            // border: 'solid 1px gray',
+            borderLeft: '1px dotted #000',
+            backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
+            '&:hover': {
+                backgroundColor: '#fffbf2',
+            }
+        }
+    }
+
+    const handleSelectedRows = (selected) => {
+
+        let total = 0;
+        selected.map(data => {
+            total += data.original.paid
+        })
+        return numberFormat(total)
+    }
+
 
     return {
         tableData,
@@ -205,7 +251,10 @@ const CoreLogic = () => {
         manageAddPayment,
         manageUpdatePayment,
         manageGetInfo,
-        sleep
+        sleep,
+        SXValuesTableBody,
+        SXValuesTableHeadTheme,
+        handleSelectedRows
     }
 }
 
