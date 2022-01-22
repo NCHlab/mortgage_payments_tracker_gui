@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable } from 'react-table'
+import { useTable, usePagination } from 'react-table'
 
 import { Container, Grid, Typography } from '@mui/material';
 import { Table } from '@mui/material';
@@ -17,6 +17,8 @@ import DeleteDialog from '../UIComponents/DeleteDialog';
 import DeleteMenu from '../UIComponents/DeleteMenu';
 
 import Notification from '../UIComponents/Notification';
+import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination';
+import CautionInfoTypography from '../tableComponent/CautionInfoTypography';
 
 const Payments = () => {
 
@@ -54,10 +56,17 @@ const Payments = () => {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
+        // rows,
+        page,
         footerGroups,
         prepareRow,
-    } = useTable({ columns, data })
+        gotoPage,
+        pageCount,
+        setPageSize,
+        state: { pageIndex, pageSize },
+    } = useTable({ columns, data, initialState: { pageIndex: 0, pageSize: 100 } },
+        usePagination
+    )
 
 
 
@@ -115,7 +124,8 @@ const Payments = () => {
 
                         <MptTableBody
                             getTableBodyProps={getTableBodyProps}
-                            rows={rows}
+                            // rows={rows}
+                            page={page}
                             prepareRow={prepareRow}
                             isEven={isEven}
                             sxValues={SXValuesTableBody}
@@ -125,8 +135,24 @@ const Payments = () => {
                             extraActions={true}
                         />
 
-                        <MptTableFooter footerGroups={footerGroups} extraActions={true} />
+                        <MptTableFooter footerGroups={footerGroups} extraActions={true} >
+
+                            <EnhancedPagination
+                                colSpan={7}
+                                dataLength={data.length}
+                                pageSize={pageSize}
+                                pageIndex={pageIndex}
+                                gotoPage={gotoPage}
+                                setPageSize={setPageSize}
+                                pageCount={pageCount}
+                            />
+
+                        </MptTableFooter>
                     </Table>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <CautionInfoTypography extraText={"Go to associated All page to do custom select"} />
                 </Grid>
 
             </Grid >

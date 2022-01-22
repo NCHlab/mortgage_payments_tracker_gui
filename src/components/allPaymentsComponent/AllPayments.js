@@ -7,7 +7,7 @@ import { Table } from '@mui/material';
 import useAllPayments from './useAllPayments'
 import Controls from '../controls'
 import MptTableHeadComplex from '../tableComponent/complexTable/MptTableHeadComplex'
-import MptTableBodyComplex from '../tableComponent/complexTable/MptTableBodyComplex'
+import MptTableBody from '../tableComponent/MptTableBody'
 import MptTableFooter from '../tableComponent/MptTableFooter'
 
 import Notification from '../UIComponents/Notification';
@@ -22,8 +22,8 @@ import { numberFormat } from '../generic/utils'
 
 import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination'
 
-import { TableRow } from '@mui/material';
-import CautionInfoTypography from '../generic/CautionInfoTypography'
+// import { TableRow } from '@mui/material';
+import CautionInfoTypography from '../tableComponent/CautionInfoTypography'
 import SelectedTotals from '../tableComponent/SelectedTotals';
 
 const IndeterminateCheckbox = React.forwardRef(
@@ -74,13 +74,13 @@ const AllPayments = () => {
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
 
-    const handleChangePage = (event, newPage) => {
-        gotoPage(newPage)
-    }
+    // const handleChangePage = (event, newPage) => {
+    //     gotoPage(newPage)
+    // }
 
-    const handleChangeRowsPerPage = event => {
-        setPageSize(Number(event.target.value))
-    }
+    // const handleChangeRowsPerPage = event => {
+    //     setPageSize(Number(event.target.value))
+    // }
 
     // const customlabelDisplayedRows = () => {
     //     return `Page ${pageIndex + 1} of ${pageCount}`
@@ -151,7 +151,7 @@ const AllPayments = () => {
 
                         <MptTableHeadComplex headerGroups={headerGroups} sxValues={SXValuesTableHead} />
 
-                        <MptTableBodyComplex
+                        <MptTableBody
                             getTableBodyProps={getTableBodyProps}
                             page={page}
                             prepareRow={prepareRow}
@@ -161,17 +161,17 @@ const AllPayments = () => {
                         />
 
                         <MptTableFooter footerGroups={footerGroups} extraActions={false} >
-                            <TableRow sx={{ backgroundColor: '#fff' }}>
-                                <EnhancedPagination
-                                    colSpan={7}
-                                    dataLength={data.length}
-                                    pageSize={pageSize}
-                                    pageIndex={pageIndex}
-                                    gotoPage={gotoPage}
-                                    setPageSize={setPageSize}
-                                    pageCount={pageCount}
-                                />
-                            </TableRow>
+
+                            <EnhancedPagination
+                                colSpan={7}
+                                dataLength={data.length}
+                                pageSize={pageSize}
+                                pageIndex={pageIndex}
+                                gotoPage={gotoPage}
+                                setPageSize={setPageSize}
+                                pageCount={pageCount}
+                            />
+
                         </MptTableFooter>
                     </Table>
                 </Grid>
@@ -183,7 +183,7 @@ const AllPayments = () => {
                 )}
 
                 <Grid item xs={12}>
-                    <CautionInfoTypography />
+                    <CautionInfoTypography extraText={"Select Rows for specific Total"} />
                 </Grid>
 
             </Grid >
