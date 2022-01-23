@@ -31,7 +31,6 @@ const CoreLogic = () => {
             local_logout()
             console.log("Session Expired. Logging Out")
             localStorage.setItem('session_expired', true)
-            // window.location = '/login'
             navigate('/login');
             return false
         }
@@ -48,6 +47,7 @@ const CoreLogic = () => {
             const date = new Date();
             const err = [{ id: -2, user_id: "No Data", paid: 0, reason: "You have not made any payments", date: date.toISOString(), from_tenant: false }]
             setTableData(err)
+            setEnableEditing(false)
             return
         }
 
@@ -57,7 +57,24 @@ const CoreLogic = () => {
 
     const isEven = (idx) => idx % 2 === 0;
 
-    const handleEnableEditing = () => {
+    const handleEnableEditing = (e, forceCheck) => {
+
+        // Handle case where User tries to modify initial state where no payments made
+        if ((tableData.length === 1 && tableData[0].id === -2) || (tableData.length === 1 && tableData[0].id === -2 && forceCheck)) {
+            if (enableEditing) {
+                setEnableEditing(false)
+            }
+            setNotify({
+                isOpen: true,
+                message: 'No Data To Modify, Click "NEW" to add data',
+                type: 'warning'
+            })
+            return
+        } else if (forceCheck) {
+            // As prev forceCheck statement didn't trigger, need to return
+            return
+        }
+
         setEnableEditing(prevVal => {
             return !prevVal
         })
@@ -109,8 +126,10 @@ const CoreLogic = () => {
 
         }
 
+
         handleCloseDeletePopup()
         setLoading(false)
+        handleEnableEditing(false, true)
     }
 
     const handleCloseDeletePopup = () => {
@@ -175,8 +194,13 @@ const CoreLogic = () => {
         if (validationPass === false) return
 
         if (code === 201) {
-            const newData = [...tableData, respData]
-            setTableData(newData)
+
+            if (tableData.length === 1 && tableData[0].id === -2) {
+                setTableData([respData])
+            } else {
+                const newData = [...tableData, respData]
+                setTableData(newData)
+            }
 
             setNotify({
                 isOpen: true,

@@ -12,13 +12,13 @@ const useLogin = () => {
     const { setLoggedIn, setUser } = useAuth();
 
     const [badLogin, setbadLogin] = useState(false)
+    const [accountLocked, setAccountLocked] = useState(false)
+
     const [values, setValues] = useState({
         username: '',
         password: '',
         showPassword: false,
     })
-
-    const [sessionExpired, setSessionExpired] = useState(localStorage.getItem('session_expired') || false)
 
     const handleChange = (prop, event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -39,9 +39,14 @@ const useLogin = () => {
         event.preventDefault();
         const code = await login(values.username, values.password)
 
-        if (code !== 200) {
+        console.log(code)
+
+        if (code === 423) {
+            setAccountLocked(true)
+        } else if (code !== 200) {
             setbadLogin(true)
         } else {
+            setAccountLocked(false)
             setLoggedIn(true)
             setUser(values.username)
             localStorage.setItem("loginToken", uuid())
@@ -75,7 +80,8 @@ const useLogin = () => {
         handleClickShowPassword,
         handleMouseDownPassword,
         handleSubmit,
-        sessionExpired
+        sessionExpired: localStorage.getItem('session_expired') || false,
+        accountLocked
     }
 }
 

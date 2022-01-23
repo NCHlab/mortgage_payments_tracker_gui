@@ -11,7 +11,15 @@ import useLogin from './UseLogin'
 const LoginForm = () => {
 
     const {
-        classes, badLogin, values, handleChange, handleClickShowPassword, handleMouseDownPassword, handleSubmit, sessionExpired
+        classes,
+        badLogin,
+        values,
+        handleChange,
+        handleClickShowPassword,
+        handleMouseDownPassword,
+        handleSubmit,
+        sessionExpired,
+        accountLocked
     } = useLogin();
 
     const isSessionExpired = (sessionExpired === 'true')
@@ -36,7 +44,7 @@ const LoginForm = () => {
                             Log in
                         </Typography>
 
-                        {badLogin && (
+                        {badLogin && !accountLocked && (
                             <Typography component="h5" variant="h7" sx={{ color: "red" }}>
                                 Wrong Username and/or Password. Please Try Again.
                             </Typography>
@@ -47,6 +55,14 @@ const LoginForm = () => {
                                 Session has Expired. Please login again.
                             </Typography>
                         )}
+
+                        {accountLocked === true && (
+                            <Typography component="h5" variant="h7" sx={{ color: "red" }}>
+                                Account Locked for security purposes. Contact Administrator for assistance.
+                            </Typography>
+                        )}
+
+
 
 
 

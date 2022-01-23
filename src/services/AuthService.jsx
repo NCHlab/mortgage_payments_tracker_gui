@@ -16,8 +16,10 @@ const AuthService = () => {
                 code = 200
             }
         } catch (error) {
+            // console.log(error.response)
+            code = error.response.status
             local_logout()
-            console.log(error.response.data.error)
+            // console.log(error.response.data.error)
         }
 
         return code
