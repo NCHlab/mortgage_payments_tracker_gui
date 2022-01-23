@@ -1,23 +1,17 @@
 .header_filter_width {
     width: 92px;
   }
+
+.MuiToolbar-root {
+    justify-content: center !important;
+}
+
+.MuiTablePagination-spacer {
+    flex: 0 !important;
+}
   
 
 .MuiTablePagination-displayedRows {
-  margin-left: 350px;
-  margin-right: 350px;
-
-  @media (max-width: 768px) {
-    margin-left: 100px;
-    margin-right: 100px;
-  }
+  margin-left: 50px;
+  margin-right: 50px;
 }
-
-
-/* .MuiTablePagination-displayedRows {
-  margin-right: 200px;
-
-  @media (min-width: 768px) {
-    margin-right: 5px;
-  }
-} */
