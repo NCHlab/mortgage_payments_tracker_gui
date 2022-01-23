@@ -1,10 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import PaymentsService from '../../services/PaymentsService'
 import DownloaderService from '../../services/DownloaderService';
 import { numberFormat } from '../generic/utils'
 
+import { useAuth } from '../../context/AuthContext'
 const CoreLogic = () => {
+
+    const navigate = useNavigate();
 
     const [tableData, setTableData] = useState(() => [])
     const [fetchNewData, setfetchNewData] = useState(false)
@@ -19,10 +24,33 @@ const CoreLogic = () => {
 
     const { UserPaymentInfo, AddPayment, UpdatePayment, DeletePayment } = PaymentsService()
     const { DownloadXLSX, DownloadCSV } = DownloaderService();
+    const { local_logout } = useAuth();
 
+    const validateLoggedIn = (code) => {
+        if (code === 401 || code === 'UNAUTHORIZED') {
+            local_logout()
+            console.log("Session Expired. Logging Out")
+            localStorage.setItem('session_expired', true)
+            // window.location = '/login'
+            navigate('/login');
+            return false
+        }
+        return true
+    }
 
     const manageGetInfo = async (page) => {
-        const { data } = await UserPaymentInfo(page)
+        const { code, data } = await UserPaymentInfo(page)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
+
+        if (data.length === 0) {
+            const date = new Date();
+            const err = [{ id: -2, user_id: "No Data", paid: 0, reason: "You have not made any payments", date: date.toISOString(), from_tenant: false }]
+            setTableData(err)
+            return
+        }
+
         setTableData(data)
 
     }
@@ -60,6 +88,9 @@ const CoreLogic = () => {
 
         const { code, respData } = await DeletePayment(page, dataToDelete.id)
 
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
+
         if (code === 204) {
             setfetchNewData(prev => !prev)
 
@@ -73,7 +104,7 @@ const CoreLogic = () => {
             setNotify({
                 isOpen: true,
                 message: `Could Not Delete. Code: ${code}, Message: ${respData.message}`,
-                type: 'Warning'
+                type: 'warning'
             })
 
         }
@@ -96,6 +127,9 @@ const CoreLogic = () => {
         if (type === "XLSX") {
             const response = await DownloadXLSX(page)
 
+            const validationPass = validateLoggedIn(response)
+            if (validationPass === false) return
+
             if (response) {
                 setNotify({
                     isOpen: true,
@@ -112,6 +146,9 @@ const CoreLogic = () => {
 
         } else {
             const response = await DownloadCSV(page)
+
+            const validationPass = validateLoggedIn(response)
+            if (validationPass === false) return
 
             if (response) {
                 setNotify({
@@ -133,6 +170,9 @@ const CoreLogic = () => {
         values.paid = parseFloat(values.paid)
 
         const { code, respData } = await AddPayment(page, values)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
 
         if (code === 201) {
             const newData = [...tableData, respData]
@@ -157,6 +197,9 @@ const CoreLogic = () => {
         values.paid = parseFloat(values.paid)
 
         const { code, respData } = await UpdatePayment(page, values)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
 
         if (code === 204) {
             // Fetch New Data to update table

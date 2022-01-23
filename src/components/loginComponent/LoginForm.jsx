@@ -11,8 +11,10 @@ import useLogin from './UseLogin'
 const LoginForm = () => {
 
     const {
-        classes, badLogin, values, handleChange, handleClickShowPassword, handleMouseDownPassword, handleSubmit,
+        classes, badLogin, values, handleChange, handleClickShowPassword, handleMouseDownPassword, handleSubmit, sessionExpired
     } = useLogin();
+
+    const isSessionExpired = (sessionExpired === 'true')
 
     return (
         <React.Fragment>
@@ -39,6 +41,14 @@ const LoginForm = () => {
                                 Wrong Username and/or Password. Please Try Again.
                             </Typography>
                         )}
+
+                        {isSessionExpired === true && (
+                            <Typography component="h5" variant="h7" sx={{ color: "red" }}>
+                                Session has Expired. Please login again.
+                            </Typography>
+                        )}
+
+
 
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                             <TextField

@@ -18,6 +18,8 @@ const useLogin = () => {
         showPassword: false,
     })
 
+    const [sessionExpired, setSessionExpired] = useState(localStorage.getItem('session_expired') || false)
+
     const handleChange = (prop, event) => {
         setValues({ ...values, [prop]: event.target.value });
     }
@@ -44,6 +46,7 @@ const useLogin = () => {
             setUser(values.username)
             localStorage.setItem("loginToken", uuid())
             localStorage.setItem('username', values.username)
+            localStorage.setItem('session_expired', false)
             navigate('/');
         }
     }
@@ -71,7 +74,8 @@ const useLogin = () => {
         handleChange,
         handleClickShowPassword,
         handleMouseDownPassword,
-        handleSubmit
+        handleSubmit,
+        sessionExpired
     }
 }
 
