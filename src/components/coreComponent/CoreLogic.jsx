@@ -283,10 +283,12 @@ const CoreLogic = () => {
 
     const handleSelectedRows = (selected) => {
 
-        let total = 0;
-        selected.map(data => {
-            total += data.original.paid
-        })
+        const total = selected.map(data => data.original.paid).reduce((acc, value) => acc + value, 0);
+
+        // const total = selected.map(data => {
+        //     return data.original.paid
+        // }).reduce((acc, value) => acc + value, 0);
+
         return numberFormat(total)
     }
 

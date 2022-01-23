@@ -5,13 +5,13 @@ export const SelectColumnFilter = ({
 }) => {
     // Calculate the options for filtering
     // using the preFilteredRows
-    const options = React.useMemo(() => {
-        const options = new Set()
-        preFilteredRows.forEach(row => {
-            options.add(row.values[id])
-        })
-        return [...options.values()]
-    }, [id, preFilteredRows])
+    // const options = React.useMemo(() => {
+    //     const options = new Set()
+    //     preFilteredRows.forEach(row => {
+    //         options.add(row.values[id])
+    //     })
+    //     return [...options.values()]
+    // }, [id, preFilteredRows])
 
     // Render a multi-select box
     return (

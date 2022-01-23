@@ -1,14 +1,5 @@
 import _axios from './httpService'
 
-
-const get_error = (error) => {
-    try {
-        console.log(error.response.statusText)
-    } catch {
-        console.log(error)
-    }
-}
-
 const PaymentsService = () => {
 
     const UserPaymentInfo = async (endpoint) => {
