@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react'
 
-import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem } from '@mui/material';
+import { Button, Container, Typography, Toolbar, AppBar, Box, Menu, MenuItem, IconButton } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import useHeader from "./useHeader";
 
@@ -16,12 +19,16 @@ const Header = () => {
         anchorEl_over,
         anchorEl_home,
         anchorEl_menu,
+        anchorEl_mobile,
         handleNavButtonClick,
+        handleOpenMobileNavMenu,
         handleCloseMenu,
         handleMenuClick,
         handleNavigate,
         handleMiddleClick,
-        pageLocator
+        pageLocator,
+        mobileLoggedOutPages,
+        mobileLoggedInPages
     } = useHeader();
 
     return (
@@ -187,6 +194,140 @@ const Header = () => {
                             </Box>
                         </React.Fragment>
                     )}
+
+
+
+                    {/* Mobile Nav Menu */}
+
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/home"
+                        sx={{ flexGrow: 1, color: 'white', textDecoration: 'none', display: { xs: 'flex', md: 'none' } }}
+                    >
+                        Mortgage Payments Tracker
+                    </Typography>
+
+                    {!loggedIn && (
+
+                        <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpenMobileNavMenu}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl_mobile}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl_mobile)}
+                                onClose={handleCloseMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                {mobileLoggedOutPages.map((page) => (
+                                    <MenuItem
+                                        key={page.name}
+                                        onClick={handleCloseMenu}
+                                        component="a"
+                                        href={page.href}>
+                                        <Typography textAlign="center">{page.name}</Typography>
+                                    </MenuItem>
+                                ))}
+
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<LockOpenIcon />}
+                                    color="secondary"
+                                    onClick={() => { handleNavigate("/login") }}
+                                    sx={{
+                                        mt: '5px', ml: '5px', mr: '5px', color: 'gray', border: '2px solid #37db00',
+                                        ':hover': {
+                                            bgcolor: '#41d63c',
+                                            color: 'black',
+                                            border: '2px solid #000'
+                                        }
+                                    }}>
+                                    Login
+                                </Button>
+                            </Menu>
+                        </Box>)}
+
+
+
+                    {loggedIn && (<Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenMobileNavMenu}
+                            color="inherit"
+                        >
+                            <AccountCircleIcon sx={{ fontSize: 30 }} />
+                        </IconButton>
+
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl_mobile}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorEl_mobile)}
+                            onClose={handleCloseMenu}
+                            sx={{
+                                display: { xs: 'block', md: 'none' },
+                            }}
+                        >
+                            {mobileLoggedInPages.map((page) => (
+                                <MenuItem
+                                    key={page.name}
+                                    onClick={handleCloseMenu}
+                                    component="a"
+                                    href={page.href}>
+                                    <Typography textAlign="center">{page.name}</Typography>
+                                </MenuItem>
+                            ))}
+
+                            <Button
+                                variant="outlined"
+                                startIcon={<LogoutIcon />}
+                                color="secondary"
+                                onClick={() => { handleLogOut() }}
+                                sx={{
+                                    mt: '5px', ml: '15px', color: 'gray', border: '2px solid #cf0000',
+                                    ':hover': {
+                                        bgcolor: '#e33434',
+                                        color: 'black',
+                                        border: '2px solid #000'
+                                    }
+                                }}>
+                                Logout
+                            </Button>
+                        </Menu>
+                    </Box>)}
 
                 </Toolbar>
             </Container>

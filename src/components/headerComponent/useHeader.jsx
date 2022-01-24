@@ -41,6 +41,18 @@ const useHeader = () => {
         "/home_improvements/all": "MPT All Home Improvements",
     }
 
+    const mobileLoggedOutPages = [{ name: "Home", href: "/home" }]
+    const mobileLoggedInPages = [{ name: "Home", href: "/home" },
+    { name: "Payments", href: "/payments" },
+    { name: "All Payments", href: "/payments/all" },
+    { name: "Overpayments", href: "/overpayments" },
+    { name: "All Overpayments", href: "/overpayments/all" },
+    { name: "Home Improvements", href: "/home_improvements" },
+    { name: "All Home Improvements", href: "/home_improvements/all" },
+    { name: "Totals", href: "/totals" },
+    { name: "Logs", href: "/logs" },
+    ]
+
     const navigate = useNavigate();
     const { loggedIn } = useAuth();
     const { handleLogOut } = useLogout();
@@ -49,6 +61,7 @@ const useHeader = () => {
     const [anchorEl_over, setAnchorEl_over] = React.useState(null);
     const [anchorEl_home, setAnchorEl_home] = React.useState(null);
     const [anchorEl_menu, setAnchorEl_menu] = React.useState(null);
+    const [anchorEl_mobile, setAnchorEl_mobile] = React.useState(null);
 
     const handleNavButtonClick = (event) => {
         const text = event.target.innerText.toLowerCase();
@@ -64,11 +77,16 @@ const useHeader = () => {
         }
     };
 
+    const handleOpenMobileNavMenu = (event) => {
+        setAnchorEl_mobile(event.currentTarget);
+    }
+
     const handleCloseMenu = () => {
         setAnchorEl_pay(null);
         setAnchorEl_over(null);
         setAnchorEl_home(null);
         setAnchorEl_menu(null);
+        setAnchorEl_mobile(null);
     };
 
     const handleMenuClick = (pageURL) => {
@@ -103,12 +121,16 @@ const useHeader = () => {
         anchorEl_over,
         anchorEl_home,
         anchorEl_menu,
+        anchorEl_mobile,
         handleNavButtonClick,
+        handleOpenMobileNavMenu,
         handleCloseMenu,
         handleMenuClick,
         handleNavigate,
         handleMiddleClick,
-        pageLocator
+        pageLocator,
+        mobileLoggedOutPages,
+        mobileLoggedInPages
     }
 }
 
