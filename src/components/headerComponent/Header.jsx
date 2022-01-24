@@ -15,6 +15,7 @@ const Header = () => {
         anchorEl_pay,
         anchorEl_over,
         anchorEl_home,
+        anchorEl_menu,
         handleNavButtonClick,
         handleCloseMenu,
         handleMenuClick,
@@ -141,10 +142,30 @@ const Header = () => {
                                     <MenuItem component="a" href='/home_improvements/all'>All Home Improvements</MenuItem>
                                 </Menu>
 
-                                <Button onMouseDown={(e) => handleMiddleClick(e, '/logs')} onClick={() => handleMenuClick('/logs')}
+
+
+                                <Button onClick={handleNavButtonClick} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
+                                    Menu
+                                </Button>
+                                <Menu
+                                    id="menu"
+                                    anchorEl={anchorEl_menu}
+                                    keepMounted
+                                    open={Boolean(anchorEl_menu)}
+                                    onClose={handleCloseMenu}
+                                    MenuListProps={{ onMouseLeave: handleCloseMenu }}
+                                >
+                                    <MenuItem component="a" href='/totals'>Totals</MenuItem>
+                                    <MenuItem component="a" href='/logs'>Logs</MenuItem>
+                                </Menu>
+
+
+
+
+                                {/* <Button onMouseDown={(e) => handleMiddleClick(e, '/logs')} onClick={() => handleMenuClick('/logs')}
                                     sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
                                     Logs
-                                </Button>
+                                </Button> */}
                             </Box>
 
                             <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
@@ -167,65 +188,6 @@ const Header = () => {
                         </React.Fragment>
                     )}
 
-
-
-
-
-
-
-                    {/* <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-                    {pageNav.map((page) => (
-                        <Button
-                            component={RouterLink}
-                            to={page.link}
-                            key={page.name}
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {page.name}
-                        </Button>
-                    ))}
-                </Box> */}
-
-
-
-
-
-
-
-
-
-
-
-                    {/* <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="SRemy Sharp" src="/static/images/avatar/2.jpg" />
-                        </IconButton>
-                    </Tooltip>
-                    <Menu
-                        sx={{ mt: '45px' }}
-                        id="menu-appbar"
-                        anchorEl={anchorElUser}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
-                    >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{setting}</Typography>
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </Box> */}
                 </Toolbar>
             </Container>
         </AppBar >

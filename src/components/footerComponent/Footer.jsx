@@ -21,7 +21,7 @@ const Footer = () => {
                         component="div"
                         sx={{ mr: 1, flexGrow: 0.5 }}
                     />
-                    <Box textAlign="center">
+                    <Box >
                         <Link target="_blank" rel="noreferrer" href="https://github.com/NCHlab/mortgage_payments_tracker_gui" color="inherit">
                             Mortgage Payments Tracker &#169; {new Date().getFullYear()}
                         </Link>

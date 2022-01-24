@@ -48,6 +48,7 @@ const useHeader = () => {
     const [anchorEl_pay, setAnchorEl_pay] = React.useState(null);
     const [anchorEl_over, setAnchorEl_over] = React.useState(null);
     const [anchorEl_home, setAnchorEl_home] = React.useState(null);
+    const [anchorEl_menu, setAnchorEl_menu] = React.useState(null);
 
     const handleNavButtonClick = (event) => {
         const text = event.target.innerText.toLowerCase();
@@ -58,6 +59,8 @@ const useHeader = () => {
             setAnchorEl_over(event.currentTarget);
         } else if (text === "home improvements") {
             setAnchorEl_home(event.currentTarget);
+        } else if (text === "menu") {
+            setAnchorEl_menu(event.currentTarget);
         }
     };
 
@@ -65,6 +68,7 @@ const useHeader = () => {
         setAnchorEl_pay(null);
         setAnchorEl_over(null);
         setAnchorEl_home(null);
+        setAnchorEl_menu(null);
     };
 
     const handleMenuClick = (pageURL) => {
@@ -98,6 +102,7 @@ const useHeader = () => {
         anchorEl_pay,
         anchorEl_over,
         anchorEl_home,
+        anchorEl_menu,
         handleNavButtonClick,
         handleCloseMenu,
         handleMenuClick,

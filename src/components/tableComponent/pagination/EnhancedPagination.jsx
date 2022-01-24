@@ -23,6 +23,11 @@ const EnhancedPagination = ({ colSpan, dataLength, pageSize, pageIndex, gotoPage
 
         <TableRow sx={{ backgroundColor: '#fff' }}>
             <TablePagination
+                sx={{
+                    '& .MuiToolbar-root': {
+                        justifyContent: 'center !important'
+                    },
+                }}
                 rowsPerPageOptions={[
                     5,
                     25,

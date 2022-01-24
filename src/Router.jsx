@@ -11,6 +11,7 @@ import AllOverpaymentsPage from './pages/AllOverpaymentsPage'
 import HomeImprovementsPage from './pages/HomeImprovementsPage'
 import AllHomeImprovementsPage from './pages/AllHomeImprovementsPage'
 import LogsPage from './pages/LogsPage'
+import TotalsPage from './pages/TotalsPage'
 
 import { useAuth } from './context/AuthContext';
 import { Header } from './components/headerComponent';
@@ -43,6 +44,7 @@ const Router = () => {
                         <Route path="/overpayments/all" element={<AllOverpaymentsPage />} />
                         <Route path="/home_improvements" element={<HomeImprovementsPage />} />
                         <Route path="/home_improvements/all" element={<AllHomeImprovementsPage />} />
+                        <Route path="/totals" element={<TotalsPage />} />
                         <Route path="/logs" element={<LogsPage />} />
                         <Route path="*" element={<Navigate to="/404_not_found" />} />
                     </React.Fragment>

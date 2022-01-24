@@ -2,14 +2,10 @@
     width: 92px;
   }
 
-.MuiToolbar-root {
-    justify-content: center !important;
-}
-
 .MuiTablePagination-spacer {
     flex: 0 !important;
+    /* flex: 0 1 100%; */
 }
-  
 
 .MuiTablePagination-displayedRows {
   margin-left: 50px;
