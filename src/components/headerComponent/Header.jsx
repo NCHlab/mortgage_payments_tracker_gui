@@ -5,7 +5,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 import useHeader from "./useHeader";
 

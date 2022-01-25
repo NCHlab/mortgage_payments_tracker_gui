@@ -39,6 +39,8 @@ const useHeader = () => {
         "/overpayments/all": "MPT All Over Payments",
         "/home_improvements": "MPT Home Improvements",
         "/home_improvements/all": "MPT All Home Improvements",
+        "/totals": "MPT Total Payments",
+        "/logs": "MPT Logs",
     }
 
     const mobileLoggedOutPages = [{ name: "Home", href: "/home" }]

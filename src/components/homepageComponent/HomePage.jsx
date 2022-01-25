@@ -30,7 +30,7 @@ const HomePageT = () => {
                 spacing={5}
                 direction="row"
                 alignItems="center"
-                mt='20vh'
+                mt='15vh'
             >
                 <Grid item xs={12} md={6} key="note.id">
                     <Card elevation={12} sx={{ height: '290px' }}>

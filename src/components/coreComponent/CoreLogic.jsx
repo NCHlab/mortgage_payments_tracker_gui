@@ -323,7 +323,8 @@ const CoreLogic = () => {
         sleep,
         SXValuesTableBody,
         SXValuesTableHeadTheme,
-        handleSelectedRows
+        handleSelectedRows,
+        validateLoggedIn
     }
 }
 
