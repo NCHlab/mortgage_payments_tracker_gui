@@ -12,10 +12,12 @@ const useTotals = () => {
     const [aggregateData, setAggregateData] = useState([])
     const [total, setTotal] = useState({ payments: 0, overpayments: 0, home_improvements: 0, total: 0 })
 
-    useEffect(async () => {
-        const data = await allUserPaymentInfo()
-        setAggregateData(data)
-        calculateAllTotal(data)
+    useEffect(() => {
+        (async () => {
+            const data = await allUserPaymentInfo()
+            setAggregateData(data)
+            calculateAllTotal(data)
+        })()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
