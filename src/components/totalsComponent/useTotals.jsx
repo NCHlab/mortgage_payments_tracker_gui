@@ -6,7 +6,7 @@ import CoreLogic from '../coreComponent/CoreLogic';
 const useTotals = () => {
 
     const { allUserPaymentInfo } = TotalsService();
-    const { handleDownload, validateLoggedIn } = CoreLogic();
+    const { handleDownload, validateLoggedIn, notify, setNotify } = CoreLogic();
 
 
     const [aggregateData, setAggregateData] = useState([])
@@ -19,25 +19,18 @@ const useTotals = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
+    const getTotal = (data, objKey) => {
+        return data.map(UserObj => {
+            const username = Object.keys(UserObj)[0]
+            return UserObj[`${username}`][`${objKey}`]
+        }).reduce((acc, value) => acc + value, 0);
+    }
+
     const calculateAllTotal = (aggregateData) => {
-
-        const paymentsTotal = aggregateData.map(UserObj => {
-            const username = Object.keys(UserObj)[0]
-            return UserObj[`${username}`].payments
-        }).reduce((acc, value) => acc + value, 0);
-
-        const overpaymentsTotal = aggregateData.map(UserObj => {
-            const username = Object.keys(UserObj)[0]
-            return UserObj[`${username}`].overpayments
-        }).reduce((acc, value) => acc + value, 0);
-
-        const homeImprovementsTotal = aggregateData.map(UserObj => {
-            const username = Object.keys(UserObj)[0]
-            return UserObj[`${username}`].home_improvements
-        }).reduce((acc, value) => acc + value, 0);
-
-        // const paymentsTotal2 = aggregateData.map(UserObj => UserObj[`${Object.keys(UserObj)[0]}`].payments
-        // ).reduce((acc, value) => acc + value, 0);
+        const paymentsTotal = getTotal(aggregateData, 'payments')
+        const overpaymentsTotal = getTotal(aggregateData, 'overpayments')
+        const homeImprovementsTotal = getTotal(aggregateData, 'home_improvements')
 
         const AllTotal = {
             payments: paymentsTotal,
@@ -60,7 +53,9 @@ const useTotals = () => {
     return {
         aggregateData,
         total,
-        handleDownloadAll
+        handleDownloadAll,
+        notify,
+        setNotify
     };
 };
 

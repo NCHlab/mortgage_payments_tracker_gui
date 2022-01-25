@@ -17,12 +17,14 @@ import {
 
 import useTotals from './useTotals'
 import { numberFormat } from '../generic/utils';
+import Notification from '../UIComponents/Notification';
 
 const Totals = () => {
 
-    const { aggregateData, total, handleDownloadAll } = useTotals();
+    const { aggregateData, total, handleDownloadAll, notify, setNotify } = useTotals();
     return (
         <Container>
+            <Notification notify={notify} setNotify={setNotify} />
             <Grid container
                 spacing={5}
                 direction="row"
