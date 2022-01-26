@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import PaymentLogsTab from './PaymentLogsTab'
 import LoginLogsTab from './LoginLogsTab'
+import PaymentLogsTable from './PaymentLogsTable'
 
 const theme = createTheme({
     palette: {
@@ -36,16 +37,21 @@ const Logs = () => {
                                 sx={{ bgColor: "#000" }}
                                 centered onChange={handleChange} textColor="secondary" indicatorColor="primary">
                                 {/* textColor="secondary" indicatorColor="primary" */}
-                                <Tab label="Payment Information Logs" value="1" />
-                                <Tab label="Login Logs" value="2" />
+                                <Tab label="Payment Table Logs" value="1" />
+                                <Tab label="Payment JSON Logs" value="2" />
+                                <Tab label="Login JSON Logs" value="3" />
                             </TabList>
                         </Box>
 
                         <TabPanel value="1">
-                            <PaymentLogsTab />
+                            <PaymentLogsTable />
                         </TabPanel>
 
                         <TabPanel value="2">
+                            <PaymentLogsTab />
+                        </TabPanel>
+
+                        <TabPanel value="3">
                             <LoginLogsTab />
                         </TabPanel>
                     </TabContext>
