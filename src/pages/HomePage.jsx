@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 import AuthService from '../services/AuthService'
 import HomePageT from '../components/homepageComponent/HomePage'
+import PublicHomePage from '../components/publicHomepageComponent/PublicHomePage'
 
 const HomePage = () => {
 
@@ -23,7 +24,7 @@ const HomePage = () => {
 
     return (
         <div>
-            {resCode === 200 ? <HomePageT /> : ""}
+            {resCode === 200 ? <HomePageT /> : <PublicHomePage />}
         </div>
     )
 }
