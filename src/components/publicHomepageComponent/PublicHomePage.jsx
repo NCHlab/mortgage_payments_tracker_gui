@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import logo from './Logo_transparent.png'
 
 import {
@@ -7,14 +7,7 @@ import {
     Container,
     Typography,
     Card,
-    CardHeader,
     CardContent,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableRow,
-    Box,
     CardMedia,
     CardActions,
     TextField
@@ -57,27 +50,7 @@ const PublicHomePage = () => {
                 alignItems="center"
                 justifyContent="center"
                 mt='10vh'
-            // sx={{ border: '1px solid black' }}
             >
-
-                {/* <Grid item xs={12} md={12}>
-                    <img src={logo} height='200px' width='600px' />
-                </Grid> */}
-                {/* 
-                <Grid item xs={12} md={12}>
-
-                    <Box
-                        component="img"
-                        sx={{
-                            maxHeight: { xs: 150, md: 200, lg: 250 },
-                            maxWidth: { xs: 350, md: 500, lg: 600 },
-                        }}
-                        alt="Mortgage Payments Tracker Logo"
-                        src={logo}
-                    />
-
-                </Grid> */}
-
 
                 <Grid item xs={12} md={12}>
                     <Card sx={{
@@ -88,8 +61,6 @@ const PublicHomePage = () => {
                         <CardMedia
                             component="img"
                             sx={{
-                                // maxHeight: { xs: 150, md: 200, lg: 250 },
-                                // maxWidth: { xs: 350, md: 500, lg: 600 },
                                 backgroundColor: '#ededed'
                             }}
                             image={logo}
@@ -227,5 +198,3 @@ const PublicHomePage = () => {
 };
 
 export default PublicHomePage;
-
-{/* <div><img src={logo} /></div> */ }

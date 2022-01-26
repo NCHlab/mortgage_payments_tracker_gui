@@ -10,14 +10,11 @@ const HomePage = () => {
     const { get_login } = AuthService();
     const [resCode, setResCode] = useState(401)
 
-
     useEffect(() => {
-        async function fetchLogin() {
+        (async () => {
             const code = await get_login()
             setResCode(code)
-        }
-
-        fetchLogin()
+        })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

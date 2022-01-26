@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const usePublicHomePage = () => {
-    const [showDemoCard, setShowDemoCard] = useState(true)
+    const [showDemoCard, setShowDemoCard] = useState(false)
     const [userCode, setUserCode] = useState('')
     const [userValue, setUserValue] = useState('')
     const [isError, setIsError] = useState(false)

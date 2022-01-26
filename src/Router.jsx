@@ -12,6 +12,7 @@ import HomeImprovementsPage from './pages/HomeImprovementsPage'
 import AllHomeImprovementsPage from './pages/AllHomeImprovementsPage'
 import LogsPage from './pages/LogsPage'
 import TotalsPage from './pages/TotalsPage'
+import GalleryPage from './pages/GalleryPage'
 
 import { useAuth } from './context/AuthContext';
 import { Header } from './components/headerComponent';
@@ -28,6 +29,7 @@ const Router = () => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/home" element={<Navigate to="/" />} />
+                <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/404_not_found" element={<PageNotFound />} />
 
                 {!loggedIn ? (
@@ -46,6 +48,8 @@ const Router = () => {
                         <Route path="/home_improvements/all" element={<AllHomeImprovementsPage />} />
                         <Route path="/totals" element={<TotalsPage />} />
                         <Route path="/logs" element={<LogsPage />} />
+
+
                         <Route path="*" element={<Navigate to="/404_not_found" />} />
                     </React.Fragment>
 

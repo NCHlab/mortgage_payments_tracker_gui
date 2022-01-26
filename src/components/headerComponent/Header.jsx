@@ -70,30 +70,38 @@ const Header = () => {
                         </Fragment>
                     )}
 
-                    <Box sx={{ flexGrow: loggedIn ? 0 : 0.01, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ flexGrow: loggedIn ? 0 : 0, display: { xs: 'none', md: 'flex' } }}>
                         <Button onMouseDown={(e) => handleMiddleClick(e, '/home')} onClick={() => handleMenuClick('/home')} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
                             Home
                         </Button>
                     </Box>
 
                     {!loggedIn && (
-                        <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
-                            <Button
-                                variant="outlined"
-                                startIcon={<LockOpenIcon />}
-                                color="secondary"
-                                onClick={() => { handleNavigate("/login") }}
-                                sx={{
-                                    my: 2, color: 'white', border: '2px solid #37db00',
-                                    ':hover': {
-                                        bgcolor: '#41d63c',
-                                        color: 'black',
-                                        border: '2px solid #000'
-                                    }
-                                }}>
-                                Login
-                            </Button>
-                        </Box>
+                        <React.Fragment>
+                            <Box sx={{ flexGrow: loggedIn ? 0 : 0.01, display: { xs: 'none', md: 'flex' } }}>
+                                <Button onMouseDown={(e) => handleMiddleClick(e, '/gallery')} onClick={() => handleMenuClick('/gallery')} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
+                                    Gallery
+                                </Button>
+                            </Box>
+
+                            <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
+                                <Button
+                                    variant="outlined"
+                                    startIcon={<LockOpenIcon />}
+                                    color="secondary"
+                                    onClick={() => { handleNavigate("/login") }}
+                                    sx={{
+                                        my: 2, color: 'white', border: '2px solid #37db00',
+                                        ':hover': {
+                                            bgcolor: '#41d63c',
+                                            color: 'black',
+                                            border: '2px solid #000'
+                                        }
+                                    }}>
+                                    Login
+                                </Button>
+                            </Box>
+                        </React.Fragment>
                     )}
 
                     {loggedIn && (
@@ -162,6 +170,7 @@ const Header = () => {
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
                                     <MenuItem component="a" href='/totals'>Totals</MenuItem>
+                                    <MenuItem component="a" href='/gallery'>Gallery</MenuItem>
                                     <MenuItem component="a" href='/logs'>Logs</MenuItem>
                                 </Menu>
 
