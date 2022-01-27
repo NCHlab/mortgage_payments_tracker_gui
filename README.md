@@ -6,7 +6,7 @@
 
 Welcome to the Mortgage Payments Tracker (MPT). This is the frontend for the website and requires the associated MPT API to function.
 
-> Note: Due to specific considerations, an instance of this server + API can only be used by 1 set of people who know each other. This is due to data on some pages being shared for all users (this project has a specific case for me - which is obvious by its name), thus adding in featurs for gobal public use has not been done.
+> Note: Due to specific considerations, an instance of this server + API can only be used by 1 set of people who know each other. This is due to data on some pages being shared for all users (this project has a specific case for me - which is obvious by its name), thus adding in features for gobal public use has not been done.
 
 Demo Access can be found on: demo.nayamc.com/mortgage
 
@@ -22,4 +22,6 @@ Some examples of pages are below:
 
 ### Homepage (Logged in)
 
-<img height='440px' src='./images/image1Homepage.png'>
+<img src='./images/image1Homepage.png'>
+
+<img src='./images/image1_replacement.png'>
