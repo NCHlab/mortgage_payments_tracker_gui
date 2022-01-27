@@ -9,6 +9,8 @@ const usePublicHomePage = () => {
     const [genCodeLoading, setGenCodeLoading] = useState(false);
     const [timeoutNum, setTimeoutNum] = useState(2000);
 
+    const demoURL = process.env.REACT_APP_DEMO_URL || "URL Not Set"
+    const isDemoSite = (process.env.REACT_APP_IS_DEMO_SITE === 'true') || false
 
     const handleShowDemo = () => {
         setShowDemoCard(prev => !prev)
@@ -45,7 +47,9 @@ const usePublicHomePage = () => {
         isError,
         loading,
         userValue,
-        genCodeLoading
+        genCodeLoading,
+        isDemoSite,
+        demoURL
     };
 };
 

@@ -37,7 +37,9 @@ const PublicHomePage = () => {
         isError,
         loading,
         userValue,
-        genCodeLoading
+        genCodeLoading,
+        isDemoSite,
+        demoURL
     } = usePublicHomePage();
 
 
@@ -70,22 +72,49 @@ const PublicHomePage = () => {
                             <Typography gutterBottom variant="h5" component="div">
                                 Welcome
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                Welcome to the Mortgage Payments Tracker (MPT).
-                                <br />
-                                This is a private website intended for personal use.
-                            </Typography>
-                            <br />
-                            <Typography variant="body2" color="text.secondary">
-                                To Access a demo version of the site, click request access below and
-                                enter in the code.
-                                <br />
-                                Alternatively, view the gallery page for images
-                            </Typography>
+
+                            {!isDemoSite && (
+                                <React.Fragment>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Welcome to the Mortgage Payments Tracker (MPT).
+                                        <br />
+                                        This is a private website intended for personal use.
+                                    </Typography>
+                                    <br />
+                                    <Typography variant="body2" color="text.secondary">
+                                        To Access a demo version of the site, go to: {demoURL}
+                                        <br />
+                                        Alternatively, view the gallery page for images
+                                    </Typography>
+                                </React.Fragment>
+                            )}
+
+                            {isDemoSite && (
+                                <React.Fragment>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Welcome to the Demo Mortgage Payments Tracker (MPT).
+                                        <br />
+                                        This is the demo public version of the site.
+                                        <br />
+                                        <span style={{ color: 'red' }}>Do NOT enter personal information here as it is public</span>
+                                    </Typography>
+                                    <br />
+                                    <Typography variant="body2" color="text.secondary">
+                                        To Access a demo version of the site, click request access below and
+                                        enter in the code.
+                                        <br />
+                                        Alternatively, view the gallery page for images
+                                    </Typography>
+                                </React.Fragment>
+                            )}
+
                         </CardContent>
-                        <CardActions>
-                            <Button onClick={handleShowDemo} size="small">{!showDemoCard ? "Request Access" : "Hide Demo Card"}</Button>
-                        </CardActions>
+
+                        {isDemoSite && (
+                            <CardActions>
+                                <Button onClick={handleShowDemo} size="small">{!showDemoCard ? "Request Access" : "Hide Demo Card"}</Button>
+                            </CardActions>
+                        )}
                     </Card>
                 </Grid>
 
