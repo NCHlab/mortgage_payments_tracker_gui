@@ -17,7 +17,11 @@ const AuthService = () => {
             }
         } catch (error) {
             // console.log(error.response)
-            code = error.response.status
+            try {
+                code = error.response.status
+            } catch {
+                code = 502
+            }
             local_logout()
             // console.log(error.response.data.error)
         }

@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './Logo_transparent.png'
+import logo from '../../images/Logo_transparent.png'
 
 import {
     Grid,

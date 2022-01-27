@@ -40,8 +40,9 @@ const useLogin = () => {
         const code = await login(values.username, values.password)
 
         console.log(code)
-
-        if (code === 423) {
+        if (code === 502) {
+            alert("API Server is Down")
+        } else if (code === 423) {
             setAccountLocked(true)
         } else if (code !== 200) {
             setbadLogin(true)

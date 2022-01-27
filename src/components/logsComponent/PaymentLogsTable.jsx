@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { useTable } from 'react-table'
-
 import {
     Grid, Typography, TextField, Button, FormGroup,
     FormControlLabel, FormHelperText, FormControl, Checkbox,
@@ -11,13 +10,12 @@ import {
 import { LocalizationProvider, DateTimePicker } from '@mui/lab'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
-import LogsService from '../../services/LogsService'
-import { COLUMNS } from './columns'
-
+import CoreLogic from '../coreComponent/CoreLogic'
 import MptTableHead from '../tableComponent/MptTableHead'
 import MptTableBody from '../tableComponent/MptTableBody'
+import LogsService from '../../services/LogsService'
+import { COLUMNS } from '../tableComponent/columns/LogsColumns'
 
-import CoreLogic from '../coreComponent/CoreLogic'
 
 const PaymentLogsTable = () => {
 

@@ -1,7 +1,7 @@
 # Mortgage Payments Tracker GUI
 
 <p align="center" width="100%">
-   <img height='240px' src='./images/logo.png'>
+   <img height='240px' src='./src/images/logo.png'>
 </p>
 
 Welcome to the Mortgage Payments Tracker (MPT). This is the frontend for the website and requires the associated MPT API to function.
@@ -22,4 +22,15 @@ Some examples of pages are below:
 
 ### Homepage (Logged in)
 
-<img src='./images/image1Homepage.png'>
+<img src='./src/images/image1Homepage.png'>
+
+
+
+### Payments page
+
+<img src='./src/images/image2PaymentsPage.png'>
+
+
+### All Payments page Table
+
+<img src='./src/images/image8AllPaymentsSelected.png'>

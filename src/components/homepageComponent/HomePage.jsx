@@ -174,7 +174,7 @@ const HomePageT = () => {
                             <TableContainer >
                                 <Table size="small" aria-label="simple table">
                                     <TableBody>
-                                        <TableRow key="pay">
+                                        <TableRow key="pay" sx={{ borderTop: '1px solid #7e0505' }}>
                                             <TableCell sx={{ width: '150px' }} component="th" scope="row">
                                                 Payments:
                                             </TableCell>
@@ -202,7 +202,7 @@ const HomePageT = () => {
                                             </TableCell>
                                         </TableRow>
 
-                                        <TableRow key="paymtotal" sx={{ '&:last-child td, &:last-child th': { border: 1 } }}>
+                                        <TableRow key="paymtotal" sx={{ borderBottom: '2px solid #7e0505' }}>
                                             <TableCell sx={{ width: '150px' }} component="th" scope="row">
                                                 Total
                                             </TableCell>
