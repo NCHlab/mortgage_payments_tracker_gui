@@ -11,7 +11,12 @@ const Gallery = () => {
 
     return (
         <Container sx={{ pt: 5 }}>
-            <ImageGallery items={images} />
+            <ImageGallery
+                items={images}
+                autoPlay={true}
+                showIndex={true}
+                slideInterval={5000}
+                slideDuration={1500} />
         </Container>
 
     );
