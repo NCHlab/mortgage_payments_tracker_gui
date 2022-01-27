@@ -14,7 +14,7 @@ This website allows a user to track how much they have paid towards their mortga
 
 Features such as adding / editing / deleting payments allows you to modify payment information across 3 different pages: `Payments`, `Overpayments`, `Home Improvements`. These pages also allow a user to download either an EXCEL or CSV file for each page.
 
-A `logs` page exists to auditing payments and seeing changes.
+A `logs` page exists for auditing payments and seeing changes. Logs can be viewed as JSON or as a table.
 
 A `totals` page also exists which shows condensed payment information about all users as well as allowing a user to download all payment information into an EXCEL file.
 
@@ -23,5 +23,3 @@ Some examples of pages are below:
 ### Homepage (Logged in)
 
 <img src='./images/image1Homepage.png'>
-
-<img src='./images/image1_replacement.png'>
