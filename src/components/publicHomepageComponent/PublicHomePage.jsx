@@ -16,7 +16,7 @@ import {
 import LoadingButton from '@mui/lab/LoadingButton';
 import { styled } from '@mui/material/styles';
 import usePublicHomePage from './usePublicHomePage';
-
+import DemoLoginDialog from '../UIComponents/DemoLoginDialog';
 
 const CustomSpan = styled('span')(({ theme }) => ({
     ...theme.typography.button,
@@ -39,13 +39,18 @@ const PublicHomePage = () => {
         userValue,
         genCodeLoading,
         isDemoSite,
-        demoURL
+        demoURL,
+        demoLoginData,
+        openPopup,
+        handleClose
     } = usePublicHomePage();
 
 
     return (
 
         <Container>
+
+            <DemoLoginDialog openPopup={openPopup} handleClose={handleClose} loginData={demoLoginData} />
             <Grid container
                 spacing={5}
                 direction="column"
@@ -133,6 +138,9 @@ const PublicHomePage = () => {
                                 <Typography sx={{ mb: 2 }} variant="body2" color="text.secondary">
                                     Misuse of this website will be considered as malicious.
                                     Your IP will be logged.
+                                </Typography>
+                                <Typography sx={{ mb: 2 }} variant="body2" color="text.secondary">
+                                    Submit Verification code for a One Time Password.
                                 </Typography>
 
                                 <Typography variant="h6" gutterBottom component="div">

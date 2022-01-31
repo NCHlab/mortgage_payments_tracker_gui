@@ -49,7 +49,18 @@ const AuthService = () => {
         }
     }
 
-    return { login, get_login, logout }
+    const demoLogin = async () => {
+        const errorResponse = { username: "An Error Occured", password: "" }
+        try {
+            const response = await _axios.post('/demo_login')
+            return response.data
+        } catch (e) {
+            return errorResponse
+
+        }
+    }
+
+    return { login, get_login, logout, demoLogin }
 }
 
 export default AuthService
