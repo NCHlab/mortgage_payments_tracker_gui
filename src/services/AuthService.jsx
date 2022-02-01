@@ -63,4 +63,4 @@ const AuthService = () => {
     return { login, get_login, logout, demoLogin }
 }
 
-export default AuthService
+export default AuthService;
