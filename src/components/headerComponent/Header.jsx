@@ -27,7 +27,8 @@ const Header = () => {
         handleMiddleClick,
         pageLocator,
         mobileLoggedOutPages,
-        mobileLoggedInPages
+        mobileLoggedInPages,
+        handlePageClick
     } = useHeader();
 
     return (
@@ -122,8 +123,8 @@ const Header = () => {
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem component="a" href='/payments'>My Payments</MenuItem>
-                                    <MenuItem component="a" href='/payments/all'>All Payments</MenuItem>
+                                    <MenuItem component="a" href='/payments' onClick={(e) => { handlePageClick(e, "/payments") }}>My Payments</MenuItem>
+                                    <MenuItem component="a" href='/payments/all' onClick={(e) => { handlePageClick(e, "/payments/all") }}>All Payments</MenuItem>
                                 </Menu>
 
                                 <Button onClick={(e) => handleNavButtonClick(e)} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
@@ -137,8 +138,8 @@ const Header = () => {
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem component="a" href='/overpayments'>My OverPayments</MenuItem>
-                                    <MenuItem component="a" href='/overpayments/all'>All OverPayments</MenuItem>
+                                    <MenuItem component="a" href='/overpayments' onClick={(e) => { handlePageClick(e, "/overpayments") }}>My OverPayments</MenuItem>
+                                    <MenuItem component="a" href='/overpayments/all' onClick={(e) => { handlePageClick(e, "/overpayments/all") }}>All OverPayments</MenuItem>
                                 </Menu>
 
                                 <Button onClick={handleNavButtonClick} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
@@ -152,8 +153,8 @@ const Header = () => {
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem component="a" href='/home_improvements'>My Home Improvements</MenuItem>
-                                    <MenuItem component="a" href='/home_improvements/all'>All Home Improvements</MenuItem>
+                                    <MenuItem component="a" href='/home_improvements' onClick={(e) => { handlePageClick(e, "/home_improvements") }}>My Home Improvements</MenuItem>
+                                    <MenuItem component="a" href='/home_improvements/all' onClick={(e) => { handlePageClick(e, "/home_improvements/all") }}>All Home Improvements</MenuItem>
                                 </Menu>
 
 
@@ -169,18 +170,12 @@ const Header = () => {
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem component="a" href='/totals'>Totals</MenuItem>
-                                    <MenuItem component="a" href='/gallery'>Gallery</MenuItem>
-                                    <MenuItem component="a" href='/logs'>Logs</MenuItem>
+                                    <MenuItem component="a" href='/totals' onClick={(e) => { handlePageClick(e, "/totals") }}>Totals</MenuItem>
+                                    <MenuItem component="a" href='/gallery' onClick={(e) => { handlePageClick(e, "/gallery") }}>Gallery</MenuItem>
+                                    <MenuItem component="a" href='/logs' onClick={(e) => { handlePageClick(e, "/logs") }}>Logs</MenuItem>
                                 </Menu>
 
 
-
-
-                                {/* <Button onMouseDown={(e) => handleMiddleClick(e, '/logs')} onClick={() => handleMenuClick('/logs')}
-                                    sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
-                                    Logs
-                                </Button> */}
                             </Box>
 
                             <Box sx={{ flexGrow: 0.01, display: { xs: 'none', md: 'flex' } }}>
@@ -314,7 +309,11 @@ const Header = () => {
                                     key={page.name}
                                     onClick={handleCloseMenu}
                                     component="a"
-                                    href={page.href}>
+                                    href={page.href}
+                                    onClick={(e) => {
+                                        handleCloseMenu()
+                                        handlePageClick(e, page.href)
+                                    }}>
                                     <Typography textAlign="center">{page.name}</Typography>
                                 </MenuItem>
                             ))}

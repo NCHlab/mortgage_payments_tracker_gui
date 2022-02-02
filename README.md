@@ -34,3 +34,19 @@ Some examples of pages are below:
 ### All Payments page Table
 
 <img src='./src/images/image8AllPaymentsSelected.png'>
+
+# Notes
+
+Ensure you have a `.env.development` (used by `npm start` ). You can also use an `.env.production` if required (used by `npm run build` for production).
+
+```bash
+REACT_APP_BROKER="Google"
+REACT_APP_BROKER_LINK="https://www.google.com/"
+REACT_APP_SOLICITOR="Legal Ltd"
+REACT_APP_SOLICITOR_LINK="https://www.google.com/"
+REACT_APP_ESTATE_AGENT="Agents Ltd"
+REACT_APP_ESTATE_AGENT_LINK="https://www.google.com/"
+REACT_APP_DEMO_URL=""
+REACT_APP_IS_DEMO_SITE=false
+REACT_APP_API_BASE_URL=""
+```

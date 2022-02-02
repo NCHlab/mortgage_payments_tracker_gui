@@ -100,6 +100,12 @@ const useHeader = () => {
         navigate(pageURL);
     };
 
+    const handlePageClick = (e, pageURL) => {
+        e.preventDefault();
+        navigate(pageURL);
+    };
+
+
     const handleMiddleClick = (e, pageURL) => {
         if (e.button === 1) {
             window.open(pageURL, "_blank")
@@ -132,7 +138,8 @@ const useHeader = () => {
         handleMiddleClick,
         pageLocator,
         mobileLoggedOutPages,
-        mobileLoggedInPages
+        mobileLoggedInPages,
+        handlePageClick
     }
 }
 
