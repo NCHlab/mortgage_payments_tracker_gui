@@ -57,7 +57,7 @@ const useHeader = () => {
 
     const navigate = useNavigate();
     const { loggedIn } = useAuth();
-    const { handleLogOut } = useLogout();
+    const { handleMainLogOut } = useLogout();
 
     const [anchorEl_pay, setAnchorEl_pay] = React.useState(null);
     const [anchorEl_over, setAnchorEl_over] = React.useState(null);
@@ -79,6 +79,11 @@ const useHeader = () => {
         }
     };
 
+    const handleLogOut = () => {
+        handleCloseMenu()
+        handleMainLogOut()
+    }
+
     const handleOpenMobileNavMenu = (event) => {
         setAnchorEl_mobile(event.currentTarget);
     }
@@ -94,10 +99,12 @@ const useHeader = () => {
     const handleMenuClick = (pageURL) => {
         handleCloseMenu();
         handleNavigate(pageURL);
+
     };
 
     const handleNavigate = (pageURL) => {
         navigate(pageURL);
+        handleCloseMenu();
     };
 
     const handlePageClick = (e, pageURL) => {

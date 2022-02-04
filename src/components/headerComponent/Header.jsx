@@ -307,7 +307,6 @@ const Header = () => {
                             {mobileLoggedInPages.map((page) => (
                                 <MenuItem
                                     key={page.name}
-                                    onClick={handleCloseMenu}
                                     component="a"
                                     href={page.href}
                                     onClick={(e) => {

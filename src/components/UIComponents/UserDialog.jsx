@@ -20,35 +20,71 @@ function PaperComponent(props) {
     );
 }
 
+
 const UserDialog = (props) => {
 
     const { openPopup, setOpenPopup, formTitle, children } = props;
+
+    const isTouch = isTouchDevice();
 
     const handleClose = () => {
         setOpenPopup(false)
     }
 
+    function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+    }
+
     return (
-        <Dialog
-            open={openPopup}
-            onClose={() => { handleClose() }}
-            maxWidth="sm"
-            PaperComponent={PaperComponent}
-            PaperProps={{ sx: { position: 'fixed', top: 80 } }}
-            aria-labelledby="draggable-dialog-title"
-        >
-            <DialogTitle sx={{ cursor: 'move' }}>
-                <div style={{ display: 'flex' }}>
-                    <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-                        {formTitle}
-                    </Typography>
-                    <Button onClick={() => { handleClose() }}><CloseIcon /></Button>
-                </div>
-            </DialogTitle>
-            <DialogContent dividers>
-                {children}
-            </DialogContent>
-        </Dialog>
+        <React.Fragment>
+            {!isTouch && (
+                <Dialog
+                    open={openPopup}
+                    onClose={handleClose}
+                    maxWidth="sm"
+                    PaperComponent={PaperComponent}
+                    PaperProps={{ sx: { position: 'fixed', top: 80 } }}
+                    aria-labelledby="draggable-dialog-title"
+                >
+                    <DialogTitle sx={{ cursor: 'move' }}>
+                        <div style={{ display: 'flex' }}>
+                            <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
+                                {formTitle}
+                            </Typography>
+                            <Button sx={{ padding: '5px' }} onClick={handleClose}><CloseIcon /></Button>
+                        </div>
+                    </DialogTitle>
+                    <DialogContent dividers>
+                        {children}
+                    </DialogContent>
+                </Dialog>)}
+
+
+            {isTouch && (
+                <Dialog
+                    open={openPopup}
+                    onClose={handleClose}
+                    maxWidth="sm"
+                    PaperProps={{ sx: { position: 'fixed', top: 80 } }}
+                    aria-labelledby="draggable-dialog-title"
+                >
+                    <DialogTitle sx={{ cursor: 'move' }}>
+                        <div style={{ display: 'flex' }}>
+                            <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
+                                {formTitle}
+                            </Typography>
+                            <Button sx={{ padding: '5px' }} onClick={handleClose}><CloseIcon /></Button>
+                        </div>
+                    </DialogTitle>
+                    <DialogContent dividers>
+                        {children}
+                    </DialogContent>
+                </Dialog>)}
+
+        </React.Fragment>
+
     )
 }
 

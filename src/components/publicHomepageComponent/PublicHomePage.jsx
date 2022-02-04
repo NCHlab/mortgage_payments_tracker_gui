@@ -87,7 +87,7 @@ const PublicHomePage = () => {
                                     </Typography>
                                     <br />
                                     <Typography variant="body2" color="text.secondary">
-                                        To Access a demo version of the site, go to: {demoURL}
+                                        To Access a demo version of the site, go to: <a href={demoURL}>{demoURL}</a>
                                         <br />
                                         Alternatively, view the gallery page for images
                                     </Typography>

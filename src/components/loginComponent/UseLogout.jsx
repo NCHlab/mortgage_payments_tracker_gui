@@ -18,10 +18,10 @@ const useLogout = () => {
         localStorage.removeItem("username")
         setUser("Not Logged In");
 
-        navigate('/login');
+        navigate('/home');
 
     }
-    return { handleLogOut: _logout }
+    return { handleMainLogOut: _logout }
 }
 
 export default useLogout
