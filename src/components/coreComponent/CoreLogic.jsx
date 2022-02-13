@@ -250,21 +250,24 @@ const CoreLogic = () => {
             background: '#b50d00',
             //background: 'linear-gradient(to right, #b50d00, #d10f00)',
             color: 'white',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            borderRight: '1px solid #ff481f',
         },
         overpayments: {
             borderBottom: 'solid 5px #00c7d1',
             background: '#000080',
             // background: 'linear-gradient(to right, #000080, #0000a8)',
             color: 'white',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            borderRight: '1px solid #00c7d1',
         },
         home_improvements: {
             borderBottom: 'solid 5px #3dff7e',
             background: '#128500',
             // background: 'linear-gradient(to right, #000080, #0000a8)',
             color: 'white',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            borderRight: '1px solid #3dff7e',
         }
     }
 
@@ -276,7 +279,7 @@ const CoreLogic = () => {
             borderLeft: '1px dotted #000',
             backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
             '&:hover': {
-                backgroundColor: '#fffbf2',
+                backgroundColor: '#ffeae8',
             }
         }
     }

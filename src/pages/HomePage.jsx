@@ -12,7 +12,7 @@ const HomePage = () => {
     const { loggedIn, local_logout } = useAuth();
 
     const { get_login } = AuthService();
-    const [resCode, setResCode] = useState(401)
+    const [resCode, setResCode] = useState(999)
 
     useEffect(() => {
         (async () => {
@@ -30,7 +30,7 @@ const HomePage = () => {
 
     return (
         <div>
-            {resCode === 200 ? <HomePageT /> : <PublicHomePage />}
+            {resCode === 999 ? '' : resCode === 200 ? <HomePageT /> : <PublicHomePage />}
         </div>
     )
 }

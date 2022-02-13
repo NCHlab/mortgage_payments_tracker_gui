@@ -76,10 +76,10 @@ const HomePageT = () => {
                                                         variant="outlined"
                                                         onClick={() => refreshInfo()}
                                                         sx={{
-                                                            my: 2, color: '#dedede', border: '2px solid #000000', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.5), rgba(43, 43, 43, 0.5))',
+                                                            my: 2, color: 'white', border: '2px solid #000000', backgroundImage: 'linear-gradient(to left, rgba(166, 0, 0, 0.9), rgba(43, 43, 43, 0.9))',
                                                             ':hover': {
                                                                 backgroundImage: `linear-gradient(to right, #a60000, #2b2b2b)`,
-                                                                color: 'white',
+                                                                color: '#36c9ff',
                                                                 border: '2px solid #000000'
                                                             }
                                                         }}>Refresh Data</Button>

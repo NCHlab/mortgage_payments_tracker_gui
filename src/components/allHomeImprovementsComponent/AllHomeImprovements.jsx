@@ -61,10 +61,15 @@ const AllHomeImprovements = () => {
             hooks.allColumns.push(columns => [
                 {
                     id: 'selection',
+                    Header: () => (
+                        <div>
+                            Select
+                        </div>
+                    ),
                     width: '10px',
                     Cell: ({ row }) => (
                         <Controls.IndeterminateCheckbox {...row.getToggleRowSelectedProps()} sx={{
-                            pb: 0, pt: 0, color: '#f37575a4', '&.Mui-checked': {
+                            ml: '10px', pb: 0, pt: 0, color: '#f37575a4', '&.Mui-checked': {
                                 color: '#7e0505',
                             }
                         }} />

@@ -40,7 +40,8 @@ const Header = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, flexGrow: 1 }}
+                        onClick={(e) => { handlePageClick(e, "/home") }}
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, flexGrow: 1, cursor: 'pointer' }}
                     >
                         Mortgage Payments Tracker
                     </Typography>
@@ -55,12 +56,7 @@ const Header = () => {
                                 }}
                             />
 
-                            <Button
-                                onMouseDown={(e) => handleMiddleClick(e, window.location.pathname)}
-                                onClick={() => window.location.reload()}
-                                sx={{ ...classes.title_page, ':hover': classes.title_page_hover, display: { xs: 'none', md: 'flex' } }}>
-                                {pageLocator()}
-                            </Button>
+                            <Typography sx={{ display: { xs: 'none', md: 'flex' } }}>{pageLocator()}</Typography>
 
                             <Typography
                                 component="div"
@@ -138,8 +134,8 @@ const Header = () => {
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem component="a" href='/overpayments' onClick={(e) => { handlePageClick(e, "/overpayments") }}>My OverPayments</MenuItem>
-                                    <MenuItem component="a" href='/overpayments/all' onClick={(e) => { handlePageClick(e, "/overpayments/all") }}>All OverPayments</MenuItem>
+                                    <MenuItem component="a" href='/overpayments' onClick={(e) => { handlePageClick(e, "/overpayments") }}>My Over Payments</MenuItem>
+                                    <MenuItem component="a" href='/overpayments/all' onClick={(e) => { handlePageClick(e, "/overpayments/all") }}>All Over Payments</MenuItem>
                                 </Menu>
 
                                 <Button onClick={handleNavButtonClick} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
@@ -206,7 +202,7 @@ const Header = () => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/home"
+                        onClick={(e) => { handlePageClick(e, "/home") }}
                         sx={{ flexGrow: 1, color: 'white', textDecoration: 'none', display: { xs: 'flex', md: 'none' } }}
                     >
                         Mortgage Payments Tracker
@@ -247,9 +243,11 @@ const Header = () => {
                                 {mobileLoggedOutPages.map((page) => (
                                     <MenuItem
                                         key={page.name}
-                                        onClick={handleCloseMenu}
-                                        component="a"
-                                        href={page.href}>
+                                        onClick={(e) => {
+                                            handleCloseMenu()
+                                            handlePageClick(e, page.href)
+                                        }}
+                                        component="a">
                                         <Typography textAlign="center">{page.name}</Typography>
                                     </MenuItem>
                                 ))}

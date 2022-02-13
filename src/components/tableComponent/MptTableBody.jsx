@@ -42,7 +42,7 @@ const MptTableBody = ({ getTableBodyProps, page, prepareRow, isEven, sxValues, e
                                     background: isEven(i) ? '#ffffff' : '#ededed',
                                     borderLeft: '1px dotted #000',
                                     '&:hover': {
-                                        backgroundColor: '#fffbf2',
+                                        backgroundColor: '#ffeae8',
                                     },
                                 }}
                             >

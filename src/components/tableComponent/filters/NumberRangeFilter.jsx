@@ -11,7 +11,7 @@ export const NumberRangeColumnFilter = ({
                 value={filterValue[0] || ''}
                 type="number"
                 onChange={e => {
-                    const val = e.target.value
+                    const val = e.target.value < 0 ? 0 : e.target.value
                     setFilter((old = []) => [val ? parseInt(val, 10) : undefined, old[1]])
                 }}
                 placeholder={`Min`}
@@ -25,7 +25,7 @@ export const NumberRangeColumnFilter = ({
                 value={filterValue[1] || ''}
                 type="number"
                 onChange={e => {
-                    const val = e.target.value
+                    const val = e.target.value < 0 ? 0 : e.target.value
                     setFilter((old = []) => [old[0], val ? parseInt(val, 10) : undefined])
                 }}
                 placeholder={`Max`}

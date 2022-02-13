@@ -7,11 +7,6 @@ import useLogout from '../loginComponent/UseLogout'
 
 const useHeader = () => {
 
-    // const pageNav = [
-    //     { name: "Payments", menu: [{ "name": 'Your Payments', "link": "/payments" }, { "name": 'All Payments', "link": "/payments/all" }] },
-    //     { name: "Overpayments", menu: [{ "name": 'Your Overpayments', "link": "/overpayments" }, { "name": 'All Overpayments', "link": "/overpayments/all" }] },
-    //     { name: "Home Improvements", menu: [{ "name": 'Your Home Improvements', "link": "/home_improvements" }, { "name": 'All Home Improvements', "link": "/home_improvements/all" }] }]
-
     const classes = {
         main_menu_hover: {
             bgcolor: '#ffffff',
@@ -19,7 +14,7 @@ const useHeader = () => {
             border: '1px solid #ffffff',
         },
         main_menu: {
-            my: 2, color: 'white', border: '1px solid transparent', display: 'block'
+            my: 2, color: 'white', border: '1px solid transparent', display: 'block', mr: '5px'
         },
         title_page_hover: {
             bgcolor: 'gray',
@@ -32,7 +27,6 @@ const useHeader = () => {
     }
 
     const PATHNAME_OBJ_MAPPER = {
-        // "/": "Home",
         "/payments": "MPT Payments",
         "/payments/all": "MPT All Payments",
         "/overpayments": "MPT Over Payments",
@@ -43,7 +37,7 @@ const useHeader = () => {
         "/logs": "MPT Logs",
     }
 
-    const mobileLoggedOutPages = [{ name: "Home", href: "/home" }]
+    const mobileLoggedOutPages = [{ name: "Home", href: "/home" }, { name: "Gallery", href: "/gallery" }]
     const mobileLoggedInPages = [{ name: "Home", href: "/home" },
     { name: "Payments", href: "/payments" },
     { name: "All Payments", href: "/payments/all" },
@@ -53,6 +47,7 @@ const useHeader = () => {
     { name: "All Home Improvements", href: "/home_improvements/all" },
     { name: "Totals", href: "/totals" },
     { name: "Logs", href: "/logs" },
+    { name: "Gallery", href: "/gallery" },
     ]
 
     const navigate = useNavigate();

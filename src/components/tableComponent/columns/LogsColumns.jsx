@@ -51,7 +51,6 @@ export const COLUMNS = [
                 date: row.value.date,
                 ...row.value
             }
-            // return <div style={{ textAlign: "center" }}>{JSON.stringify(row.value, null, 2)}</div>
             return <div><pre>{JSON.stringify(valueData, null, 2)}</pre></div>
         },
         disableFilters: true,
@@ -61,8 +60,6 @@ export const COLUMNS = [
         accessor: 'prev_values',
         width: 300,
         Cell: (row) => {
-            // row.value === undefined ? <div></div> : ''
-
             const valueData = {
                 id: row.value.id,
                 user_id: row.value.user_id,
@@ -71,7 +68,6 @@ export const COLUMNS = [
                 date: row.value.date,
                 ...row.value
             }
-            // return <div style={{ textAlign: "center" }}>{JSON.stringify(row.value, null, 2)}</div>
             return <div><pre>{JSON.stringify(valueData, null, 2)}</pre></div>
         },
         disableFilters: true,

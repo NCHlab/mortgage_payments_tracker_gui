@@ -47,11 +47,25 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
         }
     }
 
+    const maxNumberCap = 100000.00
+    const minNumberCap = 0
+    const maxReasonCap = 200
+
     const handleChange = (event, prop) => {
+        if (prop === "paid") {
+            if (event.target.value > maxNumberCap) {
+                event.target.value = maxNumberCap
+            } else if (event.target.value < 0) {
+                event.target.value = minNumberCap
+            }
+        } else if (prop === "reason" && event.target.value.length > maxReasonCap) {
+            return
+        }
         setValues({ ...values, [prop]: event.target.value });
     }
 
     const handleDateChange = (newDateVal) => {
+
         try {
             newDateVal = newDateVal.toISOString()
         } catch (error) { }
@@ -72,12 +86,9 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
                             color="secondary"
                             margin="normal"
                             required
-                            // id="paid"
                             label="Paid"
-                            // name="paid"
                             autoFocus
                             onChange={(e) => { handleChange(e, "paid") }}
-
                             value={values.paid}
                             name="numberformat"
                             id="formatted-numberformat-input"
@@ -116,6 +127,7 @@ const PaymentsForm = ({ values, setValues, handleClearForm, handleSubmit, loadin
                                 label="Date"
                                 value={values.date}
                                 inputFormat="dd/MM/yyyy hh:mm a"
+                                maxDateTime={new Date()}
                                 onChange={(newDateVal) => { handleDateChange(newDateVal) }}
                             />
                         </LocalizationProvider>

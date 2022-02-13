@@ -58,13 +58,20 @@ const AllPayments = () => {
         useRowSelect,
         hooks => {
             hooks.allColumns.push(columns => [
-                // Column for selection
                 {
                     id: 'selection',
+                    // The header can use the table's getToggleAllRowsSelectedProps method
+                    // to render a checkbox
+                    Header: ({ getToggleAllRowsSelectedProps }) => (
+                        <div>
+                            Select
+                        </div>
+                    ),
+                    // Column for selection
                     width: '10px',
                     Cell: ({ row }) => (
                         <Controls.IndeterminateCheckbox {...row.getToggleRowSelectedProps()} sx={{
-                            pb: 0, pt: 0, color: '#f37575a4', '&.Mui-checked': {
+                            ml: '10px', pb: 0, pt: 0, color: '#f37575a4', '&.Mui-checked': {
                                 color: '#7e0505',
                             }
                         }} />
