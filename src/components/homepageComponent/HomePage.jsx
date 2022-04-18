@@ -195,10 +195,10 @@ const HomePageT = () => {
 
                                         <TableRow key="homeimprov">
                                             <TableCell sx={{ width: '150px' }} component="th" scope="row">
-                                                Home Improvements:
+                                                Other Payments:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(paymentData.home_improvements)}
+                                                {numberFormat(paymentData.other_payments)}
                                             </TableCell>
                                         </TableRow>
 
@@ -207,7 +207,7 @@ const HomePageT = () => {
                                                 Total
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(paymentData.payments + paymentData.overpayments + paymentData.home_improvements)}
+                                                {numberFormat(paymentData.payments + paymentData.overpayments + paymentData.other_payments)}
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>

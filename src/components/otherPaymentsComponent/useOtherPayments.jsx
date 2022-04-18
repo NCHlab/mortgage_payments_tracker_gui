@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { COLUMNS } from '../tableComponent/columns/HomeImprovementColumns'
+import { COLUMNS } from '../tableComponent/columns/OtherPaymentColumns'
 import CoreLogic from '../coreComponent/CoreLogic'
 
 const initialValues = {
@@ -46,7 +46,7 @@ const useOverPayments = () => {
 
     useEffect(() => {
         (async () => {
-            await manageGetInfo('home_improvements')
+            await manageGetInfo('other_payments')
         })();
 
         setValues(initialValues)
@@ -80,15 +80,15 @@ const useOverPayments = () => {
     }
 
     const handleDelete = async () => {
-        await manageDelete('home_improvements')
+        await manageDelete('other_payments')
     }
 
     const handleAddPayment = async () => {
-        await manageAddPayment('home_improvements', 'Home Improvement Payment')
+        await manageAddPayment('other_payments', 'Other Payment')
     }
 
     const handleUpdate = async () => {
-        await manageUpdatePayment('home_improvements', 'Home Improvement Payment')
+        await manageUpdatePayment('other_payments', 'Other Payment')
     }
 
     const handleSubmit = async (event) => {
@@ -135,7 +135,7 @@ const useOverPayments = () => {
         setNotify,
         loading,
         handleClearForm,
-        SXValuesTableHead: SXValuesTableHeadTheme.home_improvements,
+        SXValuesTableHead: SXValuesTableHeadTheme.other_payments,
         SXValuesTableBody
     }
 }

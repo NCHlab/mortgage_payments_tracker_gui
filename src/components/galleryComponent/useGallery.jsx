@@ -8,7 +8,7 @@ import image7AllPayments from '../../images/image7AllPayments.png'
 import image8AllPaymentsSelected from '../../images/image8AllPaymentsSelected.png'
 import image9AllPaymentsFiltering from '../../images/image9AllPaymentsFiltering.png'
 import image10Overpayments from '../../images/image10Overpayments.png'
-import image11HomeImprovements from '../../images/image11HomeImprovements.png'
+import image11OtherPayments from '../../images/image11OtherPayments.png'
 import image12TotalsPage from '../../images/image12TotalsPage.png'
 import image13LogsPageTable from '../../images/image13LogsPageTable.png'
 import image14LogsPageJsonDark from '../../images/image14LogsPageJsonDark.png'
@@ -68,9 +68,9 @@ const useGallery = () => {
             description: "Over payments page",
         },
         {
-            original: image11HomeImprovements,
-            thumbnail: image11HomeImprovements,
-            description: "Home Improvements page",
+            original: image11OtherPayments,
+            thumbnail: image11OtherPayments,
+            description: "Other Payments page",
         },
         {
             original: image12TotalsPage,

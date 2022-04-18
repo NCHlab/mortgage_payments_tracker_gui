@@ -12,7 +12,7 @@ Demo Access can be found on: [Mortgage Payments Tracker](https://mortgage.nayamc
 
 This website allows a user to track how much they have paid towards their mortgage, as well as being able to see payments made by others to the same mortgage.
 
-Features such as adding / editing / deleting payments allows you to modify payment information across 3 different pages: `Payments`, `Overpayments`, `Home Improvements`. These pages also allow a user to download either an EXCEL or CSV file for each page.
+Features such as adding / editing / deleting payments allows you to modify payment information across 3 different pages: `Payments`, `Overpayments`, `Other Payments`. These pages also allow a user to download either an EXCEL or CSV file for each page.
 
 A `logs` page exists for auditing payments and seeing changes. Logs can be viewed as JSON or as a table.
 

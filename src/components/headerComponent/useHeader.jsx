@@ -31,8 +31,8 @@ const useHeader = () => {
         "/payments/all": "MPT All Payments",
         "/overpayments": "MPT Over Payments",
         "/overpayments/all": "MPT All Over Payments",
-        "/home_improvements": "MPT Home Improvements",
-        "/home_improvements/all": "MPT All Home Improvements",
+        "/other_payments": "MPT Other Payment",
+        "/other_payments/all": "MPT All Other Payment",
         "/totals": "MPT Total Payments",
         "/logs": "MPT Logs",
     }
@@ -43,8 +43,8 @@ const useHeader = () => {
     { name: "All Payments", href: "/payments/all" },
     { name: "Overpayments", href: "/overpayments" },
     { name: "All Overpayments", href: "/overpayments/all" },
-    { name: "Home Improvements", href: "/home_improvements" },
-    { name: "All Home Improvements", href: "/home_improvements/all" },
+    { name: "Other Payments", href: "/other_payments" },
+    { name: "All Other Payments", href: "/other_payments/all" },
     { name: "Totals", href: "/totals" },
     { name: "Logs", href: "/logs" },
     { name: "Gallery", href: "/gallery" },
@@ -67,7 +67,7 @@ const useHeader = () => {
             setAnchorEl_pay(event.currentTarget);
         } else if (text === "over payments") {
             setAnchorEl_over(event.currentTarget);
-        } else if (text === "home improvements") {
+        } else if (text === "other payments") {
             setAnchorEl_home(event.currentTarget);
         } else if (text === "menu") {
             setAnchorEl_menu(event.currentTarget);

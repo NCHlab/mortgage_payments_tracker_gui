@@ -8,8 +8,8 @@ import PaymentsPage from './pages/PaymentsPage'
 import AllPaymentsPage from './pages/AllPaymentsPage'
 import OverpaymentsPage from './pages/OverpaymentsPage'
 import AllOverpaymentsPage from './pages/AllOverpaymentsPage'
-import HomeImprovementsPage from './pages/HomeImprovementsPage'
-import AllHomeImprovementsPage from './pages/AllHomeImprovementsPage'
+import OtherPaymentsPage from './pages/OtherPaymentsPage'
+import AllOtherPaymentsPage from './pages/AllOtherPaymentsPage'
 import LogsPage from './pages/LogsPage'
 import TotalsPage from './pages/TotalsPage'
 import GalleryPage from './pages/GalleryPage'
@@ -44,8 +44,8 @@ const Router = () => {
                         <Route path="/payments/all" element={<AllPaymentsPage />} />
                         <Route path="/overpayments" element={<OverpaymentsPage />} />
                         <Route path="/overpayments/all" element={<AllOverpaymentsPage />} />
-                        <Route path="/home_improvements" element={<HomeImprovementsPage />} />
-                        <Route path="/home_improvements/all" element={<AllHomeImprovementsPage />} />
+                        <Route path="/other_payments" element={<OtherPaymentsPage />} />
+                        <Route path="/other_payments/all" element={<AllOtherPaymentsPage />} />
                         <Route path="/totals" element={<TotalsPage />} />
                         <Route path="/logs" element={<LogsPage />} />
 

@@ -60,10 +60,10 @@ const Totals = () => {
 
                                         <TableRow sx={{ borderBottom: '2px dotted #7e0505' }}>
                                             <TableCell sx={{ width: '150px' }} component="th" scope="row">
-                                                Home Improvements:
+                                                Other Payments:
                                             </TableCell>
                                             <TableCell align="left">
-                                                {numberFormat(total.home_improvements)}
+                                                {numberFormat(total.other_payments)}
                                             </TableCell>
                                         </TableRow>
 
@@ -107,7 +107,7 @@ const Totals = () => {
 
                 {aggregateData.map(UserObj => {
                     const username = Object.keys(UserObj)[0]
-                    const userTotal = UserObj[`${username}`].payments + UserObj[`${username}`].overpayments + UserObj[`${username}`].home_improvements
+                    const userTotal = UserObj[`${username}`].payments + UserObj[`${username}`].overpayments + UserObj[`${username}`].other_payments
 
                     return (
                         <Grid item xs={12} md={6} key={username}>
@@ -147,10 +147,10 @@ const Totals = () => {
 
                                                 <TableRow >
                                                     <TableCell sx={{ width: '150px' }} component="th" scope="row">
-                                                        Home Improvements:
+                                                        Other Payments:
                                                     </TableCell>
                                                     <TableCell align="left">
-                                                        {numberFormat(UserObj[`${username}`].home_improvements) || numberFormat(0)}
+                                                        {numberFormat(UserObj[`${username}`].other_payments) || numberFormat(0)}
                                                     </TableCell>
                                                 </TableRow>
 

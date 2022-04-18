@@ -44,7 +44,7 @@ const HomePageService = () => {
         const err_obj = {
             payments: 0,
             overpayments: 0,
-            home_improvements: 0
+            other_payments: 0
         }
 
         try {

@@ -10,7 +10,7 @@ const useTotals = () => {
 
 
     const [aggregateData, setAggregateData] = useState([])
-    const [total, setTotal] = useState({ payments: 0, overpayments: 0, home_improvements: 0, total: 0 })
+    const [total, setTotal] = useState({ payments: 0, overpayments: 0, other_payments: 0, total: 0 })
 
     useEffect(() => {
         (async () => {
@@ -32,13 +32,13 @@ const useTotals = () => {
     const calculateAllTotal = (aggregateData) => {
         const paymentsTotal = getTotal(aggregateData, 'payments')
         const overpaymentsTotal = getTotal(aggregateData, 'overpayments')
-        const homeImprovementsTotal = getTotal(aggregateData, 'home_improvements')
+        const OtherPaymentsTotal = getTotal(aggregateData, 'other_payments')
 
         const AllTotal = {
             payments: paymentsTotal,
             overpayments: overpaymentsTotal,
-            home_improvements: homeImprovementsTotal,
-            total: paymentsTotal + overpaymentsTotal + homeImprovementsTotal
+            other_payments: OtherPaymentsTotal,
+            total: paymentsTotal + overpaymentsTotal + OtherPaymentsTotal
         }
 
         setTotal(AllTotal)

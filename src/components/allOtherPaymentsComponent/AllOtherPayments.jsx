@@ -4,7 +4,7 @@ import { useTable, useFilters, useGlobalFilter, useRowSelect, usePagination } fr
 import { Container, Grid } from '@mui/material';
 import { Table } from '@mui/material';
 
-import useAllHomeImprovements from './useAllHomeImprovements'
+import useAllOtherPayments from './useAllOtherPayments'
 import Controls from '../controls'
 import MptTableHeadComplex from '../tableComponent/complexTable/MptTableHeadComplex'
 import MptTableBody from '../tableComponent/MptTableBody'
@@ -17,7 +17,7 @@ import { DefaultColumnFilter } from '../tableComponent/filters/DefaultFilter'
 
 import '../../styles/table.css';
 
-const AllHomeImprovements = () => {
+const AllOtherPayments = () => {
 
     const defaultColumn = React.useMemo(
         () => ({
@@ -34,7 +34,7 @@ const AllHomeImprovements = () => {
         SXValuesTableHead,
         SXValuesTableBody,
         handleSelectedRows
-    } = useAllHomeImprovements();
+    } = useAllOtherPayments();
 
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
@@ -90,11 +90,11 @@ const AllHomeImprovements = () => {
             >
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"all/home_improvements"} />
+                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"all/other_payments"} />
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"all/home_improvements"} />
+                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"all/other_payments"} />
                 </Grid>
 
                 <Grid item xs={12} pt='5px'>
@@ -142,4 +142,4 @@ const AllHomeImprovements = () => {
     )
 };
 
-export default AllHomeImprovements;
+export default AllOtherPayments;

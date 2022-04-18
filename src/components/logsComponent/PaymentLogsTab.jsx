@@ -33,14 +33,14 @@ const PaymentLogsTab = () => {
 
     const { GetPaymentLogs } = LogsService();
 
-    const ALLOWED_TABLENAMES = ['payments', 'overpayments', 'home_improvements']
+    const ALLOWED_TABLENAMES = ['payments', 'overpayments', 'other_payments']
     const ALLOWED_STATES = ['INSERT', 'UPDATE', 'DELETE']
     const LimitArray = [1, 5, 10, 20, 30, 40, 50, 100]
 
     const [tableName, setTableName] = useState({
         payments: false,
         overpayments: false,
-        home_improvements: false
+        other_payments: false
     })
 
     const [actionState, setActionState] = useState({
@@ -56,8 +56,8 @@ const PaymentLogsTab = () => {
     const [stringifyLines, setStringifyLines] = useState(false)
     const [useDark, setUseDark] = useState(true)
 
-    const { payments, overpayments, home_improvements } = tableName;
-    const tnameError = [payments, overpayments, home_improvements].filter((v) => v).length === 0;
+    const { payments, overpayments, other_payments } = tableName;
+    const tnameError = [payments, overpayments, other_payments].filter((v) => v).length === 0;
 
     const { INSERT, UPDATE, DELETE } = actionState;
     const actError = [INSERT, UPDATE, DELETE].filter((v) => v).length === 0;
@@ -114,6 +114,7 @@ const PaymentLogsTab = () => {
 
         const tableNameQuery = parseQuery(tableName)
         const actionQuery = parseQuery(actionState)
+
         const mainQuery = `?tablename=${tableNameQuery}&state=${actionQuery}&less_than=${lessThan}&date=${currDate}&limit=${limit}`
         return mainQuery
     }

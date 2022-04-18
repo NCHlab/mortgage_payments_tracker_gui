@@ -8,7 +8,7 @@ const TotalsService = () => {
             Error: {
                 payments: 0,
                 overpayments: 0,
-                home_improvements: 0
+                other_payments: 0
             }
         }]
 

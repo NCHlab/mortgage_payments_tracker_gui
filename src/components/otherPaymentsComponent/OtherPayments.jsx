@@ -4,7 +4,7 @@ import { useTable, usePagination } from 'react-table'
 import { Container, Grid } from '@mui/material';
 import { Table } from '@mui/material';
 
-import useHomeImprovements from './useHomeImprovements'
+import useOtherPayments from './useOtherPayments'
 import PaymentsForm from '../UIComponents/PaymentsForm'
 import UserDialog from '../UIComponents/UserDialog'
 import Controls from '../controls'
@@ -18,7 +18,7 @@ import Notification from '../UIComponents/Notification';
 import EnhancedPagination from '../tableComponent/pagination/EnhancedPagination';
 import CautionInfoTypography from '../tableComponent/CautionInfoTypography';
 
-const HomeImprovements = () => {
+const OtherPayments = () => {
 
     const { tableData,
         COLUMNS,
@@ -45,7 +45,7 @@ const HomeImprovements = () => {
         handleClearForm,
         SXValuesTableHead,
         SXValuesTableBody
-    } = useHomeImprovements();
+    } = useOtherPayments();
 
     const data = React.useMemo(() => tableData, [tableData])
     const columns = React.useMemo(() => COLUMNS, [COLUMNS])
@@ -69,7 +69,7 @@ const HomeImprovements = () => {
         <Container maxWidth='lg'>
             <Notification notify={notify} setNotify={setNotify} />
 
-            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Home Improvement Payment" : "Edit Home Improvement Payment"}>
+            <UserDialog openPopup={openPopup} setOpenPopup={setOpenPopup} formTitle={!isEditMode ? "Add New Other Payment" : "Edit Other Payment"}>
                 <PaymentsForm
                     values={values}
                     setValues={setValues}
@@ -100,11 +100,11 @@ const HomeImprovements = () => {
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"home_improvements"} />
+                    <Controls.XLSXDownloadButton handleDownload={handleDownload} page={"other_payments"} />
                 </Grid>
 
                 <Grid item xs={12} md={1.9} pb={0}>
-                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"home_improvements"} />
+                    <Controls.CSVDownloadButton handleDownload={handleDownload} page={"other_payments"} />
                 </Grid>
 
                 <Grid item xs={12} pt='5px'>
@@ -150,4 +150,4 @@ const HomeImprovements = () => {
     )
 }
 
-export default HomeImprovements;
+export default OtherPayments;

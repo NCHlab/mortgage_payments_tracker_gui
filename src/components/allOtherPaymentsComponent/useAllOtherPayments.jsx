@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import { COLUMNS } from '../tableComponent/columns/HomeImprovementColumns'
+import { COLUMNS } from '../tableComponent/columns/OtherPaymentColumns'
 import CoreLogic from '../coreComponent/CoreLogic'
 
-const useAllHomeImprovements = () => {
+const useAllOtherPayments = () => {
 
     const {
         tableData,
@@ -19,7 +19,7 @@ const useAllHomeImprovements = () => {
 
     useEffect(() => {
         (async () => {
-            await manageGetInfo('home_improvements/all')
+            await manageGetInfo('other_payments/all')
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -31,10 +31,10 @@ const useAllHomeImprovements = () => {
         handleDownload,
         notify,
         setNotify,
-        SXValuesTableHead: SXValuesTableHeadTheme.home_improvements,
+        SXValuesTableHead: SXValuesTableHeadTheme.other_payments,
         SXValuesTableBody,
         handleSelectedRows
     }
 }
 
-export default useAllHomeImprovements
+export default useAllOtherPayments

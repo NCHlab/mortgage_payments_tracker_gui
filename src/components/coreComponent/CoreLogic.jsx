@@ -261,7 +261,7 @@ const CoreLogic = () => {
             fontWeight: 'bold',
             borderRight: '1px solid #00c7d1',
         },
-        home_improvements: {
+        other_payments: {
             borderBottom: 'solid 5px #3dff7e',
             background: '#128500',
             // background: 'linear-gradient(to right, #000080, #0000a8)',

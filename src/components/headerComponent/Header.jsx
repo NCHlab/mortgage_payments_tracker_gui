@@ -139,18 +139,18 @@ const Header = () => {
                                 </Menu>
 
                                 <Button onClick={handleNavButtonClick} sx={{ ...classes.main_menu, ':hover': classes.main_menu_hover }}>
-                                    Home Improvements
+                                    Other Payments
                                 </Button>
                                 <Menu
-                                    id="home_improvements"
+                                    id="other_payments"
                                     anchorEl={anchorEl_home}
                                     keepMounted
                                     open={Boolean(anchorEl_home)}
                                     onClose={handleCloseMenu}
                                     MenuListProps={{ onMouseLeave: handleCloseMenu }}
                                 >
-                                    <MenuItem component="a" href='/home_improvements' onClick={(e) => { handlePageClick(e, "/home_improvements") }}>My Home Improvements</MenuItem>
-                                    <MenuItem component="a" href='/home_improvements/all' onClick={(e) => { handlePageClick(e, "/home_improvements/all") }}>All Home Improvements</MenuItem>
+                                    <MenuItem component="a" href='/other_payments' onClick={(e) => { handlePageClick(e, "/other_payments") }}>My Other Payments</MenuItem>
+                                    <MenuItem component="a" href='/other_payments/all' onClick={(e) => { handlePageClick(e, "/other_payments/all") }}>All Other Payments</MenuItem>
                                 </Menu>
 
 
