@@ -1,0 +1,334 @@
+import React from 'react'
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
+import PaymentsService from '../../services/PaymentsService'
+import DownloaderService from '../../services/DownloaderService';
+import { numberFormat } from '../generic/utils'
+
+import { useAuth } from '../../context/AuthContext'
+const CoreLogic = () => {
+
+    const navigate = useNavigate();
+
+    const [tableData, setTableData] = useState(() => [])
+    const [fetchNewData, setfetchNewData] = useState(false)
+    const [values, setValues] = useState()
+    const [isEditMode, setIsEditMode] = useState(false)
+    const [openPopup, setOpenPopup] = useState(false)
+    const [enableEditing, setEnableEditing] = useState(false)
+    const [deletePopup, setDeletePopup] = useState(false)
+    const [dataToDelete, setDataToDelete] = useState({})
+    const [notify, setNotify] = useState({ isOpen: false, title: '', subTitle: '' })
+    const [loading, setLoading] = React.useState(false);
+
+    const { UserPaymentInfo, AddPayment, UpdatePayment, DeletePayment } = PaymentsService()
+    const { DownloadXLSX, DownloadCSV } = DownloaderService();
+    const { local_logout } = useAuth();
+
+    const validateLoggedIn = (code) => {
+        if (code === 401 || code === 'UNAUTHORIZED') {
+            local_logout()
+            console.log("Session Expired. Logging Out")
+            localStorage.setItem('session_expired', true)
+            navigate('/login');
+            return false
+        }
+        return true
+    }
+
+    const manageGetInfo = async (page) => {
+        const { code, data } = await UserPaymentInfo(page)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
+
+        if (data.length === 0) {
+            const date = new Date();
+            const err = [{ id: -2, user_id: "No Data", paid: 0, reason: "You have not made any payments", date: date.toISOString(), from_tenant: false }]
+            setTableData(err)
+            setEnableEditing(false)
+            return
+        }
+
+        setTableData(data)
+
+    }
+
+    const isEven = (idx) => idx % 2 === 0;
+
+    const handleEnableEditing = (e, forceCheck) => {
+
+        // Handle case where User tries to modify initial state where no payments made
+        if ((tableData.length === 1 && tableData[0].id === -2) || (tableData.length === 1 && tableData[0].id === -2 && forceCheck)) {
+            if (enableEditing) {
+                setEnableEditing(false)
+            }
+            setNotify({
+                isOpen: true,
+                message: 'No Data To Modify, Click "NEW" to add data',
+                type: 'warning'
+            })
+            return
+        } else if (forceCheck) {
+            // As prev forceCheck statement didn't trigger, need to return
+            return
+        }
+
+        setEnableEditing(prevVal => {
+            return !prevVal
+        })
+    }
+
+    const handleEditing = (data) => {
+        setValues({ ...data })
+        setIsEditMode(true)
+        setOpenPopup(true)
+    }
+
+    const resetValues = (data) => {
+        setValues(data)
+    }
+
+    const manageAddNew = () => {
+        setIsEditMode(false)
+        setOpenPopup(true)
+    }
+
+    const sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const manageDelete = async (page) => {
+        setLoading(true)
+        await sleep(750);
+
+        const { code, respData } = await DeletePayment(page, dataToDelete.id)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
+
+        if (code === 204) {
+            setfetchNewData(prev => !prev)
+
+            setNotify({
+                isOpen: true,
+                message: 'Deleted Successfully',
+                type: 'error'
+            })
+        } else {
+
+            setNotify({
+                isOpen: true,
+                message: `Could Not Delete. Code: ${code}, Message: ${respData.message}`,
+                type: 'warning'
+            })
+
+        }
+
+
+        handleCloseDeletePopup()
+        setLoading(false)
+        handleEnableEditing(false, true)
+    }
+
+    const handleCloseDeletePopup = () => {
+        setDeletePopup(false)
+    }
+
+    const handleOpenDeletePopup = (data) => {
+        setDataToDelete(data)
+        setDeletePopup(true)
+    }
+
+    const handleDownload = async (type, page) => {
+
+        if (type === "XLSX") {
+            const response = await DownloadXLSX(page)
+
+            const validationPass = validateLoggedIn(response)
+            if (validationPass === false) return
+
+            if (response) {
+                setNotify({
+                    isOpen: true,
+                    message: `Error Generating Excel file: ${response}`,
+                    type: 'error'
+                })
+            } else {
+                setNotify({
+                    isOpen: true,
+                    message: 'Excel File Generated!',
+                    type: 'info'
+                })
+            }
+
+        } else {
+            const response = await DownloadCSV(page)
+
+            const validationPass = validateLoggedIn(response)
+            if (validationPass === false) return
+
+            if (response) {
+                setNotify({
+                    isOpen: true,
+                    message: `Error Generating CSV file: ${response}`,
+                    type: 'error'
+                })
+            } else {
+                setNotify({
+                    isOpen: true,
+                    message: 'CSV File Generated!',
+                    type: 'info'
+                })
+            }
+        }
+    }
+
+    const manageAddPayment = async (page, msg) => {
+        values.paid = parseFloat(values.paid)
+
+        const { code, respData } = await AddPayment(page, values)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
+
+        if (code === 201) {
+
+            if (tableData.length === 1 && tableData[0].id === -2) {
+                setTableData([respData])
+            } else {
+                const newData = [...tableData, respData]
+                setTableData(newData)
+            }
+
+            setNotify({
+                isOpen: true,
+                message: `${msg} Added Successfully`,
+                type: 'success'
+            })
+        } else {
+            // An Error occured when contacting API
+            setNotify({
+                isOpen: true,
+                message: `Adding ${msg} Failed Code: ${code}, Message: ${respData.message}`,
+                type: 'error'
+            })
+        }
+    }
+
+    const manageUpdatePayment = async (page, msg) => {
+        values.paid = parseFloat(values.paid)
+
+        const { code, respData } = await UpdatePayment(page, values)
+
+        const validationPass = validateLoggedIn(code)
+        if (validationPass === false) return
+
+        if (code === 204) {
+            // Fetch New Data to update table
+            setfetchNewData(prev => !prev)
+
+            setNotify({
+                isOpen: true,
+                message: `${msg} Updated Successfully`,
+                type: 'success'
+            })
+        } else {
+            // An Error occured when contacting API
+            setNotify({
+                isOpen: true,
+                message: `Updating ${msg} Failed Code: ${code}, Message: ${respData.message} `,
+                type: 'error'
+            })
+        }
+    }
+
+    const SXValuesTableHeadTheme = {
+        payments: {
+            borderBottom: 'solid 5px #ff481f',
+            background: '#b50d00',
+            //background: 'linear-gradient(to right, #b50d00, #d10f00)',
+            color: 'white',
+            fontWeight: 'bold',
+            borderRight: '1px solid #ff481f',
+        },
+        overpayments: {
+            borderBottom: 'solid 5px #00c7d1',
+            background: '#000080',
+            // background: 'linear-gradient(to right, #000080, #0000a8)',
+            color: 'white',
+            fontWeight: 'bold',
+            borderRight: '1px solid #00c7d1',
+        },
+        other_payments: {
+            borderBottom: 'solid 5px #3dff7e',
+            background: '#128500',
+            // background: 'linear-gradient(to right, #000080, #0000a8)',
+            color: 'white',
+            fontWeight: 'bold',
+            borderRight: '1px solid #3dff7e',
+        }
+    }
+
+    const SXValuesTableBody = (i) => {
+        return {
+            width: '200px',
+            padding: '5px',
+            // border: 'solid 1px gray',
+            borderLeft: '1px dotted #000',
+            backgroundColor: isEven(i) ? '#ffffff' : '#ededed',
+            '&:hover': {
+                backgroundColor: '#ffeae8',
+            }
+        }
+    }
+
+    const handleSelectedRows = (selected) => {
+
+        const total = selected.map(data => data.original.paid).reduce((acc, value) => acc + value, 0);
+
+        // const total = selected.map(data => {
+        //     return data.original.paid
+        // }).reduce((acc, value) => acc + value, 0);
+
+        return numberFormat(total)
+    }
+
+
+    return {
+        tableData,
+        values,
+        setValues,
+        isEditMode,
+        openPopup,
+        setOpenPopup,
+        enableEditing,
+        handleEnableEditing,
+        handleEditing,
+        isEven,
+        handleDownload,
+        deletePopup,
+        handleOpenDeletePopup,
+        handleCloseDeletePopup,
+        dataToDelete,
+        notify,
+        setNotify,
+        loading,
+        setLoading,
+        resetValues,
+        manageAddNew,
+        fetchNewData,
+        manageDelete,
+        manageAddPayment,
+        manageUpdatePayment,
+        manageGetInfo,
+        sleep,
+        SXValuesTableBody,
+        SXValuesTableHeadTheme,
+        handleSelectedRows,
+        validateLoggedIn
+    }
+}
+
+export default CoreLogic
